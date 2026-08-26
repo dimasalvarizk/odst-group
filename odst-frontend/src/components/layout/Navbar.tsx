@@ -1,23 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import logo from '../assets/logo.svg';
+import { useScroll } from '../../hooks/useScroll';
+import logo from '../../assets/logo.svg';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  // Smooth scroll backdrop trigger
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const isScrolled = useScroll(20);
 
   const navItems = [
     { label: 'About Us', href: '#about' },

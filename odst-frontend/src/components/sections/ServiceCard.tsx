@@ -1,0 +1,59 @@
+import { Badge } from '../ui/Badge';
+import { Button } from '../ui/Button';
+import type { Service } from '../../utils/servicesData';
+
+interface ServiceCardProps {
+  service: Service;
+}
+
+export default function ServiceCard({ service }: ServiceCardProps) {
+  return (
+    <div
+      className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 ${
+        service.imageLeft ? 'lg:flex-row-reverse' : ''
+      }`}
+    >
+      {/* Text Column */}
+      <div className="w-full lg:w-1/2 space-y-6 animate-fadeIn">
+        {/* Badge Label */}
+        <Badge>{service.badge}</Badge>
+
+        {/* Title */}
+        <h2 className="text-3xl md:text-4xl font-bold text-brand-navy leading-tight">
+          {service.title}
+        </h2>
+
+        {/* Thin Decorative Line */}
+        <div className="w-12 h-1 bg-brand-orange rounded" />
+
+        {/* Description */}
+        <p className="text-slate-600 leading-relaxed text-base md:text-lg">
+          {service.description}
+        </p>
+
+        {/* Learn More Button */}
+        <div>
+          <Button href={service.link}>
+            Learn More
+          </Button>
+        </div>
+      </div>
+
+      {/* Image Column */}
+      <div className="w-full lg:w-1/2">
+        <div className="relative group overflow-hidden rounded-2xl shadow-xl border border-slate-100">
+          {/* Background decorative glow on hover */}
+          <div className="absolute inset-0 bg-brand-navy/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+          
+          {/* Image */}
+          <img
+            src={service.imageUrl}
+            alt={service.title}
+            className="w-full h-[300px] md:h-[400px] object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}

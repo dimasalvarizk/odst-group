@@ -47,8 +47,6 @@ services:
     build:
       context: ./odst-frontend
       dockerfile: Dockerfile
-      args:
-        - VITE_API_BASE_URL=${VITE_API_BASE_URL:-/api}
     container_name: odst_frontend
     restart: always
     depends_on:

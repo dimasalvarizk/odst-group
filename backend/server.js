@@ -58,6 +58,11 @@ const seedServices = async () => {
       ]);
       console.log('Default services seeded successfully.');
     } else {
+      // Ensure correct imageLeft alignments in database
+      await Service.update({ imageLeft: false }, { where: { id: 'hotels' } });
+      await Service.update({ imageLeft: true }, { where: { id: 'airlines' } });
+      await Service.update({ imageLeft: false }, { where: { id: 'travel' } });
+
       // Check if existing records are missing the contact info
       const hotels = await Service.findByPk('hotels');
       if (hotels && !hotels.phone) {

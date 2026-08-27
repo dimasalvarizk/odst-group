@@ -4,10 +4,8 @@ import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 
 export default function ContactForm() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { formData, status, handleInputChange, submitForm } = useContact();
-
-  const isRtl = i18n.language === 'ar';
 
   return (
     <div className="bg-white rounded-2xl border border-slate-100 shadow-xl p-6 md:p-10 space-y-6 text-start">
@@ -90,10 +88,10 @@ export default function ContactForm() {
               style={{
                 backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
                 backgroundRepeat: 'no-repeat',
-                backgroundPosition: isRtl ? 'left 1rem center' : 'right 1rem center',
+                backgroundPosition: 'right 1rem center',
                 backgroundSize: '1.2em',
-                paddingRight: isRtl ? '1rem' : '2.5rem',
-                paddingLeft: isRtl ? '2.5rem' : '1rem',
+                paddingRight: '2.5rem',
+                paddingLeft: '1rem',
               }}
             >
               <option value="" disabled hidden>{t('contactForm.placeholders.department')}</option>

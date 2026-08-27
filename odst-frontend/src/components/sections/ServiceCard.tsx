@@ -1,11 +1,11 @@
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
-import { Link } from 'react-router-dom';
 import type { Service } from '../../utils/servicesData';
 import { images } from '../../utils/images';
 
 interface ServiceCardProps {
   service: Service;
+  onLearnMoreClick: () => void;
 }
 
 const resolveImageUrl = (imageUrl: string, id: string) => {
@@ -19,7 +19,7 @@ const resolveImageUrl = (imageUrl: string, id: string) => {
   return imageUrl;
 };
 
-export default function ServiceCard({ service }: ServiceCardProps) {
+export default function ServiceCard({ service, onLearnMoreClick }: ServiceCardProps) {
   return (
     <div
       className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 ${
@@ -43,11 +43,9 @@ export default function ServiceCard({ service }: ServiceCardProps) {
 
         {/* Learn More Button */}
         <div>
-          <Link to="/coming-soon">
-            <Button>
-              Learn More
-            </Button>
-          </Link>
+          <Button onClick={onLearnMoreClick}>
+            Learn More
+          </Button>
         </div>
       </div>
 

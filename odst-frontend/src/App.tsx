@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './pages/LandingPage.tsx';
 import ContactPage from './pages/ContactPage.tsx';
-import ComingSoonPage from './pages/ComingSoonPage.tsx';
 import AdminLogin from './pages/AdminLogin.tsx';
 import AdminDashboard from './pages/AdminDashboard.tsx';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage.tsx';
@@ -21,7 +20,6 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/coming-soon" element={<ComingSoonPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/terms-of-service" element={<TermsOfServicePage />} />
         <Route path="/admin/login" element={<AdminLogin />} />

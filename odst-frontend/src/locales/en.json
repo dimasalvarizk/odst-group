@@ -4,6 +4,16 @@
     "companies": "Companies",
     "contact": "Contact"
   },
+  "comingSoon": {
+    "badge": "Digital Portal",
+    "title": "Under Construction",
+    "subtitle": "This service will be available shortly",
+    "heading": "We are preparing a new digital experience",
+    "desc1": "We are currently finalizing the digital gateway for this service to match our premium standards. Our customized portals for flights, accommodations, and travel arrangements will be live shortly to assist you.",
+    "desc2": "If you have any urgent requests or inquiries in the meantime, please feel free to reach out to us.",
+    "backHome": "Back to Home",
+    "contact": "Contact Us"
+  },
   "hero": {
     "title": "Welcome to ODST Group",
     "description": "Your trusted partner for Hajj & Umrah — providing world-class hotels, aviation, and travel services.",

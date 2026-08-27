@@ -4,6 +4,16 @@
     "companies": "Perusahaan",
     "contact": "Hubungi Kami"
   },
+  "comingSoon": {
+    "badge": "Portal Digital",
+    "title": "Dalam Pembangunan",
+    "subtitle": "Layanan ini akan segera tersedia",
+    "heading": "Kami sedang mempersiapkan pengalaman digital baru",
+    "desc1": "Saat ini kami sedang menyelesaikan gerbang digital untuk layanan ini agar memenuhi standar premium kami. Portal khusus kami untuk penerbangan, akomodasi, dan pengaturan perjalanan akan segera aktif untuk membantu Anda.",
+    "desc2": "Jika Anda memiliki permintaan atau pertanyaan mendesak untuk sementara waktu, jangan ragu untuk menghubungi kami.",
+    "backHome": "Kembali ke Beranda",
+    "contact": "Hubungi Kami"
+  },
   "hero": {
     "title": "Selamat Datang di ODST Group",
     "description": "Mitra terpercaya Anda untuk Haji & Umrah — menyediakan hotel, penerbangan, dan layanan perjalanan kelas dunia.",

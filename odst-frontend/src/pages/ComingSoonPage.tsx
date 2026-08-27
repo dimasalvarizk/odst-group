@@ -1,16 +1,19 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { images } from '../utils/images';
 
 export default function ComingSoonPage() {
+  const { t } = useTranslation();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-slate-800 flex flex-col font-sans">
+    <div className="min-h-screen bg-white text-slate-800 flex flex-col font-sans text-start">
       <Navbar />
 
       {/* Hero Header */}
@@ -27,30 +30,30 @@ export default function ComingSoonPage() {
         {/* Content */}
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white fade-in">
           <span className="text-brand-orange text-xs font-semibold tracking-widest uppercase mb-2 block">
-            Digital Portal
+            {t('comingSoon.badge')}
           </span>
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 font-spectral">
-            Under Construction
+            {t('comingSoon.title')}
           </h1>
           <p className="text-white/60 text-xs md:text-sm max-w-md mx-auto">
-            This service will be available shortly
+            {t('comingSoon.subtitle')}
           </p>
         </div>
       </section>
 
       {/* Main Content */}
-      <main className="flex-grow py-16 md:py-24 bg-slate-50/50 flex items-center justify-center">
-        <div className="max-w-2xl mx-auto px-6 bg-white border border-slate-100 shadow-xl rounded-2xl p-8 md:p-12 text-center space-y-6">
+      <main className="flex-grow py-16 md:py-24 bg-slate-50/50 flex items-center justify-center text-center">
+        <div className="max-w-2xl mx-auto px-6 bg-white border border-slate-100 shadow-xl rounded-2xl p-8 md:p-12 space-y-6">
           <h2 className="text-2xl font-bold text-brand-navy font-spectral">
-            We are preparing a new digital experience
+            {t('comingSoon.heading')}
           </h2>
           
           <p className="text-slate-600 text-sm leading-relaxed font-light max-w-lg mx-auto">
-            We are currently finalizing the digital gateway for this service to match our premium standards. Our customized portals for flights, accommodations, and travel arrangements will be live shortly to assist you.
+            {t('comingSoon.desc1')}
           </p>
 
           <p className="text-slate-600 text-sm leading-relaxed font-light max-w-lg mx-auto">
-            If you have any urgent requests or inquiries in the meantime, please feel free to reach out to us.
+            {t('comingSoon.desc2')}
           </p>
 
           <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
@@ -58,13 +61,13 @@ export default function ComingSoonPage() {
               to="/" 
               className="inline-flex items-center justify-center px-6 py-3 bg-brand-orange text-white hover:bg-brand-orange/95 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors shadow-md"
             >
-              Back to Home
+              {t('comingSoon.backHome')}
             </Link>
             <Link 
               to="/contact" 
               className="inline-flex items-center justify-center px-6 py-3 bg-brand-navy text-white hover:bg-brand-navy/95 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors shadow-md"
             >
-              Contact Us
+              {t('comingSoon.contact')}
             </Link>
           </div>
         </div>

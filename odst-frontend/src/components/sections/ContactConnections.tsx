@@ -93,7 +93,6 @@ export default function ContactConnections() {
         {connections.map((conn) => {
           // Translate dynamic fields or use fallback values
           const badge = t(`services.${conn.id}.badge`, conn.badge);
-          const title = t(`services.${conn.id}.title`, conn.title);
           const address = t(`contactConnections.address`, conn.address);
 
           return (
@@ -108,7 +107,7 @@ export default function ContactConnections() {
 
               {/* Division Title */}
               <h3 className="text-lg md:text-xl font-bold text-brand-navy mb-4 group-hover:text-brand-orange transition-colors">
-                {title}
+                {conn.title}
               </h3>
 
               {/* Details Wrapper */}

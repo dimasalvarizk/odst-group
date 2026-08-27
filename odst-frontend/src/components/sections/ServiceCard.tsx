@@ -25,10 +25,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
 
   // Handle dynamic translation with fallbacks for dynamic services from API
   const badge = t(`services.${service.id}.badge`, service.badge);
-  const title = t(`services.${service.id}.title`, service.title);
   const description = t(`services.${service.id}.description`, service.description);
-
-
 
   return (
     <div
@@ -43,7 +40,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
 
         {/* Title */}
         <h2 className="text-3xl md:text-4xl font-bold text-brand-navy leading-tight">
-          {title}
+          {service.title}
         </h2>
 
         {/* Description */}
@@ -69,7 +66,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
           
           <img
             src={resolveImageUrl(service.imageUrl || '', service.id)}
-            alt={title}
+            alt={service.title}
             className="w-full h-[300px] md:h-[420px] object-cover transform group-hover:scale-102 transition-transform duration-700 ease-out"
           />
         </div>

@@ -81,15 +81,21 @@ const seedServices = async () => {
   }
 };
 
-// Connect to Database & Sync models
-connectDB().then(() => {
-  sequelize.sync({ alter: true })
-    .then(() => {
-      console.log('MySQL Database schema synced successfully');
-      seedServices();
-    })
-    .catch((err) => console.error(`MySQL Database sync failed: ${err.message}`));
-});
+// Connect to Database & Sync models helper
+let isSynced = false;
+const syncDatabase = async () => {
+  if (isSynced) return;
+  try {
+    await connectDB();
+    await sequelize.sync({ alter: process.env.NODE_ENV !== 'production' });
+    console.log('MySQL Database schema synced successfully');
+    await seedServices();
+    isSynced = true;
+  } catch (err) {
+    console.error(`MySQL Database sync failed: ${err.message}`);
+    throw err;
+  }
+};
 
 const app = express();
 
@@ -99,6 +105,16 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json());
+
+// Ensure database is connected/synced before routing
+app.use(async (req, res, next) => {
+  try {
+    await syncDatabase();
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -123,8 +139,12 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 
 if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
-  app.listen(PORT, () => {
-    console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+  syncDatabase().then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+    });
+  }).catch((err) => {
+    console.error(`Local server startup failed: ${err.message}`);
   });
 }
 

@@ -33,7 +33,7 @@ export const connectDB = async () => {
     console.log('MySQL Database Connected successfully via Sequelize');
   } catch (error) {
     console.error(`MySQL connection error: ${error.message}`);
-    process.exit(1);
+    throw error;
   }
 };
 

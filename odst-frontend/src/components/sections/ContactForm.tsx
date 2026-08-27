@@ -84,7 +84,8 @@ export default function ContactForm() {
               onChange={handleInputChange}
               disabled={status === 'loading'}
               required
-              className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-orange/35 focus:border-brand-orange bg-white text-slate-800 transition-all text-sm disabled:opacity-75 disabled:cursor-not-allowed appearance-none cursor-pointer"
+              className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-orange/35 focus:border-brand-orange bg-white text-slate-800 transition-all text-sm disabled:opacity-75 disabled:cursor-not-allowed appearance-none cursor-pointer text-left"
+              dir="auto"
               style={{
                 backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
                 backgroundRepeat: 'no-repeat',
@@ -116,7 +117,8 @@ export default function ContactForm() {
             disabled={status === 'loading'}
             required
             rows={5}
-            className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-orange/35 focus:border-brand-orange bg-white text-slate-800 transition-all text-sm disabled:opacity-75 disabled:cursor-not-allowed resize-none text-start"
+            className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-orange/35 focus:border-brand-orange bg-white text-slate-800 transition-all text-sm disabled:opacity-75 disabled:cursor-not-allowed resize-none text-left"
+            dir="auto"
           />
         </div>
 

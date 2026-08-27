@@ -30,7 +30,8 @@ export function Input({
       onChange={onChange}
       disabled={disabled}
       required={required}
-      className={`w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-orange/35 focus:border-brand-orange bg-white text-slate-800 transition-all text-sm disabled:opacity-75 disabled:cursor-not-allowed ${className}`}
+      className={`w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-orange/35 focus:border-brand-orange bg-white text-slate-800 transition-all text-sm disabled:opacity-75 disabled:cursor-not-allowed text-left ${className}`}
+      dir="auto"
     />
   );
 }

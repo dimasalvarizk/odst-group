@@ -1,4 +1,10 @@
 import Newsletter from '../models/Newsletter.js';
+import mailchimp from '@mailchimp/mailchimp_marketing';
+
+mailchimp.setConfig({
+  apiKey: process.env.MAILCHIMP_API_KEY || '3a6e7ab430939fad6216bd7683797375-us11',
+  server: process.env.MAILCHIMP_SERVER_PREFIX || 'us11',
+});
 
 // @desc    Subscribe to newsletter
 // @route   POST /api/newsletters
@@ -27,6 +33,21 @@ export const subscribeNewsletter = async (req, res, next) => {
       phone,
       email: email.toLowerCase(),
     });
+
+    // Send to Mailchimp
+    try {
+      await mailchimp.lists.addListMember(process.env.MAILCHIMP_AUDIENCE_ID || '88e3c0fded', {
+        email_address: email.toLowerCase(),
+        status: 'subscribed',
+        merge_fields: {
+          FNAME: fullName,
+          PHONE: phone
+        }
+      });
+      console.log(`Mailchimp subscription successful for: ${email}`);
+    } catch (mcError) {
+      console.error(`Mailchimp subscription failed: ${mcError.message || mcError}`);
+    }
 
     res.status(201).json({
       success: true,

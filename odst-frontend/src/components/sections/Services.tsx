@@ -12,7 +12,9 @@ export default function Services() {
       try {
         const data = await apiService.getServices();
         if (data && data.length > 0) {
-          setServices(data);
+          const orderMap: Record<string, number> = { hotels: 0, airlines: 1, travel: 2 };
+          const sorted = [...data].sort((a, b) => (orderMap[a.id] ?? 99) - (orderMap[b.id] ?? 99));
+          setServices(sorted);
         }
       } catch (err) {
         console.error('Failed to load services from API, using fallback data:', err);

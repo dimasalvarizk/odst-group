@@ -98,7 +98,9 @@ export default function AdminDashboard() {
         setSubscribers(data);
       } else {
         const data = await apiService.getServices();
-        setServices(data);
+        const orderMap: Record<string, number> = { hotels: 0, airlines: 1, travel: 2 };
+        const sorted = [...data].sort((a, b) => (orderMap[a.id] ?? 99) - (orderMap[b.id] ?? 99));
+        setServices(sorted);
       }
     } catch (err: any) {
       setError(err.message || 'Failed to fetch data from the server. Check if backend is running.');

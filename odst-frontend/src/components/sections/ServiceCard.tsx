@@ -1,5 +1,6 @@
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
+import { Link } from 'react-router-dom';
 import type { Service } from '../../utils/servicesData';
 import { images } from '../../utils/images';
 
@@ -42,9 +43,11 @@ export default function ServiceCard({ service }: ServiceCardProps) {
 
         {/* Learn More Button */}
         <div>
-          <Button href={service.link}>
-            Learn More
-          </Button>
+          <Link to="/coming-soon">
+            <Button>
+              Learn More
+            </Button>
+          </Link>
         </div>
       </div>
 

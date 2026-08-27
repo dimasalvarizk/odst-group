@@ -58,10 +58,33 @@ const seedServices = async () => {
       ]);
       console.log('Default services seeded successfully.');
     } else {
-      // Ensure correct imageLeft alignments in database
-      await Service.update({ imageLeft: false }, { where: { id: 'hotels' } });
-      await Service.update({ imageLeft: true }, { where: { id: 'airlines' } });
-      await Service.update({ imageLeft: false }, { where: { id: 'travel' } });
+      // Ensure correct content and image alignments in database
+      await Service.update({
+        badge: 'Premium Hospitality',
+        title: 'ODST Hotels',
+        description: 'Provides hospitality services close to the Holy sites. Our hotels offer comfort, convenience, and spiritual tranquility for many pilgrims. Experience refined stays with panoramic views of the Holy Mosque.',
+        imageUrl: 'hotels',
+        imageLeft: false,
+        link: '#hotels',
+      }, { where: { id: 'hotels' } });
+
+      await Service.update({
+        badge: 'Aviation & Charter',
+        title: 'ODST Airlines',
+        description: 'Seamless journeys to the Holy Land. Dedicated charters and flight solutions with exceptional comfort, premium catering, and a deeply attentive service tailored for your spiritual journey.',
+        imageUrl: 'airlines',
+        imageLeft: true,
+        link: '#airlines',
+      }, { where: { id: 'airlines' } });
+
+      await Service.update({
+        badge: 'Bespoke Journeys',
+        title: 'ODST Tour & Travel',
+        description: 'Complete pilgrim and package travel solutions for your needs. From guide grouping to highly personalized guided tours and excellent ground transportation, we handle every detail so you can focus on your spiritual fulfillment.',
+        imageUrl: 'travel',
+        imageLeft: false,
+        link: '#travel',
+      }, { where: { id: 'travel' } });
 
       // Check if existing records are missing the contact info
       const hotels = await Service.findByPk('hotels');

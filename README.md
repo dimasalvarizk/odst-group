@@ -27,10 +27,15 @@ The codebase is split into two primary modules:
 
 ## 🚀 Key Features
 
+* **Multi-Language (i18n) Support:** Full internationalization supporting English (EN), Indonesian (ID), and Arabic (AR) with a clean language selector.
+  - **Preserved LTR Layout:** The website layout, columns, navigation flow, and text alignment remain standard Left-to-Right (LTR) across all languages for visual consistency, while translating the text.
+  - **Bidirectional (BiDi) Rendering:** Correct text and placeholder alignment (`dir="auto"`, `text-left`) for mixed English/Arabic entries (e.g. brand names like `ODST` and numbers render correctly on the left, while Arabic is processed right-to-left).
 * **Dynamic Landing Page Services:** Edit titles, badge names, action links, descriptions, image layouts, and upload custom images directly from the dashboard.
 * **Direct Connections Directory:** Dedicated tab to adjust phone numbers, email addresses, and locations for division coordinators (Hotels, Airlines, Travel).
 * **Live Inquiries Management:** Review and filter customer messages, mark status as Read/Replied, and delete inquiries.
-* **Newsletter Subscription Controls:** View list of active subscribers, unsubscribe emails, and auto-sync contacts directly with the **Mailchimp Marketing API** (Audience list).
+* **Direct Mailchimp Newsletter Integration:** Completely decoupled from the MySQL database. Subscriptions are sent directly and only to the **Mailchimp Marketing API** in real-time.
+  - **Real-Time Admin Sync:** The Admin Dashboard's *Newsletter Subscribers* tab fetches active list members directly from Mailchimp in real-time.
+  - **Mailchimp Member Controls:** Deleting a subscriber from the Admin panel permanently unsubscribes/removes them from your Mailchimp audience list.
 * **Branded Admin Gateways:** Fully customized split-screen brand login page and dashboard using official logos.
 * **API Connection Hydration:** Full integration connecting form submissions to live database models with local asset fallback.
 

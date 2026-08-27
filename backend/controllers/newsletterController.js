@@ -18,25 +18,9 @@ export const subscribeNewsletter = async (req, res, next) => {
       throw new Error('Please enter all required fields');
     }
 
-    // Check if email already subscribed in MySQL
-    const emailExists = await Newsletter.findOne({
-      where: { email: email.toLowerCase() }
-    });
-
-    if (emailExists) {
-      res.status(400);
-      throw new Error('Email is already subscribed to the newsletter');
-    }
-
-    const subscriber = await Newsletter.create({
-      fullName,
-      phone,
-      email: email.toLowerCase(),
-    });
-
-    // Send to Mailchimp
+    // Send directly to Mailchimp only
     try {
-      await mailchimp.lists.addListMember(process.env.MAILCHIMP_AUDIENCE_ID || '88e3c0fded', {
+      const response = await mailchimp.lists.addListMember(process.env.MAILCHIMP_AUDIENCE_ID || '88e3c0fded', {
         email_address: email.toLowerCase(),
         status: 'subscribed',
         merge_fields: {
@@ -44,16 +28,27 @@ export const subscribeNewsletter = async (req, res, next) => {
           PHONE: phone
         }
       });
+      
       console.log(`Mailchimp subscription successful for: ${email}`);
-    } catch (mcError) {
-      console.error(`Mailchimp subscription failed: ${mcError.message || mcError}`);
-    }
 
-    res.status(201).json({
-      success: true,
-      message: 'Subscribed to newsletter successfully',
-      data: subscriber,
-    });
+      res.status(201).json({
+        success: true,
+        message: 'Subscribed to newsletter successfully',
+        data: response,
+      });
+    } catch (mcError) {
+      console.error(`Mailchimp subscription failed:`, mcError);
+      
+      // Extract Mailchimp error details
+      const status = mcError.status || 400;
+      res.status(status);
+      
+      if (mcError.title === 'Member Exists') {
+        throw new Error('Email is already subscribed to the newsletter');
+      } else {
+        throw new Error(mcError.detail || mcError.message || 'Mailchimp subscription failed');
+      }
+    }
   } catch (error) {
     next(error);
   }

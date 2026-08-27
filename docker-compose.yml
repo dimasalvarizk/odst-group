@@ -10,8 +10,6 @@ services:
       MYSQL_DATABASE: ${DB_NAME:-odst_group}
       MYSQL_USER: ${DB_USER:-avnadmin}
       MYSQL_PASSWORD: ${DB_PASSWORD:-AVNS_9ySGvnNH6nEdcZHIGI4}
-    ports:
-      - "3306:3306"
     volumes:
       - odst_db_data:/var/lib/mysql
     networks:
@@ -25,8 +23,6 @@ services:
     restart: always
     depends_on:
       - db
-    ports:
-      - "5000:5000"
     environment:
       - PORT=5000
       - NODE_ENV=production

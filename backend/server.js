@@ -175,8 +175,8 @@ app.get('/api/health', (req, res) => {
 app.use(notFound);
 app.use(errorHandler);
 
-// Only listen locally
-if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+// Only listen if not running in a serverless environment (like Vercel)
+if (!process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`API Gateway running on port ${PORT}`);
   });

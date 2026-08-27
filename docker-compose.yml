@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: odst_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword123}
+      MYSQL_DATABASE: ${DB_NAME:-defaultdb}
+      MYSQL_USER: ${DB_USER:-avnadmin}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-AVNS_9ySGvnNH6nEdcZHIGI4}
+    ports:
+      - "3306:3306"
+    volumes:
+      - odst_db_data:/var/lib/mysql
+    networks:
+      - odst_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: odst_backend
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=${DB_USER:-avnadmin}
+      - DB_PASSWORD=${DB_PASSWORD:-AVNS_9ySGvnNH6nEdcZHIGI4}
+      - DB_NAME=${DB_NAME:-defaultdb}
+      - DB_SSL=false
+      - JWT_SECRET=${JWT_SECRET:-supersecretjwtkeyforodstgroup123}
+      - MAILCHIMP_API_KEY=${MAILCHIMP_API_KEY}
+      - MAILCHIMP_SERVER_PREFIX=${MAILCHIMP_SERVER_PREFIX}
+      - MAILCHIMP_AUDIENCE_ID=${MAILCHIMP_AUDIENCE_ID}
+    networks:
+      - odst_network
+
+  frontend:
+    build:
+      context: ./odst-frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_BASE_URL=${VITE_API_BASE_URL:-/api}
+    container_name: odst_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+    networks:
+      - odst_network
+
+volumes:
+  odst_db_data:
+
+networks:
+  odst_network:
+    driver: bridge

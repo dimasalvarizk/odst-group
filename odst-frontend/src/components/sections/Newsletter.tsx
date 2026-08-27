@@ -6,7 +6,7 @@ import { Input } from '../ui/Input';
 
 export default function Newsletter() {
   const { t } = useTranslation();
-  const { formData, status, handleInputChange, submitForm } = useNewsletter();
+  const { formData, status, errorType, handleInputChange, submitForm } = useNewsletter();
 
   return (
     <section id="newsletter" className="py-20 bg-[#fafbfd] border-t border-slate-100">
@@ -76,7 +76,11 @@ export default function Newsletter() {
           )}
           {status === 'error' && (
             <div className="text-rose-600 text-sm font-medium mt-3 bg-rose-50 border border-rose-100 py-2.5 px-4 rounded-lg animate-fadeIn text-start rtl:text-end">
-              {t('newsletter.error')}
+              {errorType === 'already_subscribed'
+                ? t('newsletter.alreadySubscribed')
+                : errorType === 'generic'
+                ? t('newsletter.genericError')
+                : t('newsletter.error')}
             </div>
           )}
         </form>

@@ -47,7 +47,9 @@
     "subscribe": "Berlangganan",
     "subscribing": "Menghubungkan...",
     "success": "✓ Terima kasih! Anda telah berhasil berlangganan newsletter kami.",
-    "error": "⚠ Silakan isi semua kolom sebelum mengirimkan."
+    "error": "⚠ Silakan isi semua kolom sebelum mengirimkan.",
+    "alreadySubscribed": "⚠ Email ini sudah terdaftar dalam newsletter.",
+    "genericError": "⚠ Pendaftaran gagal. Silakan coba lagi nanti."
   },
   "contactHero": {
     "badge": "Hubungi Kami",

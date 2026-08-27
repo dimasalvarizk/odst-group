@@ -47,7 +47,9 @@
     "subscribe": "Subscribe",
     "subscribing": "Subscribing...",
     "success": "✓ Thank you! You have successfully subscribed to our newsletter.",
-    "error": "⚠ Please fill in all fields before submitting."
+    "error": "⚠ Please fill in all fields before submitting.",
+    "alreadySubscribed": "⚠ This email is already subscribed to the newsletter.",
+    "genericError": "⚠ Subscription failed. Please try again later."
   },
   "contactHero": {
     "badge": "Connect With Us",

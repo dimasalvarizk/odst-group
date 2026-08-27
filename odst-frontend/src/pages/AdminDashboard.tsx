@@ -7,6 +7,7 @@ import {
   Trash2, 
   Eye, 
   CheckCircle, 
+  AlertCircle,
   MessageSquare, 
   RefreshCw, 
   Search,
@@ -82,6 +83,23 @@ export default function AdminDashboard() {
   const [editEmail, setEditEmail] = useState('');
   const [editAddress, setEditAddress] = useState('');
   const [updatingService, setUpdatingService] = useState(false);
+  const [notification, setNotification] = useState<{
+    message: string;
+    type: 'success' | 'error' | 'info';
+  } | null>(null);
+
+  const showToast = (message: string, type: 'success' | 'error' | 'info' = 'success') => {
+    setNotification({ message, type });
+  };
+
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => {
+        setNotification(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [notification]);
 
   const navigate = useNavigate();
   const adminUser = JSON.parse(localStorage.getItem('adminUser') || '{}');
@@ -130,7 +148,7 @@ export default function AdminDashboard() {
         setSelectedMessage(updated);
       }
     } catch (err: any) {
-      alert(err.message || 'Failed to update status');
+      showToast(err.message || 'Failed to update status', 'error');
     }
   };
 
@@ -143,7 +161,7 @@ export default function AdminDashboard() {
         setSelectedMessage(null);
       }
     } catch (err: any) {
-      alert(err.message || 'Failed to delete message');
+      showToast(err.message || 'Failed to delete message', 'error');
     }
   };
 
@@ -154,7 +172,7 @@ export default function AdminDashboard() {
       await apiService.deleteNewsletterSubscriber(id);
       setSubscribers((prev) => prev.filter((s) => s.id !== id));
     } catch (err: any) {
-      alert(err.message || 'Failed to remove subscriber');
+      showToast(err.message || 'Failed to remove subscriber', 'error');
     }
   };
 
@@ -187,9 +205,9 @@ export default function AdminDashboard() {
       });
       setServices((prev) => prev.map((s) => (s.id === selectedService.id ? updated : s)));
       setSelectedService(null);
-      alert('Service updated successfully!');
+      showToast('Service updated successfully!', 'success');
     } catch (err: any) {
-      alert(err.message || 'Failed to update service');
+      showToast(err.message || 'Failed to update service', 'error');
     } finally {
       setUpdatingService(false);
     }
@@ -218,9 +236,9 @@ export default function AdminDashboard() {
       });
       setServices((prev) => prev.map((s) => (s.id === selectedConnection.id ? updated : s)));
       setSelectedConnection(null);
-      alert('Direct Connection updated successfully!');
+      showToast('Direct Connection updated successfully!', 'success');
     } catch (err: any) {
-      alert(err.message || 'Failed to update connection');
+      showToast(err.message || 'Failed to update connection', 'error');
     } finally {
       setUpdatingService(false);
     }
@@ -230,7 +248,7 @@ export default function AdminDashboard() {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 2 * 1024 * 1024) { // 2MB limit
-        alert('File is too large. Max size is 2MB.');
+        showToast('File is too large. Max size is 2MB.', 'error');
         return;
       }
       const reader = new FileReader();
@@ -1086,6 +1104,50 @@ export default function AdminDashboard() {
 
           </div>
         </div>
+      )}
+
+      {/* Custom Toast Notification Pop-up */}
+      {notification && (
+        <>
+          <style>{`
+            @keyframes toastSlideIn {
+              from { transform: translateY(1.5rem) scale(0.95); opacity: 0; }
+              to { transform: translateY(0) scale(1); opacity: 1; }
+            }
+            .animate-toast {
+              animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+          `}</style>
+          <div className="fixed bottom-6 right-6 z-[100] max-w-sm w-full bg-white/95 backdrop-blur border border-slate-100/80 shadow-2xl rounded-2xl p-4 flex items-center gap-3.5 animate-toast font-sans">
+            <div className={`p-2.5 rounded-xl ${
+              notification.type === 'success' 
+                ? 'bg-emerald-50 text-emerald-500 border border-emerald-100/50' 
+                : 'bg-rose-50 text-rose-500 border border-rose-100/50'
+            }`}>
+              {notification.type === 'success' ? (
+                <CheckCircle size={18} />
+              ) : (
+                <AlertCircle size={18} />
+              )}
+            </div>
+            
+            <div className="flex-grow min-w-0">
+              <h4 className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                {notification.type === 'success' ? 'Success' : 'Error'}
+              </h4>
+              <p className="text-xs font-medium text-slate-700 mt-0.5 leading-snug">
+                {notification.message}
+              </p>
+            </div>
+
+            <button 
+              onClick={() => setNotification(null)}
+              className="text-slate-300 hover:text-slate-500 text-sm font-semibold p-1 hover:bg-slate-100 rounded-lg transition-colors"
+            >
+              ✕
+            </button>
+          </div>
+        </>
       )}
 
     </div>

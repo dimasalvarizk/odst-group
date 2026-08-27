@@ -39,11 +39,7 @@ export default function Footer() {
                 {t('services.travel.title')}
               </a>
             </li>
-            <li>
-              <a href="/#about" className="hover:text-brand-orange transition-colors">
-                {t('footer.links.partnerPortals')}
-              </a>
-            </li>
+
           </ul>
         </div>
 
@@ -56,16 +52,7 @@ export default function Footer() {
                 {t('footer.links.about')}
               </a>
             </li>
-            <li>
-              <a href="/#about" className="hover:text-brand-orange transition-colors">
-                {t('footer.links.news')}
-              </a>
-            </li>
-            <li>
-              <a href="/#about" className="hover:text-brand-orange transition-colors">
-                {t('footer.links.careers')}
-              </a>
-            </li>
+
             <li>
               <Link to="/contact" className="hover:text-brand-orange transition-colors">
                 {t('footer.links.contact')}

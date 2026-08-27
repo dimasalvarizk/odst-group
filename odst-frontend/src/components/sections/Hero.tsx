@@ -38,12 +38,12 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white fade-in mt-16 md:mt-24">
         {/* Heading */}
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-5 leading-tight">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-5 leading-tight" dir="auto">
           {t('hero.title')}
         </h1>
 
         {/* Paragraph Description */}
-        <p className="text-base md:text-xl text-white/90 max-w-2xl mx-auto mb-10 leading-relaxed font-spectral font-normal">
+        <p className="text-base md:text-xl text-white/90 max-w-2xl mx-auto mb-10 leading-relaxed font-spectral font-normal" dir="auto">
           {t('hero.description')}
         </p>
 

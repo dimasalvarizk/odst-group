@@ -1,4 +1,11 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+let rawBaseUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+if (rawBaseUrl && !rawBaseUrl.endsWith('/api') && !rawBaseUrl.endsWith('/api/')) {
+  if (rawBaseUrl.endsWith('/')) {
+    rawBaseUrl = rawBaseUrl.slice(0, -1);
+  }
+  rawBaseUrl = `${rawBaseUrl}/api`;
+}
+const API_BASE_URL = rawBaseUrl;
 
 
 // Generic fetch handler

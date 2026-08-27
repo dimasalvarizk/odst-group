@@ -7,6 +7,7 @@ import contactRoutes from './routes/contactRoutes.js';
 import newsletterRoutes from './routes/newsletterRoutes.js';
 import serviceRoutes from './routes/serviceRoutes.js';
 import Service from './models/Service.js';
+import User from './models/User.js';
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 
 // Load env vars
@@ -81,6 +82,24 @@ const seedServices = async () => {
   }
 };
 
+const seedAdminUser = async () => {
+  try {
+    const count = await User.count();
+    if (count === 0) {
+      console.log('No admin users found in database. Seeding default admin...');
+      await User.create({
+        username: 'admin',
+        email: 'admin@odst.id',
+        password: 'password123',
+        role: 'admin'
+      });
+      console.log('Default admin user seeded successfully.');
+    }
+  } catch (error) {
+    console.error(`Failed to seed default admin user: ${error.message}`);
+  }
+};
+
 // Connect to Database & Sync models helper
 let isSynced = false;
 const syncDatabase = async () => {
@@ -90,6 +109,7 @@ const syncDatabase = async () => {
     await sequelize.sync({ alter: process.env.NODE_ENV !== 'production' });
     console.log('MySQL Database schema synced successfully');
     await seedServices();
+    await seedAdminUser();
     isSynced = true;
   } catch (err) {
     console.error(`MySQL Database sync failed: ${err.message}`);

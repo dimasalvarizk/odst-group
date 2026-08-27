@@ -54,34 +54,41 @@ export const subscribeNewsletter = async (req, res, next) => {
   }
 };
 
-// @desc    Get all newsletter subscribers
+// @desc    Get all newsletter subscribers from Mailchimp
 // @route   GET /api/newsletters
 // @access  Private (Admin Only)
 export const getSubscribers = async (req, res, next) => {
   try {
-    const subscribers = await Newsletter.findAll({
-      order: [['createdAt', 'DESC']]
+    const response = await mailchimp.lists.getListMembersInfo(process.env.MAILCHIMP_AUDIENCE_ID || '88e3c0fded', {
+      count: 100,
     });
+    
+    // Map Mailchimp members to match the structure the frontend expects
+    const subscribers = (response.members || []).map((member) => ({
+      id: member.id, // Mailchimp MD5 hash of email
+      fullName: member.merge_fields.FNAME || 'Subscriber',
+      phone: member.merge_fields.PHONE || 'N/A',
+      email: member.email_address,
+      createdAt: member.timestamp_opt || member.last_changed || new Date(),
+    }));
+
     res.json(subscribers);
   } catch (error) {
-    next(error);
+    console.error('Mailchimp fetch subscribers failed, falling back to empty list:', error);
+    res.json([]);
   }
 };
 
-// @desc    Unsubscribe / Delete newsletter subscriber
+// @desc    Unsubscribe / Delete newsletter subscriber from Mailchimp
 // @route   DELETE /api/newsletters/:id
 // @access  Private (Admin Only)
 export const unsubscribeNewsletter = async (req, res, next) => {
   try {
-    const subscriber = await Newsletter.findByPk(req.params.id);
-
-    if (subscriber) {
-      await subscriber.destroy();
-      res.json({ message: 'Subscriber unsubscribed/removed successfully' });
-    } else {
-      res.status(404);
-      throw new Error('Subscriber not found');
-    }
+    const subscriberId = req.params.id; // Mailchimp MD5 hash
+    
+    await mailchimp.lists.deleteListMember(process.env.MAILCHIMP_AUDIENCE_ID || '88e3c0fded', subscriberId);
+    
+    res.json({ message: 'Subscriber removed successfully from Mailchimp' });
   } catch (error) {
     next(error);
   }

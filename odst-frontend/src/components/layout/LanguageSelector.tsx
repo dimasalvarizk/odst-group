@@ -5,13 +5,13 @@ import { Globe, ChevronDown } from 'lucide-react';
 interface Language {
   code: string;
   name: string;
-  flag: string;
+  flagUrl: string;
 }
 
 const languages: Language[] = [
-  { code: 'en', name: 'English', flag: '🇬🇧' },
-  { code: 'id', name: 'Bahasa (Indonesia)', flag: '🇮🇩' },
-  { code: 'ar', name: 'العربية (Arabic)', flag: '🇸🇦' },
+  { code: 'en', name: 'English', flagUrl: 'https://flagcdn.com/gb.svg' },
+  { code: 'id', name: 'Bahasa (Indonesia)', flagUrl: 'https://flagcdn.com/id.svg' },
+  { code: 'ar', name: 'العربية (Arabic)', flagUrl: 'https://flagcdn.com/sa.svg' },
 ];
 
 export default function LanguageSelector({ isMobile = false }: { isMobile?: boolean }) {
@@ -48,15 +48,17 @@ export default function LanguageSelector({ isMobile = false }: { isMobile?: bool
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang.code)}
                 type="button"
-                className={`flex flex-col items-center justify-center py-2.5 px-2 rounded-lg border transition-all text-xs font-medium ${
+                className={`flex flex-col items-center justify-center py-2 px-2 rounded-lg border transition-all text-xs font-medium ${
                   isActive
                     ? 'bg-brand-orange border-brand-orange text-white shadow-md'
                     : 'bg-white/5 border-white/10 text-white/80 hover:bg-white/10'
                 }`}
               >
-                <span className="text-lg mb-1" role="img" aria-label={lang.name}>
-                  {lang.flag}
-                </span>
+                <img
+                  src={lang.flagUrl}
+                  alt={lang.name}
+                  className="w-6 h-4 object-cover rounded-sm shadow-sm mb-1.5"
+                />
                 <span>{lang.code.toUpperCase()}</span>
               </button>
             );
@@ -74,7 +76,11 @@ export default function LanguageSelector({ isMobile = false }: { isMobile?: bool
         className="flex items-center space-x-2 text-white/85 hover:text-white font-medium text-sm transition-colors duration-200 py-1.5 px-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 focus:outline-none rtl:space-x-reverse"
       >
         <Globe size={15} className="opacity-80" />
-        <span className="text-sm">{currentLanguage.flag}</span>
+        <img
+          src={currentLanguage.flagUrl}
+          alt={currentLanguage.name}
+          className="w-4.5 h-3 object-cover rounded-[1px] shadow-sm"
+        />
         <span className="uppercase text-xs tracking-wider font-semibold">{currentLanguage.code}</span>
         <ChevronDown size={14} className={`opacity-80 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
@@ -96,9 +102,11 @@ export default function LanguageSelector({ isMobile = false }: { isMobile?: bool
                     : 'text-white/80 hover:bg-white/5 hover:text-white'
                 }`}
               >
-                <span className="text-base" role="img" aria-label={lang.name}>
-                  {lang.flag}
-                </span>
+                <img
+                  src={lang.flagUrl}
+                  alt={lang.name}
+                  className="w-5 h-3.5 object-cover rounded-sm shadow-sm"
+                />
                 <span className="flex-grow">{lang.name}</span>
                 {isActive && (
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />

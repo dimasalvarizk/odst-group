@@ -15,7 +15,7 @@ export default function Hero() {
   }, [heroSlides.length]);
 
   return (
-    <section className="relative min-h-[85vh] md:min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="about" className="relative min-h-[85vh] md:min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Images Crossfade with smooth Ken Burns Zoom */}
       {heroSlides.map((img, idx) => (
         <div

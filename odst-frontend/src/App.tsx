@@ -4,6 +4,8 @@ import LandingPage from './pages/LandingPage.tsx';
 import ContactPage from './pages/ContactPage.tsx';
 import AdminLogin from './pages/AdminLogin.tsx';
 import AdminDashboard from './pages/AdminDashboard.tsx';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage.tsx';
+import TermsOfServicePage from './pages/TermsOfServicePage.tsx';
 
 // A simple PrivateRoute component to protect the admin dashboard
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
@@ -18,6 +20,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms-of-service" element={<TermsOfServicePage />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route 
           path="/admin/dashboard" 

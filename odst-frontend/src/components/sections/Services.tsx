@@ -26,6 +26,7 @@ export default function Services() {
       {services.map((service) => (
         <section
           key={service.id}
+          id={service.id}
           className={`py-20 md:py-28 ${
             service.id === 'airlines' ? 'bg-[#fafbfd] border-y border-slate-100' : 'bg-white'
           }`}

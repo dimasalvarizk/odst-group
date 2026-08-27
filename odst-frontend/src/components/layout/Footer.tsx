@@ -23,18 +23,23 @@ export default function Footer() {
           <h3 className="text-[#e87729] font-sans font-bold text-sm tracking-wider uppercase">Companies</h3>
           <ul className="space-y-2.5 text-sm font-normal">
             <li>
-              <a href="#services" className="hover:text-brand-orange transition-colors">
+              <a href="/#hotels" className="hover:text-brand-orange transition-colors">
                 ODST Hotels
               </a>
             </li>
             <li>
-              <a href="#services" className="hover:text-brand-orange transition-colors">
+              <a href="/#airlines" className="hover:text-brand-orange transition-colors">
                 ODST Airlines
               </a>
             </li>
             <li>
-              <a href="#services" className="hover:text-brand-orange transition-colors">
+              <a href="/#travel" className="hover:text-brand-orange transition-colors">
                 ODST Tour & Travel
+              </a>
+            </li>
+            <li>
+              <a href="/#about" className="hover:text-brand-orange transition-colors">
+                Partner Portals
               </a>
             </li>
           </ul>
@@ -45,13 +50,18 @@ export default function Footer() {
           <h3 className="text-[#e87729] font-sans font-bold text-sm tracking-wider uppercase">Resources</h3>
           <ul className="space-y-2.5 text-sm font-normal">
             <li>
-              <a href="#about" className="hover:text-brand-orange transition-colors">
+              <a href="/#about" className="hover:text-brand-orange transition-colors">
                 About Us
               </a>
             </li>
             <li>
-              <a href="#newsletter" className="hover:text-brand-orange transition-colors">
-                Newsletter
+              <a href="/#about" className="hover:text-brand-orange transition-colors">
+                Latest News
+              </a>
+            </li>
+            <li>
+              <a href="/#about" className="hover:text-brand-orange transition-colors">
+                Careers
               </a>
             </li>
             <li>
@@ -70,12 +80,12 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-normal">
         <p>© {currentYear} ODST Group. All rights reserved.</p>
         <div className="flex space-x-6">
-          <a href="#" className="hover:text-white transition-colors">
+          <Link to="/privacy-policy" className="hover:text-white transition-colors">
             Privacy Policy
-          </a>
-          <a href="#" className="hover:text-white transition-colors">
+          </Link>
+          <Link to="/terms-of-service" className="hover:text-white transition-colors">
             Terms of Service
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

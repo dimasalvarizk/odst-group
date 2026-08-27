@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { images } from '../utils/images';
 
 export default function PrivacyPolicyPage() {
+  const { t } = useTranslation();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -26,13 +29,13 @@ export default function PrivacyPolicyPage() {
         {/* Content */}
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white fade-in">
           <span className="text-brand-orange text-xs font-semibold tracking-widest uppercase mb-2 block">
-            ODST Group Guidelines
+            {t('privacyPage.subtitle')}
           </span>
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 font-spectral">
-            Privacy Policy
+            {t('privacyPage.title')}
           </h1>
           <p className="text-white/60 text-xs md:text-sm max-w-md mx-auto">
-            Last Updated: August 27, 2026
+            {t('privacyPage.lastUpdated')}
           </p>
         </div>
       </section>
@@ -42,49 +45,51 @@ export default function PrivacyPolicyPage() {
         <div className="max-w-3xl mx-auto px-6 bg-white border border-slate-100 shadow-xl rounded-2xl p-8 md:p-12 space-y-8">
           
           <section className="space-y-3">
-            <h2 className="text-xl font-bold text-brand-navy font-spectral">1. Introduction</h2>
+            <h2 className="text-xl font-bold text-brand-navy font-spectral">{t('privacyPage.introTitle')}</h2>
             <p className="text-slate-600 text-sm leading-relaxed font-light">
-              Welcome to ODST Group. We are committed to protecting your personal data and respecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you visit our website or use our services (Hotels, Airlines, and Tour & Travel).
+              {t('privacyPage.introDesc')}
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-xl font-bold text-brand-navy font-spectral">2. Data We Collect</h2>
+            <h2 className="text-xl font-bold text-brand-navy font-spectral">{t('privacyPage.dataTitle')}</h2>
             <p className="text-slate-600 text-sm leading-relaxed font-light">
-              We collect information that you voluntarily provide to us when submitting contact inquiries or subscribing to our newsletters. This includes:
+              {t('privacyPage.dataDesc')}
             </p>
             <ul className="list-disc list-inside text-slate-600 text-sm pl-4 space-y-1 font-light">
-              <li>Full Name</li>
-              <li>Email Address</li>
-              <li>Phone Number</li>
-              <li>Preferred service divisions (Hotels, Airlines, Travel)</li>
-              <li>Any message content you send to us</li>
+              <li>{t('privacyPage.dataList1')}</li>
+              <li>{t('privacyPage.dataList2')}</li>
+              <li>{t('privacyPage.dataList3')}</li>
+              <li>{t('privacyPage.dataList4')}</li>
+              <li>{t('privacyPage.dataList5')}</li>
             </ul>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-xl font-bold text-brand-navy font-spectral">3. How We Use Your Data</h2>
+            <h2 className="text-xl font-bold text-brand-navy font-spectral">{t('privacyPage.useTitle')}</h2>
             <p className="text-slate-600 text-sm leading-relaxed font-light">
-              We process your personal information to fulfill our services and respond to inquiries, specifically to:
+              {t('privacyPage.useDesc')}
             </p>
             <ul className="list-disc list-inside text-slate-600 text-sm pl-4 space-y-1 font-light">
-              <li>Contact you regarding booking, aviation charters, or pilgrim services.</li>
-              <li>Send periodic newsletters and updates if you have opted in.</li>
-              <li>Ensure security and proper operational maintenance of our web systems.</li>
+              <li>{t('privacyPage.useList1')}</li>
+              <li>{t('privacyPage.useList2')}</li>
+              <li>{t('privacyPage.useList3')}</li>
             </ul>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-xl font-bold text-brand-navy font-spectral">4. Data Sharing & Security</h2>
+            <h2 className="text-xl font-bold text-brand-navy font-spectral">{t('privacyPage.sharingTitle')}</h2>
             <p className="text-slate-600 text-sm leading-relaxed font-light">
-              We do not sell, trade, or transfer your personal data to outside parties. Your data is processed securely through encrypted database interfaces, and access is restricted only to authorized administrative users of the ODST Group.
+              {t('privacyPage.sharingDesc')}
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-xl font-bold text-brand-navy font-spectral">5. Contact Us</h2>
+            <h2 className="text-xl font-bold text-brand-navy font-spectral">{t('privacyPage.contactTitle')}</h2>
             <p className="text-slate-600 text-sm leading-relaxed font-light">
-              If you have any questions or concerns regarding this policy, please reach out directly through our contact page or email us at <a href="mailto:info@odst.id" className="text-brand-orange hover:underline font-medium">info@odst.id</a>.
+              {t('privacyPage.contactDesc').split('info@odst.id')[0]}
+              <a href="mailto:info@odst.id" className="text-brand-orange hover:underline font-medium">info@odst.id</a>
+              {t('privacyPage.contactDesc').split('info@odst.id')[1] || ''}
             </p>
           </section>
 

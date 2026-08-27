@@ -105,5 +105,47 @@
       "terms": "Terms of Service"
     },
     "rights": "© {{year}} ODST Group. All rights reserved."
+  },
+  "privacyPage": {
+    "title": "Privacy Policy",
+    "subtitle": "ODST Group Guidelines",
+    "lastUpdated": "Last Updated: August 27, 2026",
+    "introTitle": "1. Introduction",
+    "introDesc": "Welcome to ODST Group. We are committed to protecting your personal data and respecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you visit our website or use our services (Hotels, Airlines, and Tour & Travel).",
+    "dataTitle": "2. Data We Collect",
+    "dataDesc": "We collect information that you voluntarily provide to us when submitting contact inquiries or subscribing to our newsletters. This includes:",
+    "dataList1": "Full Name",
+    "dataList2": "Email Address",
+    "dataList3": "Phone Number",
+    "dataList4": "Preferred service divisions (Hotels, Airlines, Travel)",
+    "dataList5": "Any message content you send to us",
+    "useTitle": "3. How We Use Your Data",
+    "useDesc": "We process your personal information to fulfill our services and respond to inquiries, specifically to:",
+    "useList1": "Contact you regarding booking, aviation charters, or pilgrim services.",
+    "useList2": "Send periodic newsletters and updates if you have opted in.",
+    "useList3": "Ensure security and proper operational maintenance of our web systems.",
+    "sharingTitle": "4. Data Sharing & Security",
+    "sharingDesc": "We do not sell, trade, or transfer your personal data to outside parties. Your data is processed securely through encrypted database interfaces, and access is restricted only to authorized administrative users of the ODST Group.",
+    "contactTitle": "5. Contact Us",
+    "contactDesc": "If you have any questions or concerns regarding this policy, please reach out directly through our contact page or email us at info@odst.id."
+  },
+  "termsPage": {
+    "title": "Terms of Service",
+    "subtitle": "ODST Group Guidelines",
+    "lastUpdated": "Last Updated: August 27, 2026",
+    "section1Title": "1. Acceptance of Terms",
+    "section1Desc": "By accessing this website, you agree to be bound by these Terms of Service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site.",
+    "section2Title": "2. Use License",
+    "section2Desc": "Permission is granted to temporarily view the materials (information or services description) on ODST Group's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:",
+    "section2List1": "Modify or copy the materials.",
+    "section2List2": "Use the materials for any commercial purpose, or for any public display (commercial or non-commercial).",
+    "section2List3": "Attempt to decompile or reverse engineer any software contained on ODST Group's website.",
+    "section2List4": "Remove any copyright or other proprietary notations from the materials.",
+    "section3Title": "3. Disclaimers",
+    "section3Desc": "The materials on ODST Group's website are provided on an 'as is' basis. ODST Group makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.",
+    "section4Title": "4. Service Limitations",
+    "section4Desc": "ODST Group represents several divisions (Hotels, Airlines, and Tour & Travel). All booking inquiries, chartered aviation schedules, and pilgrim packages are subject to final confirmations and written agreements between you and our service coordinators.",
+    "section5Title": "5. Governing Law",
+    "section5Desc": "These terms and conditions are governed by and construed in accordance with the laws of the Republic of Indonesia and Saudi Arabia (where applicable for pilgrimage logistics) and you irrevocably submit to the exclusive jurisdiction of the courts in those locations."
   }
 }

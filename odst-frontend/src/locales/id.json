@@ -105,5 +105,47 @@
       "terms": "Ketentuan Layanan"
     },
     "rights": "© {{year}} ODST Group. Hak cipta dilindungi undang-undang."
+  },
+  "privacyPage": {
+    "title": "Kebijakan Privasi",
+    "subtitle": "Panduan Grup ODST",
+    "lastUpdated": "Terakhir Diperbarui: 27 Agustus 2026",
+    "introTitle": "1. Pendahuluan",
+    "introDesc": "Selamat datang di ODST Group. Kami berkomitmen untuk melindungi data pribadi Anda dan menghormati privasi Anda. Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda saat Anda mengunjungi situs web kami atau menggunakan layanan kami (Hotel, Maskapai Penerbangan, dan Tur & Travel).",
+    "dataTitle": "2. Data yang Kami Kumpulkan",
+    "dataDesc": "Kami mengumpulkan informasi yang Anda berikan secara sukarela kepada kami saat mengirimkan pertanyaan kontak atau berlangganan buletin kami. Ini termasuk:",
+    "dataList1": "Nama Lengkap",
+    "dataList2": "Alamat Email",
+    "dataList3": "Nomor Telepon",
+    "dataList4": "Divisi layanan pilihan (Hotel, Maskapai Penerbangan, Perjalanan)",
+    "dataList5": "Konten pesan apa pun yang Anda kirimkan kepada kami",
+    "useTitle": "3. Bagaimana Kami Menggunakan Data Anda",
+    "useDesc": "Kami memproses informasi pribadi Anda untuk memenuhi layanan kami dan menanggapi pertanyaan, khususnya untuk:",
+    "useList1": "Menghubungi Anda mengenai pemesanan, sewa penerbangan, atau layanan jemaah.",
+    "useList2": "Mengirim buletin berkala dan pembaruan jika Anda telah memilih untuk bergabung.",
+    "useList3": "Memastikan keamanan dan pemeliharaan operasional yang tepat dari sistem web kami.",
+    "sharingTitle": "4. Pembagian Data & Keamanan",
+    "sharingDesc": "Kami tidak menjual, memperdagangkan, atau mentransfer data pribadi Anda ke pihak luar. Data Anda diproses secara aman melalui antarmuka database terenkripsi, dan akses hanya dibatasi untuk pengguna administratif ODST Group yang berwenang.",
+    "contactTitle": "5. Hubungi Kami",
+    "contactDesc": "Jika Anda memiliki pertanyaan atau kekhawatiran terkait kebijakan ini, silakan hubungi langsung melalui halaman kontak kami atau email kami di info@odst.id."
+  },
+  "termsPage": {
+    "title": "Ketentuan Layanan",
+    "subtitle": "Panduan Grup ODST",
+    "lastUpdated": "Terakhir Diperbarui: 27 Agustus 2026",
+    "section1Title": "1. Penerimaan Ketentuan",
+    "section1Desc": "Dengan mengakses situs web ini, Anda setuju untuk terikat oleh Ketentuan Layanan ini, semua hukum dan peraturan yang berlaku, dan setuju bahwa Anda bertanggung jawab untuk mematuhi hukum lokal yang berlaku. Jika Anda tidak setuju dengan ketentuan ini, Anda dilarang menggunakan atau mengakses situs ini.",
+    "section2Title": "2. Lisensi Penggunaan",
+    "section2Desc": "Izin diberikan untuk mengunduh sementara salinan materi (informasi atau deskripsi layanan) di situs web ODST Group hanya untuk tayangan pribadi, non-komersial, dan sementara. Ini adalah pemberian lisensi, bukan transfer hak milik, dan di bawah lisensi ini Anda tidak boleh:",
+    "section2List1": "Mengubah atau menyalin materi.",
+    "section2List2": "Menggunakan materi untuk tujuan komersial apa pun, atau untuk tampilan publik apa pun (komersial atau non-komersial).",
+    "section2List3": "Mencoba mendekompilasi atau merekayasa balik perangkat lunak apa pun yang terkandung di situs web ODST Group.",
+    "section2List4": "Menghapus hak cipta atau notasi kepemilikan lainnya dari materi.",
+    "section3Title": "3. Penafian (Disclaimer)",
+    "section3Desc": "Materi di situs web ODST Group disediakan atas dasar 'apa adanya'. ODST Group tidak memberikan jaminan, tersurat maupun tersirat, dan dengan ini menolak dan menihilkan semua jaminan lainnya termasuk, tanpa batasan, jaminan tersirat atau kondisi kelayakan jual, kesesuaian untuk tujuan tertentu, atau non-pelanggaran kekayaan intelektual atau pelanggaran hak lainnya.",
+    "section4Title": "4. Batasan Layanan",
+    "section4Desc": "ODST Group mewakili beberapa divisi (Hotel, Maskapai Penerbangan, dan Tur & Travel). Semua pertanyaan pemesanan, jadwal penerbangan sewa, dan paket jemaah tunduk pada konfirmasi akhir dan perjanjian tertulis antara Anda dan koordinator layanan kami.",
+    "section5Title": "5. Hukum yang Mengatur",
+    "section5Desc": "Syarat dan ketentuan ini diatur oleh dan ditafsirkan sesuai dengan hukum Republik Indonesia dan Arab Saudi (jika berlaku untuk logistik haji/umrah) dan Anda tunduk secara mutlak pada yurisdiksi eksklusif pengadilan di lokasi tersebut."
   }
 }

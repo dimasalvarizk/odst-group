@@ -35,14 +35,14 @@ i18n
     },
   });
 
-// Apply layout direction attributes immediately
-document.documentElement.dir = initialLanguage === 'ar' ? 'rtl' : 'ltr';
+// Apply layout direction attributes immediately (always LTR to preserve standard layout alignment)
+document.documentElement.dir = 'ltr';
 document.documentElement.lang = initialLanguage;
 
 // Listen for language changes and update storage + layout attributes dynamically
 i18n.on('languageChanged', (lng) => {
   localStorage.setItem('lang', lng);
-  document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.dir = 'ltr';
   document.documentElement.lang = lng;
 });
 

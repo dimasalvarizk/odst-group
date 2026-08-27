@@ -21,21 +21,14 @@ const resolveImageUrl = (imageUrl: string, id: string) => {
 };
 
 export default function ServiceCard({ service }: ServiceCardProps) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   // Handle dynamic translation with fallbacks for dynamic services from API
   const badge = t(`services.${service.id}.badge`, service.badge);
   const title = t(`services.${service.id}.title`, service.title);
   const description = t(`services.${service.id}.description`, service.description);
 
-  console.log('DEBUG i18n:', {
-    language: i18n.language,
-    id: service.id,
-    key: `services.${service.id}.title`,
-    translatedValue: t(`services.${service.id}.title`),
-    fallbackValue: service.title,
-    resolvedTitle: title
-  });
+
 
   return (
     <div

@@ -30,7 +30,7 @@ The codebase is split into two primary modules:
 * **Dynamic Landing Page Services:** Edit titles, badge names, action links, descriptions, image layouts, and upload custom images directly from the dashboard.
 * **Direct Connections Directory:** Dedicated tab to adjust phone numbers, email addresses, and locations for division coordinators (Hotels, Airlines, Travel).
 * **Live Inquiries Management:** Review and filter customer messages, mark status as Read/Replied, and delete inquiries.
-* **Newsletter Subscription Controls:** View list of active subscribers and unsubscribe emails.
+* **Newsletter Subscription Controls:** View list of active subscribers, unsubscribe emails, and auto-sync contacts directly with the **Mailchimp Marketing API** (Audience list).
 * **Branded Admin Gateways:** Fully customized split-screen brand login page and dashboard using official logos.
 * **API Connection Hydration:** Full integration connecting form submissions to live database models with local asset fallback.
 
@@ -60,6 +60,11 @@ DB_USER=root
 DB_PASS=your_password
 DB_NAME=odst_db
 JWT_SECRET=your_jwt_secret_token
+
+# Mailchimp Integration
+MAILCHIMP_API_KEY=your_mailchimp_api_key
+MAILCHIMP_SERVER_PREFIX=us11
+MAILCHIMP_AUDIENCE_ID=your_mailchimp_audience_id
 ```
 
 Run database sync and start the dev server (it will automatically seed the initial admin account `admin@odst.id` / `password123` and default services if the tables are empty). This command runs the API Gateway and all microservices concurrently on ports 5000-5004:

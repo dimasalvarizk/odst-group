@@ -5,6 +5,7 @@ WORKDIR /app
 
 # Copy package files and install all dependencies
 COPY package*.json ./
+ENV NODE_ENV=development
 RUN npm ci
 
 # Copy the rest of the frontend source code

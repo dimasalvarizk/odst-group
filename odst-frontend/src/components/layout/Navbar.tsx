@@ -1,44 +1,88 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { useScroll } from '../../hooks/useScroll';
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/odstlogo.png';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const isScrolled = useScroll(20);
+  const location = useLocation();
+  
+  const isContactPage = location.pathname === '/contact';
 
   const navItems = [
-    { label: 'About Us', href: '#about' },
-    { label: 'Our Services', href: '#services' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'About Us', href: '/#about', to: '/', isSpaLink: false },
+    { label: 'Companies', href: '/#services', to: '/', isSpaLink: false },
+    { label: 'Contact', href: '/contact', to: '/contact', isSpaLink: true },
   ];
+
+  const renderLink = (item: typeof navItems[0], isMobile = false) => {
+    // Check if link is active
+    const isActive = 
+      (item.isSpaLink && isContactPage) || 
+      (!item.isSpaLink && !isContactPage && location.hash === item.href.substring(1));
+
+    const baseClasses = isMobile
+      ? `font-normal text-base py-1 transition-colors duration-200 ${
+          isActive ? 'text-brand-orange font-medium' : 'text-white/85 hover:text-brand-orange'
+        }`
+      : `font-normal text-sm transition-colors duration-200 relative group py-1 ${
+          isActive ? 'text-brand-orange font-medium' : 'text-white/80 hover:text-white'
+        }`;
+
+    const underlineBar = !isMobile && (
+      <span
+        className={`absolute bottom-[-4px] left-0 h-0.5 bg-brand-orange transition-all duration-300 ${
+          isActive ? 'w-full' : 'w-0 group-hover:w-full'
+        }`}
+      />
+    );
+
+    if (item.isSpaLink) {
+      return (
+        <Link
+          key={item.label}
+          to={item.to}
+          onClick={() => isMobile && setIsOpen(false)}
+          className={baseClasses}
+        >
+          {item.label}
+          {underlineBar}
+        </Link>
+      );
+    }
+
+    return (
+      <a
+        key={item.label}
+        href={item.href}
+        onClick={() => isMobile && setIsOpen(false)}
+        className={baseClasses}
+      >
+        {item.label}
+        {underlineBar}
+      </a>
+    );
+  };
 
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-brand-navy/90 backdrop-blur-md shadow-lg border-b border-white/10 py-3'
+          ? 'bg-[#050c1e]/85 backdrop-blur-md shadow-lg border-b border-white/10 py-3'
           : 'bg-transparent py-5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+      <div className="max-w-[85rem] mx-auto px-4 md:px-8 flex justify-between items-center">
         {/* Logo */}
-        <a href="#" className="flex items-center space-x-2 focus:outline-none">
-          <img src={logo} alt="ODST Logo" className="h-9 w-auto hover:opacity-90 transition-opacity" />
-        </a>
+        <Link to="/" className="flex items-center space-x-2 focus:outline-none">
+          <img src={logo} alt="ODST Logo" className="h-10 md:h-11 w-auto hover:opacity-90 transition-opacity" />
+        </Link>
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center space-x-8">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="text-white/80 hover:text-white font-medium text-sm transition-colors duration-200 relative group"
-            >
-              {item.label}
-              <span className="absolute bottom-[-4px] left-0 w-0 h-0.5 bg-brand-orange transition-all duration-300 group-hover:w-full"></span>
-            </a>
-          ))}
+          {navItems.map((item) => renderLink(item, false))}
         </div>
 
         {/* Mobile Toggle Button */}
@@ -58,16 +102,7 @@ export default function Navbar() {
         }`}
       >
         <div className="flex flex-col py-4 px-6 space-y-4">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              onClick={() => setIsOpen(false)}
-              className="text-white/85 hover:text-brand-orange font-medium text-base py-1 transition-colors duration-200"
-            >
-              {item.label}
-            </a>
-          ))}
+          {navItems.map((item) => renderLink(item, true))}
         </div>
       </div>
     </nav>

@@ -7,10 +7,10 @@ export default function Newsletter() {
   const { formData, status, handleInputChange, submitForm } = useNewsletter();
 
   return (
-    <section id="newsletter" className="py-20 bg-brand-lightBg border-t border-slate-100">
+    <section id="newsletter" className="py-20 bg-[#fafbfd] border-t border-slate-100">
       <div className="max-w-4xl mx-auto px-6 text-center">
         {/* Badge */}
-        <Badge className="mb-4">Newsletter</Badge>
+        <Badge className="mb-4">Stay Updated</Badge>
 
         {/* Title */}
         <h2 className="text-3xl md:text-4xl font-bold text-brand-navy mb-4 animate-fadeIn">
@@ -18,8 +18,8 @@ export default function Newsletter() {
         </h2>
 
         {/* Subtitle */}
-        <p className="text-slate-500 max-w-xl mx-auto mb-10 text-sm md:text-base animate-fadeIn">
-          Get the latest ODST Group updates, special offers, and packages delivered straight to your inbox.
+        <p className="text-slate-500 max-w-none mb-10 text-sm md:text-base font-spectral font-normal animate-fadeIn">
+          Get the latest ODST Group news, offers, and updates delivered straight to your inbox.
         </p>
 
         {/* Subscription Form */}
@@ -28,9 +28,9 @@ export default function Newsletter() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
               type="text"
-              name="firstName"
-              placeholder="First name"
-              value={formData.firstName}
+              name="fullName"
+              placeholder="Full name"
+              value={formData.fullName}
               onChange={handleInputChange}
               disabled={status === 'loading'}
               required

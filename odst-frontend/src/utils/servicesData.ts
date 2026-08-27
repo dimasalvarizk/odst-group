@@ -22,7 +22,7 @@ export const services: Service[] = [
   },
   {
     id: 'airlines',
-    badge: 'Aviation Charters',
+    badge: 'Aviation & Charter',
     title: 'ODST Airlines',
     description: 'Seamless journeys to the Holy Land. Dedicated charters and flight solutions with exceptional comfort, premium catering, and a deeply attentive service tailored for your spiritual journey.',
     imageUrl: images.airplaneSalute,
@@ -31,7 +31,7 @@ export const services: Service[] = [
   },
   {
     id: 'travel',
-    badge: 'Pilgrim Services',
+    badge: 'Bespoke Journeys',
     title: 'ODST Tour & Travel',
     description: 'Complete pilgrim and package travel solutions for your needs. From guide grouping to highly personalized guided tours and excellent ground transportation, we handle every detail so you can focus on your spiritual fulfillment.',
     imageUrl: images.travelLuggage,

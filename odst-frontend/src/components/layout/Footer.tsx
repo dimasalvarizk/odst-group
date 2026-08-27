@@ -1,4 +1,5 @@
-import logo from '../../assets/logo.svg';
+import { Link } from 'react-router-dom';
+import logo from '../../assets/odstlogo.png';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -9,18 +10,18 @@ export default function Footer() {
         
         {/* Brand Info Column */}
         <div className="col-span-1 md:col-span-6 space-y-6">
-          <a href="#" className="flex items-center space-x-2">
-            <img src={logo} alt="ODST Logo" className="h-10 w-auto" />
-          </a>
-          <p className="text-white/60 text-sm max-w-md leading-relaxed">
-            A leading group company offering specialized travel and transit packages, including top-tier hospitality, aviation logistics, and guidance to the holy sites for an unforgettable spiritual journey.
+          <Link to="/" className="flex items-center space-x-2">
+            <img src={logo} alt="ODST Logo" className="h-10 md:h-11 w-auto" />
+          </Link>
+          <p className="text-white/60 text-sm max-w-md leading-relaxed font-spectral font-normal">
+            A premier conglomerate offering dedicated Hajj and Umrah solutions, establishing absolute spiritual tranquility through premium hospitality, logistics, and aviation.
           </p>
         </div>
 
-        {/* Services Links Column */}
+        {/* Companies Links Column */}
         <div className="col-span-1 md:col-span-3 space-y-4">
-          <h3 className="text-white font-bold text-sm tracking-wider uppercase">Our Services</h3>
-          <ul className="space-y-2.5 text-sm">
+          <h3 className="text-[#e87729] font-sans font-bold text-sm tracking-wider uppercase">Companies</h3>
+          <ul className="space-y-2.5 text-sm font-normal">
             <li>
               <a href="#services" className="hover:text-brand-orange transition-colors">
                 ODST Hotels
@@ -41,8 +42,8 @@ export default function Footer() {
 
         {/* Resources/Links Column */}
         <div className="col-span-1 md:col-span-3 space-y-4">
-          <h3 className="text-white font-bold text-sm tracking-wider uppercase">Resources</h3>
-          <ul className="space-y-2.5 text-sm">
+          <h3 className="text-[#e87729] font-sans font-bold text-sm tracking-wider uppercase">Resources</h3>
+          <ul className="space-y-2.5 text-sm font-normal">
             <li>
               <a href="#about" className="hover:text-brand-orange transition-colors">
                 About Us
@@ -54,9 +55,9 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <a href="#contact" className="hover:text-brand-orange transition-colors">
-                Contact & Support
-              </a>
+              <Link to="/contact" className="hover:text-brand-orange transition-colors">
+                Contact
+              </Link>
             </li>
           </ul>
         </div>
@@ -66,7 +67,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 my-10 border-t border-white/5" />
 
       {/* Footer Bottom */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-normal">
         <p>© {currentYear} ODST Group. All rights reserved.</p>
         <div className="flex space-x-6">
           <a href="#" className="hover:text-white transition-colors">

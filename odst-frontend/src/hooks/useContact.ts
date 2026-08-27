@@ -1,45 +1,64 @@
 import React, { useState } from 'react';
 import apiService from '../services/api';
 
-export interface NewsletterForm {
+export interface ContactForm {
   fullName: string;
-  phone: string;
   email: string;
+  phone: string;
+  department: string;
+  message: string;
 }
 
-export function useNewsletter() {
-  const [formData, setFormData] = useState<NewsletterForm>({
+export function useContact() {
+  const [formData, setFormData] = useState<ContactForm>({
     fullName: '',
-    phone: '',
     email: '',
+    phone: '',
+    department: '',
+    message: '',
   });
+
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (status === 'error') setStatus('idle');
   };
 
   const resetForm = () => {
-    setFormData({ fullName: '', phone: '', email: '' });
+    setFormData({
+      fullName: '',
+      email: '',
+      phone: '',
+      department: '',
+      message: '',
+    });
   };
 
   const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.fullName || !formData.phone || !formData.email) {
+    if (
+      !formData.fullName ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.department ||
+      !formData.message
+    ) {
       setStatus('error');
       return;
     }
 
     setStatus('loading');
-    
+
     try {
-      await apiService.subscribeNewsletter(formData);
+      await apiService.submitContact(formData);
       setStatus('success');
       resetForm();
     } catch (error) {
-      console.error('Subscription failed:', error);
+      console.error('Submission failed:', error);
       setStatus('error');
     }
   };
@@ -52,4 +71,4 @@ export function useNewsletter() {
     setStatus,
   };
 }
-export default useNewsletter;
+export default useContact;

@@ -1,10 +1,22 @@
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import type { Service } from '../../utils/servicesData';
+import { images } from '../../utils/images';
 
 interface ServiceCardProps {
   service: Service;
 }
+
+const resolveImageUrl = (imageUrl: string, id: string) => {
+  if (!imageUrl) return '';
+  if (imageUrl.startsWith('data:') || imageUrl.startsWith('http') || imageUrl.startsWith('/') || imageUrl.startsWith('blob:')) {
+    return imageUrl;
+  }
+  if (imageUrl === 'hotels' || id === 'hotels') return images.hotelLobby;
+  if (imageUrl === 'airlines' || id === 'airlines') return images.airplaneSalute;
+  if (imageUrl === 'travel' || id === 'travel') return images.travelLuggage;
+  return imageUrl;
+};
 
 export default function ServiceCard({ service }: ServiceCardProps) {
   return (
@@ -23,11 +35,8 @@ export default function ServiceCard({ service }: ServiceCardProps) {
           {service.title}
         </h2>
 
-        {/* Thin Decorative Line */}
-        <div className="w-12 h-1 bg-brand-orange rounded" />
-
         {/* Description */}
-        <p className="text-slate-600 leading-relaxed text-base md:text-lg">
+        <p className="text-slate-600 leading-relaxed text-base md:text-lg font-spectral font-normal">
           {service.description}
         </p>
 
@@ -47,7 +56,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
           
           {/* Image */}
           <img
-            src={service.imageUrl}
+            src={resolveImageUrl(service.imageUrl, service.id)}
             alt={service.title}
             className="w-full h-[300px] md:h-[400px] object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
             loading="lazy"

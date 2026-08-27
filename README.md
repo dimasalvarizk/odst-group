@@ -88,20 +88,62 @@ The client website will run at `http://localhost:5173`.
 
 ---
 
-## 📦 Production Build
+## 🐳 Docker & VPS Deployment (Coolify)
 
-To compile a production-ready bundle for Vercel or other static hosting providers:
+This project is fully containerized and optimized for deployment on self-hosted VPS platforms like **Hostinger VPS** using **Coolify** or a direct Docker Compose setup.
 
-```bash
-# In odst-frontend/
-npm run build
+### 🏛️ Production Architecture (Single Domain Proxy)
+
+In production, the application is deployed under a **Single Domain** architecture utilizing a custom Nginx reverse proxy inside the frontend container.
+
+```mermaid
+graph TD
+    Client[Browser / User] -->|https://odst.id| Traefik[Coolify Reverse Proxy / Traefik]
+    Traefik -->|Internal network| Frontend[frontend Nginx Container: Port 80]
+    Frontend -->|Serves Static Files| ReactApp[React Vite Static Files]
+    Frontend -->|Proxy /api/* requests| Backend[backend Node.js Container: Port 5000]
+    Backend -->|Sequelize ORM| DB[db MySQL 8.0 Container: Port 3306]
+    DB -->|Persistent Storage| Volume[(odst_db_data Volume)]
 ```
 
-This compiles optimized HTML, CSS, and JS files into the `dist/` directory.
+- **Zero Port Conflict:** The database (`db`) and `backend` containers do not bind to any host ports (no `ports` mapping exposed publicly), preventing conflicts with other VPS services (like an existing MySQL database on port `3306`).
+- **Internal Communication:** Services talk internally within the isolated `odst_network` (`db:3306` and `backend:5000`).
+- **No CORS Issues:** Since Nginx proxies `/api` calls internally, the browser sees all traffic coming from the single domain (`odst.id`), completely eliminating cross-origin errors.
+
+### 🛠️ Local Docker Verification
+
+To run and verify the entire stack locally using Docker:
+```bash
+# Build and start all services in detached mode
+docker compose up --build -d
+```
+The frontend will be served at `http://localhost:8080` (internally proxying API calls to the backend on `http://localhost:5000`).
+
+### 📦 Coolify Deployment Guide (Hostinger VPS)
+
+1. **Push Changes:** Ensure all files are committed and pushed to your Git repository (GitHub/GitLab).
+2. **Add Resource:** In the Coolify dashboard, select **Projects** -> **Environment** -> **+ Add New Resource** -> **Docker Compose**.
+3. **Repository Connection:** Connect your Git repository. Coolify will automatically detect the root `docker-compose.yml`.
+4. **Environment Variables:** In the project settings, add the following variables for the `backend` service:
+   - `NODE_ENV` = `production`
+   - `PORT` = `5000`
+   - `DB_HOST` = `db` (points to the local MySQL container)
+   - `DB_PORT` = `3306`
+   - `DB_USER` = `avnadmin` (or your custom database username)
+   - `DB_PASSWORD` = `your_secure_password` (password for your local VPS database)
+   - `DB_NAME` = `odst_group`
+   - `DB_SSL` = `false` (disabled for internal Docker network connection)
+   - `JWT_SECRET` = `your_jwt_secret_token`
+   - `DB_ROOT_PASSWORD` = `your_root_database_password`
+5. **Assign Domain:**
+   - Under the **frontend** settings in Coolify, assign your domain (e.g. `https://odst.id`).
+   - If `odst.id` is still transferring, use Coolify's default `sslip.io` domain (e.g. `http://<YOUR_VPS_IP>.sslip.io`).
+6. **Deploy:** Click **Deploy**. Coolify will download the code, compile the React bundle using the multi-stage Dockerfile (enforcing `NODE_ENV=development` during build so devDependencies are installed), set up MySQL persistent storage, and serve the site.
 
 ---
 
 ## 🔐 Credentials (Initial Seed)
-* **Email:** `admin@odst.id`
+* **Email:** `admin@odst.id` (or username `admin`)
 * **Password:** `password123`
-*(Ensure you modify these credentials after first login for security).*
+*(Make sure to change these credentials from the Admin Profile tab immediately after logging in).*
+

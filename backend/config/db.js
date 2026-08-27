@@ -13,6 +13,11 @@ const sequelize = new Sequelize(
     port: process.env.DB_PORT || 3306,
     dialect: 'mysql',
     logging: false, // Turn off sql logging in console for cleaner logs
+    dialectOptions: process.env.DB_SSL === 'true' ? {
+      ssl: {
+        rejectUnauthorized: false
+      }
+    } : {},
     pool: {
       max: 5,
       min: 0,

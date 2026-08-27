@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "about": "About Us",
+    "companies": "Companies",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Welcome to ODST Group",
+    "description": "Your trusted partner for Hajj & Umrah — providing world-class hotels, aviation, and travel services.",
+    "cta": "Explore Our Companies"
+  },
+  "services": {
+    "hotels": {
+      "badge": "Premium Hospitality",
+      "title": "ODST Hotels",
+      "description": "Provides hospitality services close to the Holy sites. Our hotels offer comfort, convenience, and spiritual tranquility for many pilgrims. Experience refined stays with panoramic views of the Holy Mosque."
+    },
+    "airlines": {
+      "badge": "Aviation & Charter",
+      "title": "ODST Airlines",
+      "description": "Seamless journeys to the Holy Land. Dedicated charters and flight solutions with exceptional comfort, premium catering, and a deeply attentive service tailored for your spiritual journey."
+    },
+    "travel": {
+      "badge": "Bespoke Journeys",
+      "title": "ODST Tour & Travel",
+      "description": "Complete pilgrim and package travel solutions for your needs. From guide grouping to highly personalized guided tours and excellent ground transportation, we handle every detail so you can focus on your spiritual fulfillment."
+    },
+    "learnMore": "Learn More"
+  },
+  "newsletter": {
+    "badge": "Stay Updated",
+    "title": "Subscribe to Our Newsletter",
+    "description": "Get the latest ODST Group news, offers, and updates delivered straight to your inbox.",
+    "fullName": "Full name",
+    "phone": "Phone number",
+    "email": "Email address",
+    "subscribe": "Subscribe",
+    "subscribing": "Subscribing...",
+    "success": "✓ Thank you! You have successfully subscribed to our newsletter.",
+    "error": "⚠ Please fill in all fields before submitting."
+  },
+  "contactHero": {
+    "badge": "Connect With Us",
+    "title": "We Are Here To Assist You",
+    "description": "Get in touch with our dedicated teams to manage your premium hotel bookings, aviation charters, and bespoke Hajj & Umrah journeys."
+  },
+  "contactForm": {
+    "title": "Send a Message",
+    "subtitle": "Fill out the form below and our regional representative will contact you within 24 hours.",
+    "labels": {
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "department": "Department",
+      "message": "Your Message"
+    },
+    "placeholders": {
+      "fullName": "e.g. Abdullah Rahman",
+      "email": "e.g. abdullah@example.com",
+      "phone": "e.g. +966 50 000 0000",
+      "department": "Select ODST Service Division",
+      "message": "Describe your requirements or questions in detail..."
+    },
+    "options": {
+      "hotels": "ODST Hotels (Hospitality)",
+      "airlines": "ODST Airlines (Aviation)",
+      "travel": "ODST Tour & Travel (Pilgrim Services)"
+    },
+    "submit": "Submit Inquiry",
+    "submitting": "Submitting...",
+    "disclaimer": "Your data is securely processed in accordance with our privacy policy.",
+    "success": "✓ Your inquiry has been submitted successfully. A representative will contact you soon.",
+    "error": "⚠ Submission failed. Please fill out all fields."
+  },
+  "contactConnections": {
+    "title": "Direct Connections",
+    "subtitle": "Reach out directly to the specialized coordinators of our key service divisions.",
+    "address": "CBC Tower Lt. 8, Cengkareng Business City Jl. Rp. Soewarno, Benda, Tangerang, Banten 15125"
+  },
+  "footer": {
+    "description": "A premier conglomerate offering dedicated Hajj and Umrah solutions, establishing absolute spiritual tranquility through premium hospitality, logistics, and aviation.",
+    "headings": {
+      "companies": "Companies",
+      "resources": "Resources"
+    },
+    "links": {
+      "partnerPortals": "Partner Portals",
+      "about": "About Us",
+      "news": "Latest News",
+      "careers": "Careers",
+      "contact": "Contact",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    },
+    "rights": "© {{year}} ODST Group. All rights reserved."
+  }
+}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { Badge } from '../ui/Badge';
 import apiService from '../../services/api';
@@ -13,6 +14,8 @@ interface ConnectionInfo {
 }
 
 export default function ContactConnections() {
+  const { t } = useTranslation();
+
   const defaultConnections: ConnectionInfo[] = [
     {
       id: 'hotels',
@@ -74,68 +77,75 @@ export default function ContactConnections() {
   }, []);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-start">
       {/* Title & Subtitle */}
       <div className="space-y-2">
         <h2 className="text-2xl md:text-3xl font-bold text-brand-navy">
-          Direct Connections
+          {t('contactConnections.title')}
         </h2>
         <p className="text-slate-400 text-sm leading-relaxed max-w-md">
-          Reach out directly to the specialized coordinators of our key service divisions.
+          {t('contactConnections.subtitle')}
         </p>
       </div>
 
       {/* Connection Cards Stack */}
       <div className="space-y-4">
-        {connections.map((conn) => (
-          <div
-            key={conn.id}
-            className="bg-white rounded-xl border border-slate-100 shadow-lg p-5 md:p-6 hover:shadow-xl transition-all duration-300 group"
-          >
-            {/* Badge Tag */}
-            <div className="mb-3">
-              <Badge>{conn.badge}</Badge>
+        {connections.map((conn) => {
+          // Translate dynamic fields or use fallback values
+          const badge = t(`services.${conn.id}.badge`, conn.badge);
+          const title = t(`services.${conn.id}.title`, conn.title);
+          const address = t(`contactConnections.address`, conn.address);
+
+          return (
+            <div
+              key={conn.id}
+              className="bg-white rounded-xl border border-slate-100 shadow-lg p-5 md:p-6 hover:shadow-xl transition-all duration-300 group"
+            >
+              {/* Badge Tag */}
+              <div className="mb-3">
+                <Badge>{badge}</Badge>
+              </div>
+
+              {/* Division Title */}
+              <h3 className="text-lg md:text-xl font-bold text-brand-navy mb-4 group-hover:text-brand-orange transition-colors">
+                {title}
+              </h3>
+
+              {/* Details Wrapper */}
+              <div className="space-y-3 text-xs md:text-sm text-slate-500 font-sans">
+                {/* Phone Line */}
+                <div className="flex items-center space-x-3.5 rtl:space-x-reverse">
+                  <Phone size={15} className="text-black shrink-0" />
+                  <a
+                    href={`tel:${conn.phone.replace(/\s+/g, '')}`}
+                    className="hover:text-brand-orange font-medium transition-colors"
+                  >
+                    {conn.phone}
+                  </a>
+                </div>
+
+                {/* Email Line */}
+                <div className="flex items-center space-x-3.5 rtl:space-x-reverse">
+                  <Mail size={15} className="text-black shrink-0" />
+                  <a
+                    href={`mailto:${conn.email}`}
+                    className="hover:text-brand-orange font-medium transition-colors"
+                  >
+                    {conn.email}
+                  </a>
+                </div>
+
+                {/* Address Line */}
+                <div className="flex items-start space-x-3.5 rtl:space-x-reverse">
+                  <MapPin size={15} className="text-black shrink-0 mt-0.5" />
+                  <p className="leading-relaxed font-light">
+                    {address}
+                  </p>
+                </div>
+              </div>
             </div>
-
-            {/* Division Title */}
-            <h3 className="text-lg md:text-xl font-bold text-brand-navy mb-4 group-hover:text-brand-orange transition-colors">
-              {conn.title}
-            </h3>
-
-            {/* Details Wrapper */}
-            <div className="space-y-3 text-xs md:text-sm text-slate-500 font-sans">
-              {/* Phone Line */}
-              <div className="flex items-center space-x-3.5">
-                <Phone size={15} className="text-black shrink-0" />
-                <a
-                  href={`tel:${conn.phone.replace(/\s+/g, '')}`}
-                  className="hover:text-brand-orange font-medium transition-colors"
-                >
-                  {conn.phone}
-                </a>
-              </div>
-
-              {/* Email Line */}
-              <div className="flex items-center space-x-3.5">
-                <Mail size={15} className="text-black shrink-0" />
-                <a
-                  href={`mailto:${conn.email}`}
-                  className="hover:text-brand-orange font-medium transition-colors"
-                >
-                  {conn.email}
-                </a>
-              </div>
-
-              {/* Address Line */}
-              <div className="flex items-start space-x-3.5">
-                <MapPin size={15} className="text-black shrink-0 mt-0.5" />
-                <p className="leading-relaxed font-light">
-                  {conn.address}
-                </p>
-              </div>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

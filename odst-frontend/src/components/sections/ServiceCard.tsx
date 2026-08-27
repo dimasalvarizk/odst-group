@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import { Link } from 'react-router-dom';
@@ -20,6 +21,13 @@ const resolveImageUrl = (imageUrl: string, id: string) => {
 };
 
 export default function ServiceCard({ service }: ServiceCardProps) {
+  const { t } = useTranslation();
+
+  // Handle dynamic translation with fallbacks for dynamic services from API
+  const badge = t(`services.${service.id}.badge`, service.badge);
+  const title = t(`services.${service.id}.title`, service.title);
+  const description = t(`services.${service.id}.description`, service.description);
+
   return (
     <div
       className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 ${
@@ -29,23 +37,23 @@ export default function ServiceCard({ service }: ServiceCardProps) {
       {/* Text Column */}
       <div className="w-full lg:w-1/2 space-y-6 animate-fadeIn">
         {/* Badge Label */}
-        <Badge>{service.badge}</Badge>
+        <Badge>{badge}</Badge>
 
         {/* Title */}
         <h2 className="text-3xl md:text-4xl font-bold text-brand-navy leading-tight">
-          {service.title}
+          {title}
         </h2>
 
         {/* Description */}
         <p className="text-slate-600 leading-relaxed text-base md:text-lg font-spectral font-normal">
-          {service.description}
+          {description}
         </p>
 
         {/* Learn More Button */}
         <div>
           <Link to="/coming-soon">
             <Button>
-              Learn More
+              {t('services.learnMore')}
             </Button>
           </Link>
         </div>
@@ -59,7 +67,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
           
           <img
             src={resolveImageUrl(service.imageUrl || '', service.id)}
-            alt={service.title}
+            alt={title}
             className="w-full h-[300px] md:h-[420px] object-cover transform group-hover:scale-102 transition-transform duration-700 ease-out"
           />
         </div>

@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useScroll } from '../../hooks/useScroll';
 import logo from '../../assets/odstlogo.png';
+import LanguageSelector from './LanguageSelector';
 
 export default function Navbar() {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const isScrolled = useScroll(20);
   const location = useLocation();
@@ -12,9 +15,9 @@ export default function Navbar() {
   const isContactPage = location.pathname === '/contact';
 
   const navItems = [
-    { label: 'About Us', href: '/#about', to: '/', isSpaLink: false },
-    { label: 'Companies', href: '/#services', to: '/', isSpaLink: false },
-    { label: 'Contact', href: '/contact', to: '/contact', isSpaLink: true },
+    { label: t('nav.about'), href: '/#about', to: '/', isSpaLink: false },
+    { label: t('nav.companies'), href: '/#services', to: '/', isSpaLink: false },
+    { label: t('nav.contact'), href: '/contact', to: '/contact', isSpaLink: true },
   ];
 
   const renderLink = (item: typeof navItems[0], isMobile = false) => {
@@ -33,7 +36,7 @@ export default function Navbar() {
 
     const underlineBar = !isMobile && (
       <span
-        className={`absolute bottom-[-4px] left-0 h-0.5 bg-brand-orange transition-all duration-300 ${
+        className={`absolute bottom-[-4px] start-0 h-0.5 bg-brand-orange transition-all duration-300 ${
           isActive ? 'w-full' : 'w-0 group-hover:w-full'
         }`}
       />
@@ -68,7 +71,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 start-0 w-full z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-[#050c1e]/85 backdrop-blur-md shadow-lg border-b border-white/10 py-3'
           : 'bg-transparent py-5'
@@ -76,13 +79,14 @@ export default function Navbar() {
     >
       <div className="max-w-[85rem] mx-auto px-4 md:px-8 flex justify-between items-center">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2 focus:outline-none">
+        <Link to="/" className="flex items-center space-x-2 rtl:space-x-reverse focus:outline-none">
           <img src={logo} alt="ODST Logo" className="h-10 md:h-11 w-auto hover:opacity-90 transition-opacity" />
         </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center space-x-8">
+        {/* Desktop Links & Language Selector */}
+        <div className="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
           {navItems.map((item) => renderLink(item, false))}
+          <LanguageSelector />
         </div>
 
         {/* Mobile Toggle Button */}
@@ -97,12 +101,13 @@ export default function Navbar() {
 
       {/* Mobile Menu Panel */}
       <div
-        className={`md:hidden absolute top-full left-0 w-full bg-brand-navy border-t border-white/10 shadow-xl transition-all duration-300 ease-in-out ${
+        className={`md:hidden absolute top-full start-0 w-full bg-brand-navy border-t border-white/10 shadow-xl transition-all duration-300 ease-in-out ${
           isOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-4 invisible'
         }`}
       >
         <div className="flex flex-col py-4 px-6 space-y-4">
           {navItems.map((item) => renderLink(item, true))}
+          <LanguageSelector isMobile />
         </div>
       </div>
     </nav>

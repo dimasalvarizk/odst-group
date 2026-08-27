@@ -1,6 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import { images } from '../../utils/images';
 
 export default function ContactHero() {
+  const { t } = useTranslation();
+
   return (
     <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -16,17 +19,17 @@ export default function ContactHero() {
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white fade-in">
         {/* Subtitle Badge */}
         <span className="inline-block text-brand-orange text-xs md:text-sm font-semibold tracking-widest uppercase mb-4 opacity-90">
-          Connect With Us
+          {t('contactHero.badge')}
         </span>
 
         {/* Heading */}
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-5 leading-tight">
-          We Are Here To Assist You
+          {t('contactHero.title')}
         </h1>
 
         {/* Paragraph Description using Spectral font */}
         <p className="text-base md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed font-spectral font-normal">
-          Get in touch with our dedicated teams to manage your premium hotel bookings, aviation charters, and bespoke Hajj & Umrah journeys.
+          {t('contactHero.description')}
         </p>
       </div>
     </section>

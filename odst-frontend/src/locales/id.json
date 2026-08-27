@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "about": "Tentang Kami",
+    "companies": "Perusahaan",
+    "contact": "Hubungi Kami"
+  },
+  "hero": {
+    "title": "Selamat Datang di ODST Group",
+    "description": "Mitra terpercaya Anda untuk Haji & Umrah — menyediakan hotel, penerbangan, dan layanan perjalanan kelas dunia.",
+    "cta": "Jelajahi Perusahaan Kami"
+  },
+  "services": {
+    "hotels": {
+      "badge": "Keramahan Premium",
+      "title": "ODST Hotels",
+      "description": "Menyediakan layanan keramahan yang dekat dengan tempat-tempat Suci. Hotel kami menawarkan kenyamanan, kemudahan, dan ketenangan spiritual bagi para jemaah. Rasakan masa inap mewah dengan pemandangan indah Masjidil Haram."
+    },
+    "airlines": {
+      "badge": "Penerbangan & Carter",
+      "title": "ODST Airlines",
+      "description": "Perjalanan mulus ke Tanah Suci. Solusi penerbangan dan carter khusus dengan kenyamanan luar biasa, katering premium, dan layanan penuh perhatian yang disesuaikan untuk perjalanan spiritual Anda."
+    },
+    "travel": {
+      "badge": "Perjalanan Khusus",
+      "title": "ODST Tour & Travel",
+      "description": "Solusi perjalanan paket dan jemaah lengkap untuk kebutuhan Anda. Mulai dari pengelompokan pemandu hingga tur berpemandu yang sangat dipersonalisasi dan transportasi darat yang luar biasa, kami menangani setiap detail sehingga Anda dapat fokus pada pemenuhan spiritual Anda."
+    },
+    "learnMore": "Pelajari Lebih Lanjut"
+  },
+  "newsletter": {
+    "badge": "Tetap Terbarui",
+    "title": "Berlangganan Newsletter Kami",
+    "description": "Dapatkan berita, penawaran, dan pembaruan terbaru dari ODST Group langsung ke kotak masuk Anda.",
+    "fullName": "Nama lengkap",
+    "phone": "Nomor telepon",
+    "email": "Alamat email",
+    "subscribe": "Berlangganan",
+    "subscribing": "Menghubungkan...",
+    "success": "✓ Terima kasih! Anda telah berhasil berlangganan newsletter kami.",
+    "error": "⚠ Silakan isi semua kolom sebelum mengirimkan."
+  },
+  "contactHero": {
+    "badge": "Hubungi Kami",
+    "title": "Kami di Sini untuk Membantu Anda",
+    "description": "Hubungi tim khusus kami untuk mengelola pemesanan hotel premium, carter penerbangan, dan perjalanan Haji & Umrah khusus Anda."
+  },
+  "contactForm": {
+    "title": "Kirim Pesan",
+    "subtitle": "Isi formulir di bawah ini dan perwakilan regional kami akan menghubungi Anda dalam waktu 24 jam.",
+    "labels": {
+      "fullName": "Nama Lengkap",
+      "email": "Alamat Email",
+      "phone": "Nomor Telepon",
+      "department": "Departemen",
+      "message": "Pesan Anda"
+    },
+    "placeholders": {
+      "fullName": "mis. Abdullah Rahman",
+      "email": "mis. abdullah@example.com",
+      "phone": "mis. +966 50 000 0000",
+      "department": "Pilih Divisi Layanan ODST",
+      "message": "Jelaskan kebutuhan atau pertanyaan Anda secara rinci..."
+    },
+    "options": {
+      "hotels": "Hotel ODST (Perhotelan)",
+      "airlines": "Maskapai ODST (Penerbangan)",
+      "travel": "Tur & Perjalanan ODST (Layanan Jemaah)"
+    },
+    "submit": "Kirim Pertanyaan",
+    "submitting": "Mengirimkan...",
+    "disclaimer": "Data Anda diproses secara aman sesuai dengan kebijakan privasi kami.",
+    "success": "✓ Pertanyaan Anda telah berhasil dikirim. Perwakilan kami akan segera menghubungi Anda.",
+    "error": "⚠ Pengiriman gagal. Silakan isi semua kolom."
+  },
+  "contactConnections": {
+    "title": "Koneksi Langsung",
+    "subtitle": "Hubungi langsung koordinator khusus dari divisi layanan utama kami.",
+    "address": "CBC Tower Lt. 8, Cengkareng Business City Jl. Rp. Soewarno, Benda, Tangerang, Banten 15125"
+  },
+  "footer": {
+    "description": "Konglomerat terkemuka yang menawarkan solusi Haji dan Umrah khusus, menciptakan ketenangan spiritual mutlak melalui keramahan premium, logistik, dan penerbangan.",
+    "headings": {
+      "companies": "Perusahaan",
+      "resources": "Sumber Daya"
+    },
+    "links": {
+      "partnerPortals": "Portal Mitra",
+      "about": "Tentang Kami",
+      "news": "Berita Terbaru",
+      "careers": "Karir",
+      "contact": "Hubungi Kami",
+      "privacy": "Kebijakan Privasi",
+      "terms": "Ketentuan Layanan"
+    },
+    "rights": "© {{year}} ODST Group. Hak cipta dilindungi undang-undang."
+  }
+}

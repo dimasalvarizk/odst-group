@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
+import { images } from '../utils/images';
 
 export default function TermsOfServicePage() {
   useEffect(() => {
@@ -12,15 +13,25 @@ export default function TermsOfServicePage() {
       <Navbar />
 
       {/* Hero Header */}
-      <section className="bg-[#050c1e] text-white pt-32 pb-16 md:pt-40 md:pb-24 text-center">
-        <div className="max-w-4xl mx-auto px-6">
-          <span className="text-brand-gold text-xs font-semibold tracking-widest uppercase mb-2 block">
+      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
+          style={{ backgroundImage: `url(${images.contactHero})` }}
+        />
+        
+        {/* Dark Translucent Overlay - using exact rgba(0, 0, 0, 0.75) */}
+        <div className="absolute inset-0 bg-black/75" />
+
+        {/* Content */}
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white fade-in">
+          <span className="text-brand-orange text-xs font-semibold tracking-widest uppercase mb-2 block">
             ODST Group Guidelines
           </span>
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 font-spectral">
             Terms of Service
           </h1>
-          <p className="text-slate-400 text-xs md:text-sm max-w-md mx-auto">
+          <p className="text-white/60 text-xs md:text-sm max-w-md mx-auto">
             Last Updated: August 27, 2026
           </p>
         </div>

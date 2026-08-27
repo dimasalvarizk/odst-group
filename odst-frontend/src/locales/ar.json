@@ -72,9 +72,9 @@
       "message": "صف متطلباتك أو أسئلتك بالتفصيل..."
     },
     "options": {
-      "hotels": "ODST Hotels (Hospitality)",
-      "airlines": "ODST Airlines (Aviation)",
-      "travel": "ODST Tour & Travel (Pilgrim Services)"
+      "hotels": "فنادق أودست (الضيافة)",
+      "airlines": "طيران أودست (الطيران)",
+      "travel": "أودست للسياحة والسفر (خدمات الحجاج)"
     },
     "submit": "إرسال الاستفسار",
     "submitting": "جاري الإرسال...",

@@ -1,11 +1,11 @@
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
+import { Link } from 'react-router-dom';
 import type { Service } from '../../utils/servicesData';
 import { images } from '../../utils/images';
 
 interface ServiceCardProps {
   service: Service;
-  onLearnMoreClick: () => void;
 }
 
 const resolveImageUrl = (imageUrl: string, id: string) => {
@@ -19,7 +19,7 @@ const resolveImageUrl = (imageUrl: string, id: string) => {
   return imageUrl;
 };
 
-export default function ServiceCard({ service, onLearnMoreClick }: ServiceCardProps) {
+export default function ServiceCard({ service }: ServiceCardProps) {
   return (
     <div
       className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 ${
@@ -43,9 +43,11 @@ export default function ServiceCard({ service, onLearnMoreClick }: ServiceCardPr
 
         {/* Learn More Button */}
         <div>
-          <Button onClick={onLearnMoreClick}>
-            Learn More
-          </Button>
+          <Link to="/coming-soon">
+            <Button>
+              Learn More
+            </Button>
+          </Link>
         </div>
       </div>
 
@@ -53,14 +55,12 @@ export default function ServiceCard({ service, onLearnMoreClick }: ServiceCardPr
       <div className="w-full lg:w-1/2">
         <div className="relative group overflow-hidden rounded-2xl shadow-xl border border-slate-100">
           {/* Background decorative glow on hover */}
-          <div className="absolute inset-0 bg-brand-navy/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+          <div className="absolute inset-0 bg-brand-orange/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
           
-          {/* Image */}
           <img
-            src={resolveImageUrl(service.imageUrl, service.id)}
+            src={resolveImageUrl(service.imageUrl || '', service.id)}
             alt={service.title}
-            className="w-full h-[300px] md:h-[400px] object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
-            loading="lazy"
+            className="w-full h-[300px] md:h-[420px] object-cover transform group-hover:scale-102 transition-transform duration-700 ease-out"
           />
         </div>
       </div>

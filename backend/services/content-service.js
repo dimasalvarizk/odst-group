@@ -25,9 +25,9 @@ const seedServices = async () => {
           imageUrl: 'hotels',
           imageLeft: false,
           link: '#hotels',
-          phone: '+62 811 1202 225',
+          phone: '+62 81111 202225',
           email: 'info@odst.id',
-          address: 'CBC Tower Lt. 8, Cengkareng Business City Jl. Rp. Soewarno, Benda, Tangerang, Banten 15125'
+          address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740'
         },
         {
           id: 'airlines',
@@ -37,9 +37,9 @@ const seedServices = async () => {
           imageUrl: 'airlines',
           imageLeft: true,
           link: '#airlines',
-          phone: '+62 811 1202 230',
+          phone: '+62 81111 202220',
           email: 'info@odst.id',
-          address: 'CBC Tower Lt. 8, Cengkareng Business City Jl. Rp. Soewarno, Benda, Tangerang, Banten 15125'
+          address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740'
         },
         {
           id: 'travel',
@@ -49,9 +49,9 @@ const seedServices = async () => {
           imageUrl: 'travel',
           imageLeft: false,
           link: '#travel',
-          phone: '+62 811 1203 332',
+          phone: '+62 81111 203330',
           email: 'info@odst.id',
-          address: 'CBC Tower Lt. 8, Cengkareng Business City Jl. Rp. Soewarno, Benda, Tangerang, Banten 15125'
+          address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740'
         }
       ]);
       console.log('Default services seeded successfully.');
@@ -61,15 +61,15 @@ const seedServices = async () => {
       if (hotels && !hotels.phone) {
         console.log('Updating existing services with default contact details...');
         await Service.update(
-          { phone: '+62 811 1202 225', email: 'info@odst.id', address: 'CBC Tower Lt. 8, Cengkareng Business City Jl. Rp. Soewarno, Benda, Tangerang, Banten 15125' },
+          { phone: '+62 81111 202225', email: 'info@odst.id', address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740' },
           { where: { id: 'hotels' } }
         );
         await Service.update(
-          { phone: '+62 811 1202 230', email: 'info@odst.id', address: 'CBC Tower Lt. 8, Cengkareng Business City Jl. Rp. Soewarno, Benda, Tangerang, Banten 15125' },
+          { phone: '+62 81111 202220', email: 'info@odst.id', address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740' },
           { where: { id: 'airlines' } }
         );
         await Service.update(
-          { phone: '+62 811 1203 332', email: 'info@odst.id', address: 'CBC Tower Lt. 8, Cengkareng Business City Jl. Rp. Soewarno, Benda, Tangerang, Banten 15125' },
+          { phone: '+62 81111 203330', email: 'info@odst.id', address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740' },
           { where: { id: 'travel' } }
         );
         console.log('Existing services updated with contact info.');

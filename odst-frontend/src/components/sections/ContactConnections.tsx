@@ -21,25 +21,25 @@ export default function ContactConnections() {
       id: 'hotels',
       badge: 'Premium Hospitality',
       title: 'ODST Hotels',
-      phone: '+62 811 1202 225',
+      phone: '+62 81111 202225',
       email: 'info@odst.id',
-      address: 'CBC Tower G, Jl. Cengkareng Business City Jl. Kp. Rw. Bokor Pocol, RT.006/RW.007, Benda, Kec. Benda, Kota Tangerang, Banten 15125',
+      address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740',
     },
     {
       id: 'airlines',
       badge: 'Aviation & Charter',
       title: 'ODST Airlines',
-      phone: '+62 811 1202 220',
+      phone: '+62 81111 202220',
       email: 'info@odst.id',
-      address: 'CBC Tower G, Jl. Cengkareng Business City Jl. Kp. Rw. Bokor Pocol, RT.006/RW.007, Benda, Kec. Benda, Kota Tangerang, Banten 15125',
+      address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740',
     },
     {
       id: 'travel',
       badge: 'Bespoke Journeys',
-      title: 'ODST Tour&travel',
-      phone: '+62 811 1203 330',
+      title: 'ODST Tour & Travel',
+      phone: '+62 81111 203330',
       email: 'info@odst.id',
-      address: 'CBC Tower G, Jl. Cengkareng Business City Jl. Kp. Rw. Bokor Pocol, RT.006/RW.007, Benda, Kec. Benda, Kota Tangerang, Banten 15125',
+      address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740',
     },
   ];
 
@@ -50,7 +50,9 @@ export default function ContactConnections() {
       try {
         const data = await apiService.getServices();
         if (data && data.length > 0) {
-          const mapped = data.map((s: any) => {
+          const orderMap: Record<string, number> = { hotels: 0, airlines: 1, travel: 2 };
+          const sorted = [...data].sort((a, b) => (orderMap[a.id] ?? 99) - (orderMap[b.id] ?? 99));
+          const mapped = sorted.map((s: any) => {
             const defaults = defaultConnections.find((dc) => dc.id === s.id) || {
               badge: '',
               title: '',
@@ -62,9 +64,9 @@ export default function ContactConnections() {
               id: s.id,
               badge: s.badge || defaults.badge,
               title: s.title || defaults.title,
-              phone: s.phone || defaults.phone || '',
-              email: s.email || defaults.email || '',
-              address: s.address || defaults.address || '',
+              phone: s.phone || defaults.phone,
+              email: s.email || defaults.email,
+              address: s.address || defaults.address,
             };
           });
           setConnections(mapped);
@@ -91,9 +93,12 @@ export default function ContactConnections() {
       {/* Connection Cards Stack */}
       <div className="space-y-4">
         {connections.map((conn) => {
-          // Translate dynamic fields or use fallback values
-          const badge = t(`services.${conn.id}.badge`, conn.badge);
-          const address = t(`contactConnections.address`, conn.address);
+          // Translate dynamic badge if default, or use custom DB badge
+          const isStandardBadge = ['Premium Hospitality', 'Aviation & Charter', 'Bespoke Journeys', 'ODST Hotels', 'ODST Airlines', 'ODST Tour & Travel'].includes(conn.badge);
+          const badge = isStandardBadge ? t(`services.${conn.id}.badge`, conn.badge) : conn.badge;
+          
+          // Address directly from database
+          const address = conn.address || t('contactConnections.address', '');
 
           return (
             <div
@@ -114,7 +119,7 @@ export default function ContactConnections() {
               <div className="space-y-3 text-xs md:text-sm text-slate-500 font-sans">
                 {/* Phone Line */}
                 <div className="flex items-center space-x-3.5 rtl:space-x-reverse">
-                  <Phone size={15} className="text-black shrink-0" />
+                  <Phone size={15} className="text-brand-gold shrink-0" />
                   <a
                     href={`tel:${conn.phone.replace(/\s+/g, '')}`}
                     className="hover:text-brand-orange font-medium transition-colors"
@@ -125,7 +130,7 @@ export default function ContactConnections() {
 
                 {/* Email Line */}
                 <div className="flex items-center space-x-3.5 rtl:space-x-reverse">
-                  <Mail size={15} className="text-black shrink-0" />
+                  <Mail size={15} className="text-brand-gold shrink-0" />
                   <a
                     href={`mailto:${conn.email}`}
                     className="hover:text-brand-orange font-medium transition-colors"
@@ -136,7 +141,7 @@ export default function ContactConnections() {
 
                 {/* Address Line */}
                 <div className="flex items-start space-x-3.5 rtl:space-x-reverse">
-                  <MapPin size={15} className="text-black shrink-0 mt-0.5" />
+                  <MapPin size={15} className="text-brand-gold shrink-0 mt-0.5" />
                   <p className="leading-relaxed font-light">
                     {address}
                   </p>
@@ -149,3 +154,4 @@ export default function ContactConnections() {
     </div>
   );
 }
+

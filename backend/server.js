@@ -9,6 +9,8 @@ import sequelize, { connectDB } from './config/db.js';
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 import User from './models/User.js';
 import Service from './models/Service.js';
+import Contact from './models/Contact.js';
+import Newsletter from './models/Newsletter.js';
 
 dotenv.config();
 

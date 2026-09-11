@@ -6,10 +6,10 @@ services:
     container_name: odst_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword123}
-      MYSQL_DATABASE: ${DB_NAME:-odst_group}
-      MYSQL_USER: ${DB_USER:-avnadmin}
-      MYSQL_PASSWORD: ${DB_PASSWORD:-AVNS_9ySGvnNH6nEdcZHIGI4}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
       - odst_db_data:/var/lib/mysql
     networks:
@@ -24,15 +24,15 @@ services:
     depends_on:
       - db
     environment:
-      - PORT=5000
-      - NODE_ENV=production
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_USER=${DB_USER:-avnadmin}
-      - DB_PASSWORD=${DB_PASSWORD:-AVNS_9ySGvnNH6nEdcZHIGI4}
-      - DB_NAME=${DB_NAME:-odst_group}
-      - DB_SSL=false
-      - JWT_SECRET=${JWT_SECRET:-supersecretjwtkeyforodstgroup123}
+      - PORT=${PORT:-5000}
+      - NODE_ENV=${NODE_ENV:-production}
+      - DB_HOST=${DB_HOST:-db}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_SSL=${DB_SSL:-false}
+      - JWT_SECRET=${JWT_SECRET}
       - MAILCHIMP_API_KEY=${MAILCHIMP_API_KEY}
       - MAILCHIMP_SERVER_PREFIX=${MAILCHIMP_SERVER_PREFIX}
       - MAILCHIMP_AUDIENCE_ID=${MAILCHIMP_AUDIENCE_ID}

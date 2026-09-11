@@ -11,7 +11,7 @@ const sendNotificationEmail = async (contactData) => {
 
   const smtpHost = process.env.SMTP_HOST || 'smtp.titan.email';
   const smtpPort = parseInt(process.env.SMTP_PORT || '465');
-  const isSecure = process.env.SMTP_SECURE === 'true' || smtpPort === 465;
+  const isSecure = smtpPort === 465 || process.env.SMTP_SECURE === 'true';
 
   try {
     const transporter = nodemailer.createTransport({
@@ -25,13 +25,16 @@ const sendNotificationEmail = async (contactData) => {
       tls: {
         rejectUnauthorized: false,
       },
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
     });
 
     const senderEmail = process.env.SMTP_USER || 'info@odst.id';
     const recipientEmail = process.env.CONTACT_NOTIFICATION_EMAIL || senderEmail;
 
     const mailOptions = {
-      from: `"ODST Group Website" <${senderEmail}>`,
+      from: `"ODST Group" <${senderEmail}>`,
       to: recipientEmail,
       replyTo: contactData.email,
       subject: `[New Inquiry] ${contactData.fullName} - ${contactData.department}`,
@@ -86,9 +89,74 @@ This email is sent automatically from the ODST Portal.`,
 
     const info = await transporter.sendMail(mailOptions);
     console.log(`Notification email sent successfully: ${info.messageId}`);
+    return { success: true, messageId: info.messageId };
   } catch (error) {
     console.error(`Failed to send notification email: ${error.message}`);
-    // Do not throw the error, we want the controller to still succeed
+    return { success: false, error: error.message };
+  }
+};
+
+// @desc    Test SMTP Connection and Send Sample Email
+// @route   GET /api/contacts/test-smtp
+// @access  Public
+export const testSmtpConnection = async (req, res) => {
+  const smtpHost = process.env.SMTP_HOST || 'smtp.titan.email';
+  const smtpPort = parseInt(process.env.SMTP_PORT || '465');
+  const isSecure = smtpPort === 465 || process.env.SMTP_SECURE === 'true';
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: isSecure,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
+
+    await transporter.verify();
+
+    const senderEmail = process.env.SMTP_USER || 'info@odst.id';
+    const recipientEmail = process.env.CONTACT_NOTIFICATION_EMAIL || senderEmail;
+
+    const info = await transporter.sendMail({
+      from: `"ODST System Test" <${senderEmail}>`,
+      to: recipientEmail,
+      subject: 'ODST SMTP Notification Test',
+      text: 'Congratulations! Your SMTP configuration is working perfectly on the server.',
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+          <h2 style="color: #0c1a30; border-bottom: 2px solid #ea580c; padding-bottom: 8px;">SMTP Test Successful</h2>
+          <p>Your Titan Email / SMTP connection is configured properly and ready to receive customer inquiries.</p>
+          <p style="font-size: 12px; color: #64748b;">Host: ${smtpHost} | Port: ${smtpPort} | User: ${senderEmail}</p>
+        </div>
+      `,
+    });
+
+    res.json({
+      success: true,
+      message: 'SMTP connection verified and test email dispatched successfully!',
+      messageId: info.messageId,
+      recipient: recipientEmail,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: `SMTP Test Error: ${error.message}`,
+      code: error.code,
+      response: error.response,
+      command: error.command,
+      config: {
+        host: smtpHost,
+        port: smtpPort,
+        secure: isSecure,
+        user: process.env.SMTP_USER,
+      },
+    });
   }
 };
 

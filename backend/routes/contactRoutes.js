@@ -5,10 +5,14 @@ import {
   getContactById,
   updateContactStatus,
   deleteContact,
+  testSmtpConnection,
 } from '../controllers/contactController.js';
 import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
+
+// Diagnostic endpoint to test SMTP email delivery
+router.get('/test-smtp', testSmtpConnection);
 
 // Public submission, and Admin list
 router.route('/')
@@ -22,3 +26,4 @@ router.route('/:id')
   .delete(protect, deleteContact);
 
 export default router;
+

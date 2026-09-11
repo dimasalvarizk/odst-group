@@ -25,4 +25,5 @@ build/
 *.sln
 *.sw?
 .DS_Store
-Thumbs.db
+# Documentation
+README.md

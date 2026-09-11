@@ -34,10 +34,10 @@ const sendNotificationEmail = async (contactData) => {
     const recipientEmail = process.env.CONTACT_NOTIFICATION_EMAIL || senderEmail;
 
     const mailOptions = {
-      from: `"ODST Group" <${senderEmail}>`,
+      from: `"${contactData.fullName} via ODST" <${senderEmail}>`,
       to: recipientEmail,
       replyTo: contactData.email,
-      subject: `[New Inquiry] ${contactData.fullName} - ${contactData.department}`,
+      subject: `New ODST Inquiry - Division: ${contactData.department} (${contactData.fullName})`,
       text: `You have received a new contact inquiry from the ODST website.
       
 Detail Visitor:

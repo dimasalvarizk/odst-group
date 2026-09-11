@@ -3,28 +3,38 @@ import nodemailer from 'nodemailer';
 
 // Helper function to send email notification to the administrator
 const sendNotificationEmail = async (contactData) => {
-  // If SMTP host is not configured, skip email sending
-  if (!process.env.SMTP_HOST) {
-    console.log('SMTP_HOST is not configured. Skipping email notification.');
+  // If SMTP host or user is not configured, skip email sending
+  if (!process.env.SMTP_HOST && !process.env.SMTP_USER) {
+    console.log('SMTP credentials not configured. Skipping email notification.');
     return;
   }
 
+  const smtpHost = process.env.SMTP_HOST || 'smtp.titan.email';
+  const smtpPort = parseInt(process.env.SMTP_PORT || '465');
+  const isSecure = process.env.SMTP_SECURE === 'true' || smtpPort === 465;
+
   try {
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || '587'),
-      secure: process.env.SMTP_SECURE === 'true', // true for 465, false for 587/other ports
+      host: smtpHost,
+      port: smtpPort,
+      secure: isSecure, // true for 465 (SSL), false for 587 (TLS/STARTTLS)
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASSWORD,
       },
+      tls: {
+        rejectUnauthorized: false,
+      },
     });
 
+    const senderEmail = process.env.SMTP_USER || 'info@odst.id';
+    const recipientEmail = process.env.CONTACT_NOTIFICATION_EMAIL || senderEmail;
+
     const mailOptions = {
-      from: `"${contactData.fullName} via ODST Inquiry" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_NOTIFICATION_EMAIL || 'info@odst.id',
+      from: `"ODST Group Website" <${senderEmail}>`,
+      to: recipientEmail,
       replyTo: contactData.email,
-      subject: `New ODST Inquiry - Division: ${contactData.department}`,
+      subject: `[New Inquiry] ${contactData.fullName} - ${contactData.department}`,
       text: `You have received a new contact inquiry from the ODST website.
       
 Detail Visitor:

@@ -59,6 +59,16 @@ export default function AdminDashboard() {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
   const [selectedConnection, setSelectedConnection] = useState<ServiceItem | null>(null);
   
+  // Confirmation Modal State
+  const [confirmModal, setConfirmModal] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    confirmText?: string;
+    cancelText?: string;
+    onConfirm: () => void;
+  } | null>(null);
+
   // Edit Service Form States
   const [editBadge, setEditBadge] = useState('');
   const [editTitle, setEditTitle] = useState('');
@@ -144,30 +154,50 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleDeleteContact = async (id: string) => {
-    if (!window.confirm('Are you sure you want to delete this inquiry?')) return;
-    try {
-      await apiService.deleteContact(id);
-      setContacts((prev) => prev.filter((c) => c.id !== id));
-      if (selectedMessage && selectedMessage.id === id) {
-        setSelectedMessage(null);
-      }
-      showToast('Inquiry deleted', 'info');
-    } catch (err: any) {
-      showToast(err.message || 'Failed to delete inquiry', 'error');
-    }
+  const handleDeleteContact = (id: string) => {
+    setConfirmModal({
+      isOpen: true,
+      title: t('admin.confirmTitle', 'Confirm Deletion'),
+      message: t('admin.deleteInquiryConfirm', 'Are you sure you want to delete this customer inquiry? This action cannot be undone.'),
+      confirmText: t('admin.confirmDelete', 'Yes, Delete'),
+      cancelText: t('admin.cancel', 'Cancel'),
+      onConfirm: async () => {
+        try {
+          await apiService.deleteContact(id);
+          setContacts((prev) => prev.filter((c) => c.id !== id));
+          if (selectedMessage && selectedMessage.id === id) {
+            setSelectedMessage(null);
+          }
+          showToast('Inquiry deleted', 'info');
+        } catch (err: any) {
+          showToast(err.message || 'Failed to delete inquiry', 'error');
+        } finally {
+          setConfirmModal(null);
+        }
+      },
+    });
   };
 
   // Newsletter Actions
-  const handleDeleteSubscriber = async (id: string) => {
-    if (!window.confirm('Are you sure you want to remove this subscriber?')) return;
-    try {
-      await apiService.deleteNewsletterSubscriber(id);
-      setSubscribers((prev) => prev.filter((s) => s.id !== id));
-      showToast('Subscriber removed from list', 'info');
-    } catch (err: any) {
-      showToast(err.message || 'Failed to delete subscriber', 'error');
-    }
+  const handleDeleteSubscriber = (id: string) => {
+    setConfirmModal({
+      isOpen: true,
+      title: t('admin.confirmTitle', 'Confirm Deletion'),
+      message: t('admin.deleteSubscriberConfirm', 'Are you sure you want to remove this subscriber from the newsletter audience?'),
+      confirmText: t('admin.confirmDelete', 'Yes, Delete'),
+      cancelText: t('admin.cancel', 'Cancel'),
+      onConfirm: async () => {
+        try {
+          await apiService.deleteNewsletterSubscriber(id);
+          setSubscribers((prev) => prev.filter((s) => s.id !== id));
+          showToast('Subscriber removed from list', 'info');
+        } catch (err: any) {
+          showToast(err.message || 'Failed to delete subscriber', 'error');
+        } finally {
+          setConfirmModal(null);
+        }
+      },
+    });
   };
 
   // Service Edit Actions
@@ -1298,6 +1328,46 @@ export default function AdminDashboard() {
               </div>
             </form>
 
+          </div>
+        </div>
+      )}
+
+      {/* Custom Branded Confirmation Popup Modal */}
+      {confirmModal && confirmModal.isOpen && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/65 backdrop-blur-xs p-4 animate-fadeIn">
+          <div className="bg-white w-full max-w-md rounded-xl shadow-2xl overflow-hidden border border-slate-200">
+            <div className="p-6">
+              <div className="flex items-start space-x-3.5 rtl:space-x-reverse">
+                <div className="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center shrink-0 font-bold text-lg">
+                  !
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-1.5">
+                    {confirmModal.title}
+                  </h3>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    {confirmModal.message}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex justify-end space-x-2.5 rtl:space-x-reverse">
+              <button
+                type="button"
+                onClick={() => setConfirmModal(null)}
+                className="px-4 py-2 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg transition-colors"
+              >
+                {confirmModal.cancelText || t('admin.cancel', 'Cancel')}
+              </button>
+              <button
+                type="button"
+                onClick={confirmModal.onConfirm}
+                className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors"
+              >
+                {confirmModal.confirmText || t('admin.confirmDelete', 'Delete')}
+              </button>
+            </div>
           </div>
         </div>
       )}

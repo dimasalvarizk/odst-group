@@ -202,6 +202,10 @@
     "photos": "foto",
     "photo": "foto",
     "imageLeft": "Gambar di Kiri",
-    "imageRight": "Gambar di Kanan"
+    "imageRight": "Gambar di Kanan",
+    "confirmTitle": "Konfirmasi Hapus",
+    "deleteInquiryConfirm": "Apakah Anda yakin ingin menghapus pertanyaan pelanggan ini? Tindakan ini tidak dapat dibatalkan.",
+    "deleteSubscriberConfirm": "Apakah Anda yakin ingin menghapus pelanggan ini dari daftar audiens newsletter?",
+    "confirmDelete": "Ya, Hapus"
   }
 }

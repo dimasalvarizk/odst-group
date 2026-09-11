@@ -329,6 +329,15 @@ export default function AdminDashboard() {
     }
   };
 
+  // Pagination State
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
+  // Reset page when tab, search, or filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeTab, searchQuery, statusFilter]);
+
   // Filter Services
   const filteredServices = useMemo(() => {
     return services.filter((s) =>
@@ -352,6 +361,13 @@ export default function AdminDashboard() {
     });
   }, [contacts, searchQuery, statusFilter]);
 
+  // Paginated Contacts
+  const totalContactPages = Math.max(1, Math.ceil(filteredContacts.length / pageSize));
+  const paginatedContacts = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredContacts.slice(start, start + pageSize);
+  }, [filteredContacts, currentPage, pageSize]);
+
   // Filter Subscribers
   const filteredSubscribers = useMemo(() => {
     return subscribers.filter((s) => 
@@ -360,6 +376,13 @@ export default function AdminDashboard() {
       s.phone.includes(searchQuery)
     );
   }, [subscribers, searchQuery]);
+
+  // Paginated Subscribers
+  const totalSubscriberPages = Math.max(1, Math.ceil(filteredSubscribers.length / pageSize));
+  const paginatedSubscribers = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredSubscribers.slice(start, start + pageSize);
+  }, [filteredSubscribers, currentPage, pageSize]);
 
   // Calculate unread count
   const unreadCount = useMemo(() => {
@@ -697,79 +720,154 @@ export default function AdminDashboard() {
                   {t('admin.noInquiries', 'No customer inquiries found.')}
                 </div>
               ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse text-xs">
-                    <thead>
-                      <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-                        <th className="py-3 px-4">{t('admin.sender', 'Sender')}</th>
-                        <th className="py-3 px-4">{t('admin.contactDetails', 'Contact Details')}</th>
-                        <th className="py-3 px-4">{t('admin.division', 'Division')}</th>
-                        <th className="py-3 px-4">{t('admin.message', 'Message')}</th>
-                        <th className="py-3 px-4">{t('admin.status', 'Status')}</th>
-                        <th className="py-3 px-4">{t('admin.date', 'Date')}</th>
-                        <th className="py-3 px-4 text-right">{t('admin.actions', 'Actions')}</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                      {filteredContacts.map((c) => (
-                        <tr key={c.id} className="hover:bg-slate-50/75 transition-colors">
-                          <td className="py-3.5 px-4 font-semibold text-slate-900 whitespace-nowrap">
-                            {c.fullName}
-                          </td>
-                          <td className="py-3.5 px-4 whitespace-nowrap">
-                            <a href={`mailto:${c.email}`} className="text-slate-800 hover:text-brand-orange hover:underline font-medium block">
-                              {c.email}
-                            </a>
-                            <span className="text-[11px] text-slate-500 font-mono">{c.phone}</span>
-                          </td>
-                          <td className="py-3.5 px-4 whitespace-nowrap">
-                            <span className="inline-block px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700">
-                              {c.department}
-                            </span>
-                          </td>
-                          <td className="py-3.5 px-4 max-w-xs">
-                            <p className="line-clamp-2 text-slate-600 font-light">{c.message}</p>
-                          </td>
-                          <td className="py-3.5 px-4 whitespace-nowrap">
-                            {getStatusBadge(c.status)}
-                          </td>
-                          <td className="py-3.5 px-4 text-slate-500 whitespace-nowrap text-[11px]">
-                            {formatDate(c.createdAt)}
-                          </td>
-                          <td className="py-3.5 px-4 whitespace-nowrap text-right space-x-1.5">
-                            <button
-                              onClick={() => setSelectedMessage(c)}
-                              className="px-2.5 py-1 text-slate-700 hover:bg-slate-100 font-medium rounded border border-slate-200"
-                            >
-                              {t('admin.view', 'View')}
-                            </button>
-                            {c.status === 'unread' && (
+                <div className="flex flex-col flex-1">
+                  <div className="overflow-x-auto flex-1">
+                    <table className="w-full text-left border-collapse text-xs">
+                      <thead>
+                        <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                          <th className="py-3 px-4">{t('admin.sender', 'Sender')}</th>
+                          <th className="py-3 px-4">{t('admin.contactDetails', 'Contact Details')}</th>
+                          <th className="py-3 px-4">{t('admin.division', 'Division')}</th>
+                          <th className="py-3 px-4">{t('admin.message', 'Message')}</th>
+                          <th className="py-3 px-4">{t('admin.status', 'Status')}</th>
+                          <th className="py-3 px-4">{t('admin.date', 'Date')}</th>
+                          <th className="py-3 px-4 text-right">{t('admin.actions', 'Actions')}</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {paginatedContacts.map((c) => (
+                          <tr key={c.id} className="hover:bg-slate-50/75 transition-colors">
+                            <td className="py-3 px-4 font-semibold text-slate-900 whitespace-nowrap">
+                              {c.fullName}
+                            </td>
+                            <td className="py-3 px-4 whitespace-nowrap">
+                              <a href={`mailto:${c.email}`} className="text-slate-800 hover:text-brand-orange hover:underline font-medium block">
+                                {c.email}
+                              </a>
+                              <span className="text-[11px] text-slate-500 font-mono">{c.phone}</span>
+                            </td>
+                            <td className="py-3 px-4 whitespace-nowrap">
+                              <span className="inline-block px-2 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700">
+                                {c.department}
+                              </span>
+                            </td>
+                            <td className="py-3 px-4 max-w-xs">
+                              <p className="line-clamp-2 text-slate-600 font-light">{c.message}</p>
+                            </td>
+                            <td className="py-3 px-4 whitespace-nowrap">
+                              {getStatusBadge(c.status)}
+                            </td>
+                            <td className="py-3 px-4 text-slate-500 whitespace-nowrap text-[11px]">
+                              {formatDate(c.createdAt)}
+                            </td>
+                            <td className="py-3 px-4 whitespace-nowrap text-right space-x-1.5">
                               <button
-                                onClick={() => handleUpdateStatus(c.id, 'read')}
+                                onClick={() => setSelectedMessage(c)}
                                 className="px-2.5 py-1 text-slate-700 hover:bg-slate-100 font-medium rounded border border-slate-200"
                               >
-                                {t('admin.read', 'Read')}
+                                {t('admin.view', 'View')}
                               </button>
-                            )}
-                            {c.status !== 'replied' && (
+                              {c.status === 'unread' && (
+                                <button
+                                  onClick={() => handleUpdateStatus(c.id, 'read')}
+                                  className="px-2.5 py-1 text-slate-700 hover:bg-slate-100 font-medium rounded border border-slate-200"
+                                >
+                                  {t('admin.read', 'Read')}
+                                </button>
+                              )}
+                              {c.status !== 'replied' && (
+                                <button
+                                  onClick={() => handleUpdateStatus(c.id, 'replied')}
+                                  className="px-2.5 py-1 text-emerald-700 hover:bg-emerald-50 font-medium rounded border border-emerald-200"
+                                >
+                                  {t('admin.replied', 'Replied')}
+                                </button>
+                              )}
                               <button
-                                onClick={() => handleUpdateStatus(c.id, 'replied')}
-                                className="px-2.5 py-1 text-emerald-700 hover:bg-emerald-50 font-medium rounded border border-emerald-200"
+                                onClick={() => handleDeleteContact(c.id)}
+                                className="px-2.5 py-1 text-rose-600 hover:bg-rose-50 font-medium rounded border border-rose-200"
                               >
-                                {t('admin.replied', 'Replied')}
+                                {t('admin.delete', 'Delete')}
                               </button>
-                            )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Inquiries Pagination Footer */}
+                  {filteredContacts.length > 0 && (
+                    <div className="px-4 py-3 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
+                      <div className="flex items-center gap-2">
+                        <span>
+                          {t('admin.showing', 'Showing')}{' '}
+                          <strong className="text-slate-900 font-semibold">
+                            {(currentPage - 1) * pageSize + 1}
+                          </strong>{' '}
+                          {t('admin.to', 'to')}{' '}
+                          <strong className="text-slate-900 font-semibold">
+                            {Math.min(currentPage * pageSize, filteredContacts.length)}
+                          </strong>{' '}
+                          {t('admin.of', 'of')}{' '}
+                          <strong className="text-slate-900 font-semibold">
+                            {filteredContacts.length}
+                          </strong>{' '}
+                          {t('admin.entries', 'entries')}
+                        </span>
+                        <span className="text-slate-300">|</span>
+                        <select
+                          value={pageSize}
+                          onChange={(e) => { setPageSize(Number(e.target.value)); setCurrentPage(1); }}
+                          className="bg-white border border-slate-300 rounded px-2 py-1 text-xs focus:outline-none"
+                        >
+                          <option value={10}>10 {t('admin.perPage', 'per page')}</option>
+                          <option value={25}>25 {t('admin.perPage', 'per page')}</option>
+                          <option value={50}>50 {t('admin.perPage', 'per page')}</option>
+                          <option value={100}>100 {t('admin.perPage', 'per page')}</option>
+                        </select>
+                      </div>
+
+                      <div className="flex items-center space-x-1 rtl:space-x-reverse">
+                        <button
+                          onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                          disabled={currentPage === 1}
+                          className="px-2.5 py-1 rounded bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors"
+                        >
+                          {t('admin.prev', 'Previous')}
+                        </button>
+
+                        {Array.from({ length: Math.min(5, totalContactPages) }, (_, i) => {
+                          let pageNum = i + 1;
+                          if (totalContactPages > 5 && currentPage > 3) {
+                            pageNum = currentPage - 3 + i + 1;
+                            if (pageNum > totalContactPages) pageNum = totalContactPages - (4 - i);
+                          }
+                          return (
                             <button
-                              onClick={() => handleDeleteContact(c.id)}
-                              className="px-2.5 py-1 text-rose-600 hover:bg-rose-50 font-medium rounded border border-rose-200"
+                              key={pageNum}
+                              onClick={() => setCurrentPage(pageNum)}
+                              className={`w-7 h-7 rounded text-xs font-semibold transition-colors ${
+                                currentPage === pageNum
+                                  ? 'bg-brand-orange text-white'
+                                  : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
+                              }`}
                             >
-                              {t('admin.delete', 'Delete')}
+                              {pageNum}
                             </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                          );
+                        })}
+
+                        <button
+                          onClick={() => setCurrentPage((p) => Math.min(totalContactPages, p + 1))}
+                          disabled={currentPage >= totalContactPages}
+                          className="px-2.5 py-1 rounded bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors"
+                        >
+                          {t('admin.next', 'Next')}
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )
             ) : activeTab === 'subscribers' ? (
@@ -780,40 +878,115 @@ export default function AdminDashboard() {
                   {t('admin.noSubscribers', 'No newsletter subscribers found.')}
                 </div>
               ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse text-xs">
-                    <thead>
-                      <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-                        <th className="py-3 px-4">{t('admin.subscriberName', 'Subscriber Name')}</th>
-                        <th className="py-3 px-4">{t('admin.phone', 'Phone Number')}</th>
-                        <th className="py-3 px-4">{t('admin.email', 'Email Address')}</th>
-                        <th className="py-3 px-4">{t('admin.dateSubscribed', 'Date Subscribed')}</th>
-                        <th className="py-3 px-4 text-right">{t('admin.actions', 'Actions')}</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                      {filteredSubscribers.map((s) => (
-                        <tr key={s.id} className="hover:bg-slate-50/75 transition-colors">
-                          <td className="py-3.5 px-4 font-semibold text-slate-900">{s.fullName}</td>
-                          <td className="py-3.5 px-4 font-mono text-slate-600">{s.phone || '-'}</td>
-                          <td className="py-3.5 px-4">
-                            <a href={`mailto:${s.email}`} className="text-slate-800 hover:text-brand-orange hover:underline">
-                              {s.email}
-                            </a>
-                          </td>
-                          <td className="py-3.5 px-4 text-slate-500 text-[11px]">{formatDate(s.createdAt)}</td>
-                          <td className="py-3.5 px-4 text-right">
-                            <button
-                              onClick={() => handleDeleteSubscriber(s.id)}
-                              className="px-2.5 py-1 text-rose-600 hover:bg-rose-50 font-medium rounded border border-rose-200"
-                            >
-                              {t('admin.unsubscribe', 'Unsubscribe')}
-                            </button>
-                          </td>
+                <div className="flex flex-col flex-1">
+                  <div className="overflow-x-auto flex-1">
+                    <table className="w-full text-left border-collapse text-xs">
+                      <thead>
+                        <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                          <th className="py-3 px-4">{t('admin.subscriberName', 'Subscriber Name')}</th>
+                          <th className="py-3 px-4">{t('admin.phone', 'Phone Number')}</th>
+                          <th className="py-3 px-4">{t('admin.email', 'Email Address')}</th>
+                          <th className="py-3 px-4">{t('admin.dateSubscribed', 'Date Subscribed')}</th>
+                          <th className="py-3 px-4 text-right">{t('admin.actions', 'Actions')}</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {paginatedSubscribers.map((s) => (
+                          <tr key={s.id} className="hover:bg-slate-50/75 transition-colors">
+                            <td className="py-3 px-4 font-semibold text-slate-900">{s.fullName}</td>
+                            <td className="py-3 px-4 font-mono text-slate-600">{s.phone || '-'}</td>
+                            <td className="py-3 px-4">
+                              <a href={`mailto:${s.email}`} className="text-slate-800 hover:text-brand-orange hover:underline font-medium">
+                                {s.email}
+                              </a>
+                            </td>
+                            <td className="py-3 px-4 text-slate-500 text-[11px]">{formatDate(s.createdAt)}</td>
+                            <td className="py-3 px-4 text-right">
+                              <button
+                                onClick={() => handleDeleteSubscriber(s.id)}
+                                className="px-2.5 py-1 text-rose-600 hover:bg-rose-50 font-medium rounded border border-rose-200"
+                              >
+                                {t('admin.unsubscribe', 'Unsubscribe')}
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Subscribers Pagination Footer */}
+                  {filteredSubscribers.length > 0 && (
+                    <div className="px-4 py-3 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
+                      <div className="flex items-center gap-2">
+                        <span>
+                          {t('admin.showing', 'Showing')}{' '}
+                          <strong className="text-slate-900 font-semibold">
+                            {(currentPage - 1) * pageSize + 1}
+                          </strong>{' '}
+                          {t('admin.to', 'to')}{' '}
+                          <strong className="text-slate-900 font-semibold">
+                            {Math.min(currentPage * pageSize, filteredSubscribers.length)}
+                          </strong>{' '}
+                          {t('admin.of', 'of')}{' '}
+                          <strong className="text-slate-900 font-semibold">
+                            {filteredSubscribers.length}
+                          </strong>{' '}
+                          {t('admin.entries', 'entries')}
+                        </span>
+                        <span className="text-slate-300">|</span>
+                        <select
+                          value={pageSize}
+                          onChange={(e) => { setPageSize(Number(e.target.value)); setCurrentPage(1); }}
+                          className="bg-white border border-slate-300 rounded px-2 py-1 text-xs focus:outline-none"
+                        >
+                          <option value={10}>10 {t('admin.perPage', 'per page')}</option>
+                          <option value={25}>25 {t('admin.perPage', 'per page')}</option>
+                          <option value={50}>50 {t('admin.perPage', 'per page')}</option>
+                          <option value={100}>100 {t('admin.perPage', 'per page')}</option>
+                        </select>
+                      </div>
+
+                      <div className="flex items-center space-x-1 rtl:space-x-reverse">
+                        <button
+                          onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                          disabled={currentPage === 1}
+                          className="px-2.5 py-1 rounded bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors"
+                        >
+                          {t('admin.prev', 'Previous')}
+                        </button>
+
+                        {Array.from({ length: Math.min(5, totalSubscriberPages) }, (_, i) => {
+                          let pageNum = i + 1;
+                          if (totalSubscriberPages > 5 && currentPage > 3) {
+                            pageNum = currentPage - 3 + i + 1;
+                            if (pageNum > totalSubscriberPages) pageNum = totalSubscriberPages - (4 - i);
+                          }
+                          return (
+                            <button
+                              key={pageNum}
+                              onClick={() => setCurrentPage(pageNum)}
+                              className={`w-7 h-7 rounded text-xs font-semibold transition-colors ${
+                                currentPage === pageNum
+                                  ? 'bg-brand-orange text-white'
+                                  : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
+                              }`}
+                            >
+                              {pageNum}
+                            </button>
+                          );
+                        })}
+
+                        <button
+                          onClick={() => setCurrentPage((p) => Math.min(totalSubscriberPages, p + 1))}
+                          disabled={currentPage >= totalSubscriberPages}
+                          className="px-2.5 py-1 rounded bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors"
+                        >
+                          {t('admin.next', 'Next')}
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )
             ) : activeTab === 'services' ? (

@@ -14,7 +14,7 @@ export default function AdminLogin() {
 
   useEffect(() => {
     if (localStorage.getItem('adminToken')) {
-      navigate('/admin/dashboard');
+      navigate('/internal-odst-gate/dashboard');
     }
   }, [navigate]);
 
@@ -36,7 +36,7 @@ export default function AdminLogin() {
         email: data.email,
         role: data.role
       }));
-      navigate('/admin/dashboard');
+      navigate('/internal-odst-gate/dashboard');
     } catch (err: any) {
       setError(err.message || 'Login failed. Please check your credentials.');
     } finally {

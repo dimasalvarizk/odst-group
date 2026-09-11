@@ -9,8 +9,8 @@ export function AdminGuard({ children }: AdminGuardProps) {
   const token = localStorage.getItem('adminToken');
 
   if (!token) {
-    // Redirect to login if token is missing
-    return <Navigate to="/admin/login" replace />;
+    // Redirect to secret login if token is missing
+    return <Navigate to="/internal-odst-gate" replace />;
   }
 
   return <>{children}</>;

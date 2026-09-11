@@ -11,7 +11,7 @@ import TermsOfServicePage from './pages/TermsOfServicePage.tsx';
 // A simple PrivateRoute component to protect the admin dashboard
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const token = localStorage.getItem('adminToken');
-  return token ? <>{children}</> : <Navigate to="/admin/login" replace />;
+  return token ? <>{children}</> : <Navigate to="/internal-odst-gate" replace />;
 };
 
 // App component managing client-side routing
@@ -24,26 +24,22 @@ function App() {
         <Route path="/coming-soon" element={<ComingSoonPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/terms-of-service" element={<TermsOfServicePage />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
+        
+        {/* Secret Admin Gate */}
+        <Route path="/internal-odst-gate" element={<AdminLogin />} />
         <Route 
-          path="/admin/dashboard" 
+          path="/internal-odst-gate/dashboard" 
           element={
             <PrivateRoute>
               <AdminDashboard />
             </PrivateRoute>
           } 
         />
-        {/* Redirect /admin to dashboard if logged in, otherwise to login */}
-        <Route 
-          path="/admin" 
-          element={
-            localStorage.getItem('adminToken') ? (
-              <Navigate to="/admin/dashboard" replace />
-            ) : (
-              <Navigate to="/admin/login" replace />
-            )
-          } 
-        />
+        
+        {/* Trap/Redirect any old /admin requests back to Home */}
+        <Route path="/admin" element={<Navigate to="/" replace />} />
+        <Route path="/admin/*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );

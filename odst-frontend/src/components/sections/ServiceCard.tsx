@@ -3,22 +3,11 @@ import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import { Link } from 'react-router-dom';
 import type { Service } from '../../utils/servicesData';
-import { images } from '../../utils/images';
+import ImageCarousel from '../ui/ImageCarousel';
 
 interface ServiceCardProps {
   service: Service;
 }
-
-const resolveImageUrl = (imageUrl: string, id: string) => {
-  if (!imageUrl) return '';
-  if (imageUrl.startsWith('data:') || imageUrl.startsWith('http') || imageUrl.startsWith('/') || imageUrl.startsWith('blob:')) {
-    return imageUrl;
-  }
-  if (imageUrl === 'hotels' || id === 'hotels') return images.hotelLobby;
-  if (imageUrl === 'airlines' || id === 'airlines') return images.airplaneSalute;
-  if (imageUrl === 'travel' || id === 'travel') return images.travelLuggage;
-  return imageUrl;
-};
 
 export default function ServiceCard({ service }: ServiceCardProps) {
   const { t } = useTranslation();
@@ -58,19 +47,17 @@ export default function ServiceCard({ service }: ServiceCardProps) {
         </div>
       </div>
 
-      {/* Image Column */}
+      {/* Image Column with Auto-Rotating Carousel (3s interval) */}
       <div className="w-full lg:w-1/2">
-        <div className="relative group overflow-hidden rounded-2xl shadow-xl border border-slate-100">
-          {/* Background decorative glow on hover */}
-          <div className="absolute inset-0 bg-brand-orange/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
-          
-          <img
-            src={resolveImageUrl(service.imageUrl || '', service.id)}
-            alt={service.title}
-            className="w-full h-[300px] md:h-[420px] object-cover transform group-hover:scale-102 transition-transform duration-700 ease-out"
-          />
-        </div>
+        <ImageCarousel
+          imagesList={service.images}
+          fallbackUrl={service.imageUrl}
+          serviceId={service.id}
+          title={service.title}
+          interval={3000}
+        />
       </div>
     </div>
   );
 }
+

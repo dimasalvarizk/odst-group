@@ -8,9 +8,9 @@ interface Language {
 }
 
 const languages: Language[] = [
-  { code: 'en', name: 'English' },
-  { code: 'id', name: 'Bahasa (Indonesia)' },
-  { code: 'ar', name: 'العربية (Arabic)' },
+  { code: 'en', name: 'English (EN)' },
+  { code: 'ar', name: 'العربية (AR)' },
+  { code: 'id', name: 'Bahasa Indonesia (ID)' },
 ];
 
 export default function LanguageSelector({ isMobile = false }: { isMobile?: boolean }) {

@@ -23,6 +23,11 @@ const Service = sequelize.define('Service', {
     type: DataTypes.TEXT('long'), // Maps to LONGTEXT in MySQL for base64 images/data URIs
     allowNull: true,
   },
+  images: {
+    type: DataTypes.JSON, // Maps to JSON in MySQL, storing array of image strings/URLs
+    allowNull: true,
+    defaultValue: [],
+  },
   imageLeft: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,

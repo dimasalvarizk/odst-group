@@ -14,8 +14,24 @@ const PORT = process.env.CONTENT_SERVICE_PORT || 5004;
 const seedServices = async () => {
   try {
     const count = await Service.count();
+    const defaultHotelImages = [
+      'hotels',
+      'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80'
+    ];
+    const defaultAirlineImages = [
+      'airlines',
+      'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?auto=format&fit=crop&w=1200&q=80'
+    ];
+    const defaultTravelImages = [
+      'travel',
+      'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80'
+    ];
+
     if (count === 0) {
-      console.log('No services found in database. Seeding defaults...');
+      console.log('No services found in database. Seeding defaults with multi-image arrays...');
       await Service.bulkCreate([
         {
           id: 'hotels',
@@ -23,6 +39,7 @@ const seedServices = async () => {
           title: 'ODST Hotels',
           description: 'Provides hospitality services close to the Holy sites. Our hotels offer comfort, convenience, and spiritual tranquility for many pilgrims. Experience refined stays with panoramic views of the Holy Mosque.',
           imageUrl: 'hotels',
+          images: defaultHotelImages,
           imageLeft: false,
           link: '#hotels',
           phone: '+62 81111 202225',
@@ -35,6 +52,7 @@ const seedServices = async () => {
           title: 'ODST Airlines',
           description: 'Seamless journeys to the Holy Land. Dedicated charters and flight solutions with exceptional comfort, premium catering, and a deeply attentive service tailored for your spiritual journey.',
           imageUrl: 'airlines',
+          images: defaultAirlineImages,
           imageLeft: true,
           link: '#airlines',
           phone: '+62 81111 202220',
@@ -47,6 +65,7 @@ const seedServices = async () => {
           title: 'ODST Tour & Travel',
           description: 'Complete pilgrim and package travel solutions for your needs. From guide grouping to highly personalized guided tours and excellent ground transportation, we handle every detail so you can focus on your spiritual fulfillment.',
           imageUrl: 'travel',
+          images: defaultTravelImages,
           imageLeft: false,
           link: '#travel',
           phone: '+62 81111 203330',
@@ -56,23 +75,38 @@ const seedServices = async () => {
       ]);
       console.log('Default services seeded successfully.');
     } else {
-      // Check if existing records are missing the contact info
+      // Check if existing records are missing images array or contact details
       const hotels = await Service.findByPk('hotels');
-      if (hotels && !hotels.phone) {
-        console.log('Updating existing services with default contact details...');
+      if (hotels && (!hotels.images || (Array.isArray(hotels.images) && hotels.images.length === 0))) {
+        console.log('Migrating existing services to multi-image array defaults...');
         await Service.update(
-          { phone: '+62 81111 202225', email: 'info@odst.id', address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740' },
+          { 
+            images: defaultHotelImages,
+            phone: hotels.phone || '+62 81111 202225', 
+            email: hotels.email || 'info@odst.id', 
+            address: hotels.address || 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740' 
+          },
           { where: { id: 'hotels' } }
         );
         await Service.update(
-          { phone: '+62 81111 202220', email: 'info@odst.id', address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740' },
+          { 
+            images: defaultAirlineImages,
+            phone: '+62 81111 202220', 
+            email: 'info@odst.id', 
+            address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740' 
+          },
           { where: { id: 'airlines' } }
         );
         await Service.update(
-          { phone: '+62 81111 203330', email: 'info@odst.id', address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740' },
+          { 
+            images: defaultTravelImages,
+            phone: '+62 81111 203330', 
+            email: 'info@odst.id', 
+            address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740' 
+          },
           { where: { id: 'travel' } }
         );
-        console.log('Existing services updated with contact info.');
+        console.log('Existing services updated with multi-image arrays and contact info.');
       }
     }
   } catch (error) {

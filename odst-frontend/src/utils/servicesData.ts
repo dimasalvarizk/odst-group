@@ -5,9 +5,13 @@ export interface Service {
   badge: string;
   title: string;
   description: string;
-  imageUrl: string;
+  imageUrl?: string;
+  images?: string[];
   imageLeft: boolean;
   link: string;
+  phone?: string;
+  email?: string;
+  address?: string;
 }
 
 export const services: Service[] = [
@@ -17,6 +21,7 @@ export const services: Service[] = [
     title: 'ODST Hotels',
     description: 'Provides hospitality services close to the Holy sites. Our hotels offer comfort, convenience, and spiritual tranquility for many pilgrims. Experience refined stays with panoramic views of the Holy Mosque.',
     imageUrl: images.hotelLobby,
+    images: images.hotelSlides,
     imageLeft: false,
     link: '#hotels',
   },
@@ -26,6 +31,7 @@ export const services: Service[] = [
     title: 'ODST Airlines',
     description: 'Seamless journeys to the Holy Land. Dedicated charters and flight solutions with exceptional comfort, premium catering, and a deeply attentive service tailored for your spiritual journey.',
     imageUrl: images.airplaneSalute,
+    images: images.airlineSlides,
     imageLeft: true,
     link: '#airlines',
   },
@@ -35,9 +41,11 @@ export const services: Service[] = [
     title: 'ODST Tour & Travel',
     description: 'Complete pilgrim and package travel solutions for your needs. From guide grouping to highly personalized guided tours and excellent ground transportation, we handle every detail so you can focus on your spiritual fulfillment.',
     imageUrl: images.travelLuggage,
+    images: images.travelSlides,
     imageLeft: false,
     link: '#travel',
   },
 ];
 
 export default services;
+

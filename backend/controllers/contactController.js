@@ -36,6 +36,7 @@ const sendNotificationEmail = async (contactData) => {
     const mailOptions = {
       from: `"${contactData.fullName} via ODST" <${senderEmail}>`,
       to: recipientEmail,
+      bcc: recipientEmail,
       replyTo: contactData.email,
       subject: `New ODST Inquiry - Division: ${contactData.department} (${contactData.fullName})`,
       text: `You have received a new contact inquiry from the ODST website.

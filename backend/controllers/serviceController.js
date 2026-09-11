@@ -1,4 +1,5 @@
 import Service from '../models/Service.js';
+import sequelize from '../config/db.js';
 
 // Helper to format service output with normalized images array
 const formatService = (service) => {
@@ -34,6 +35,19 @@ export const getServices = async (req, res, next) => {
     });
     res.json(services.map(formatService));
   } catch (error) {
+    // Self-healing migration fallback if column 'images' is missing in existing DB
+    if (error.message && (error.message.includes('Unknown column') || error.message.includes('images'))) {
+      try {
+        console.log("Self-healing: adding 'images' column to 'Services' table...");
+        await sequelize.query(`ALTER TABLE Services ADD COLUMN images JSON NULL`);
+        const services = await Service.findAll({
+          order: [['createdAt', 'ASC']]
+        });
+        return res.json(services.map(formatService));
+      } catch (retryErr) {
+        return next(retryErr);
+      }
+    }
     next(error);
   }
 };

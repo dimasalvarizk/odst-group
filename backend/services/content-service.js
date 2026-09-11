@@ -114,12 +114,42 @@ const seedServices = async () => {
   }
 };
 
+const ensureSchemaUpdates = async () => {
+  try {
+    const [tables] = await sequelize.query(`SHOW TABLES LIKE 'Services'`);
+    if (tables && tables.length > 0) {
+      const [imgCol] = await sequelize.query(`SHOW COLUMNS FROM Services LIKE 'images'`);
+      if (!imgCol || imgCol.length === 0) {
+        console.log("Adding missing 'images' column to 'Services' table...");
+        await sequelize.query(`ALTER TABLE Services ADD COLUMN images JSON NULL`);
+        console.log("Successfully added 'images' column to Services.");
+      }
+
+      const [phoneCol] = await sequelize.query(`SHOW COLUMNS FROM Services LIKE 'phone'`);
+      if (!phoneCol || phoneCol.length === 0) {
+        await sequelize.query(`ALTER TABLE Services ADD COLUMN phone VARCHAR(255) NULL`);
+      }
+      const [emailCol] = await sequelize.query(`SHOW COLUMNS FROM Services LIKE 'email'`);
+      if (!emailCol || emailCol.length === 0) {
+        await sequelize.query(`ALTER TABLE Services ADD COLUMN email VARCHAR(255) NULL`);
+      }
+      const [addrCol] = await sequelize.query(`SHOW COLUMNS FROM Services LIKE 'address'`);
+      if (!addrCol || addrCol.length === 0) {
+        await sequelize.query(`ALTER TABLE Services ADD COLUMN address TEXT NULL`);
+      }
+    }
+  } catch (migErr) {
+    console.log('Schema update notice in content service:', migErr.message);
+  }
+};
+
 let isSynced = false;
 const syncDatabase = async () => {
   if (isSynced) return;
   try {
     await connectDB();
-    await sequelize.sync({ alter: process.env.NODE_ENV !== 'production' });
+    await ensureSchemaUpdates();
+    await sequelize.sync({ alter: false });
     console.log('Content Database schema synced successfully');
     await seedServices();
     isSynced = true;

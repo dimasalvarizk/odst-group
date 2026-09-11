@@ -180,8 +180,8 @@ export const submitContact = async (req, res, next) => {
       message,
     });
 
-    // Send email notification in the background
-    sendNotificationEmail(contact);
+    // Send email notification
+    await sendNotificationEmail(contact);
 
     res.status(201).json({
       success: true,

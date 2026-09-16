@@ -22,16 +22,15 @@ export default function Hero() {
       {heroSlides.map((img, idx) => (
         <div
           key={idx}
-          className={`absolute inset-0 bg-cover bg-center bg-no-repeat transform ${
-            currentSlide === idx ? 'opacity-100 scale-105' : 'opacity-0 scale-100'
-          }`}
+          className={`absolute inset-0 bg-cover bg-center bg-no-repeat transform ${currentSlide === idx ? 'opacity-100 scale-105' : 'opacity-0 scale-100'
+            }`}
           style={{
             backgroundImage: `url(${img})`,
             transition: 'opacity 2000ms ease-in-out, transform 6000ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
           }}
         />
       ))}
-      
+
       {/* Dark Brand Overlay for contrast - using exact rgba(5, 12, 30, 0.55) */}
       <div className="absolute inset-0 bg-[#050c1e]/55" />
 
@@ -57,7 +56,7 @@ export default function Hero() {
           </a>
         </div>
       </div>
-      
+
       {/* Interactive 3-Segment Slide Indicator Bar */}
       <div className="absolute bottom-10 start-6 md:start-12 z-10 flex space-x-2 rtl:space-x-reverse">
         {heroSlides.map((_, idx) => (
@@ -69,9 +68,8 @@ export default function Hero() {
             type="button"
           >
             <div
-              className={`w-8 md:w-10 h-[3px] transition-all duration-500 rounded-full ${
-                currentSlide === idx ? 'bg-brand-orange' : 'bg-white/25'
-              }`}
+              className={`w-8 md:w-10 h-[3px] transition-all duration-500 rounded-full ${currentSlide === idx ? 'bg-brand-orange' : 'bg-white/25'
+                }`}
             />
           </button>
         ))}

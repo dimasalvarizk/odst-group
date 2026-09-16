@@ -7,6 +7,7 @@ import AdminLogin from './pages/AdminLogin.tsx';
 import AdminDashboard from './pages/AdminDashboard.tsx';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage.tsx';
 import TermsOfServicePage from './pages/TermsOfServicePage.tsx';
+import Preloader from './components/ui/Preloader.tsx';
 
 // A simple PrivateRoute component to protect the admin dashboard
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
@@ -18,6 +19,7 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
 function App() {
   return (
     <Router>
+      <Preloader minDuration={1800} />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/contact" element={<ContactPage />} />

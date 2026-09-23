@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
 import apiService from '../services/api';
-import logo from '../assets/odstlogo.png';
+import logo from '../assets/logo-group.png';
+import heroBg from '../assets/hero1.png';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -45,87 +47,65 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-[#050c1e] lg:bg-slate-100 font-sans">
-      
-      {/* Left Brand Panel (Desktop Only) */}
-      <div className="hidden lg:flex lg:w-[40%] bg-[#050c1e] text-white flex-col justify-between p-10 xl:p-14 border-r border-slate-800">
-        <div>
-          <Link to="/" className="inline-block">
-            <img src={logo} alt="ODST Logo" className="h-10 w-auto mb-2" />
-          </Link>
-          <div className="inline-block px-2.5 py-0.5 rounded bg-brand-gold/15 border border-brand-gold/30 text-[10px] text-brand-gold font-bold uppercase mt-2">
-            Control Center Gateway
-          </div>
-        </div>
+    <div 
+      className="min-h-screen relative flex flex-col justify-center items-center px-4 py-12 font-sans select-none bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${heroBg})` }}
+    >
+      {/* Dark Translucent Backdrop Overlay (No blur) */}
+      <div className="absolute inset-0 bg-[#050c1e]/55" />
 
-        <div className="my-auto py-8 space-y-4">
-          <h2 className="text-3xl font-extrabold text-white">
-            Admin Portal
-            <span className="text-brand-gold block text-lg font-normal mt-1">Management Dashboard</span>
-          </h2>
-          <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
-            Manage inquiries, update service lander showcases, direct connection channels, and monitor Mailchimp newsletter subscribers in real-time.
-          </p>
-        </div>
-
-        <div className="text-[11px] text-slate-500 font-medium">
-          &copy; 2026 ODST Group. All rights reserved.
-        </div>
-      </div>
-
-      {/* Right Form Panel */}
-      <div className="flex-grow flex flex-col justify-center items-center px-4 py-10 sm:px-6 md:px-10 bg-[#050c1e] lg:bg-slate-100">
-        <div className="w-full max-w-md space-y-5">
+      {/* Main Form Container */}
+      <div className="relative z-10 w-full max-w-[390px] space-y-5 fade-in">
+        
+        {/* Clean Solid White Card */}
+        <div className="bg-white border border-slate-200/80 rounded-2xl p-7 sm:p-8 shadow-2xl space-y-5">
           
-          <div className="lg:hidden text-center space-y-2 pb-2">
-            <Link to="/" className="inline-block">
-              <img src={logo} alt="ODST Logo" className="h-10 w-auto mx-auto" />
+          {/* Brand Logo */}
+          <div className="flex flex-col items-center text-center pb-2">
+            <Link to="/" className="inline-block transition-opacity hover:opacity-85">
+              <img src={logo} alt="ODST Group" className="h-10 w-auto object-contain" />
             </Link>
-            <p className="text-xs text-slate-400 font-semibold uppercase">ODST Group Admin Control Center</p>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5">
-            <div>
-              <h2 className="text-xl font-bold text-slate-800">Sign In</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Enter your credentials to access the panel.</p>
+          {error && (
+            <div className="bg-rose-50 border border-rose-200 text-rose-700 px-3.5 py-2.5 rounded-xl text-xs font-medium animate-fadeIn">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Email Field */}
+            <div className="space-y-1.5 text-left">
+              <label className="block text-xs font-semibold text-slate-700">
+                Email or Username
+              </label>
+              <input
+                type="text"
+                required
+                autoComplete="username"
+                placeholder="admin@odst.id"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={loading}
+                className="w-full px-3.5 py-2.5 bg-slate-50/70 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-[#242E69] focus:ring-4 focus:ring-[#242E69]/5 transition-all"
+              />
             </div>
 
-            {error && (
-              <div className="bg-rose-50 border border-rose-200 text-rose-700 p-3 rounded-lg text-xs font-semibold">
-                {error}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-[11px] font-bold uppercase text-slate-600 mb-1">
-                  Email or Username
+            {/* Password Field */}
+            <div className="space-y-1.5 text-left">
+              <div className="flex justify-between items-center">
+                <label className="block text-xs font-semibold text-slate-700">
+                  Password
                 </label>
-                <input
-                  type="text"
-                  required
-                  autoComplete="username"
-                  placeholder="admin@odst.id"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={loading}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-navy/20"
-                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="text-xs text-slate-500 hover:text-slate-800 font-medium transition-colors"
+                >
+                  {showPassword ? 'Hide' : 'Show'}
+                </button>
               </div>
-
-              <div>
-                <div className="flex justify-between items-center mb-1">
-                  <label className="block text-[11px] font-bold uppercase text-slate-600">
-                    Password
-                  </label>
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="text-[11px] text-slate-500 hover:text-slate-700 font-medium"
-                  >
-                    {showPassword ? 'Hide' : 'Show'}
-                  </button>
-                </div>
+              <div className="relative flex items-center">
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
@@ -134,30 +114,30 @@ export default function AdminLogin() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={loading}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-navy/20 font-mono"
+                  className="w-full px-3.5 py-2.5 bg-slate-50/70 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-[#242E69] focus:ring-4 focus:ring-[#242E69]/5 transition-all font-mono"
                 />
               </div>
+            </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-2.5 bg-[#050c1e] hover:bg-brand-navy text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors disabled:opacity-50"
-              >
-                {loading ? 'Authenticating...' : 'Sign In'}
-              </button>
-            </form>
-          </div>
-
-          <div className="text-center">
-            <Link
-              to="/"
-              className="text-xs font-semibold text-slate-400 hover:text-slate-600 transition-colors"
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full mt-2 py-2.5 px-4 bg-[#242E69] hover:bg-[#1b2350] text-white font-semibold text-xs tracking-wide rounded-xl transition-all duration-200 shadow-md active:scale-[0.99] disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
             >
-              ← Back to ODST Website
-            </Link>
-          </div>
-
+              {loading ? (
+                <>
+                  <Loader2 size={14} className="animate-spin" />
+                  <span>Signing in...</span>
+                </>
+              ) : (
+                'Sign In'
+              )}
+            </button>
+          </form>
         </div>
+
+
       </div>
     </div>
   );

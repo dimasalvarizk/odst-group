@@ -450,116 +450,108 @@ export default function AdminDashboard() {
 
       {/* Responsive Left Sidebar */}
       <aside 
-        className={`fixed inset-y-0 left-0 z-50 w-64 max-w-[85vw] bg-[#0c1a30] text-slate-300 flex flex-col justify-between border-r border-slate-800 transition-transform duration-300 ease-out lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:z-auto shrink-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 max-w-[85vw] bg-[#0c1427] text-slate-300 flex flex-col justify-between border-r border-slate-800/80 transition-transform duration-300 ease-out lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:z-auto shrink-0 ${
           mobileSidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'
         }`}
       >
         
         {/* Top Branding Section */}
         <div className="flex flex-col flex-1 min-h-0">
-          <div className="h-16 px-5 flex items-center justify-between border-b border-slate-800 shrink-0">
-            <Link to="/" className="flex items-center space-x-2.5">
-              <img src={logo} alt="ODST Logo" className="h-8 w-auto" />
-              <div className="flex flex-col">
-                <span className="text-white font-bold text-xs tracking-wider uppercase">{t('admin.console', 'Console')}</span>
-                <span className="text-[10px] text-slate-400">{t('admin.groupAdmin', 'ODST Group Admin')}</span>
-              </div>
+          <div className="h-16 px-5 flex items-center justify-between border-b border-slate-800/80 shrink-0">
+            <Link to="/" className="flex items-center gap-2.5">
+              <img src={logo} alt="ODST Logo" className="h-7 w-auto object-contain" />
+              <span className="text-white font-semibold text-sm tracking-tight">Admin Console</span>
             </Link>
             <button
               type="button"
               onClick={() => setMobileSidebarOpen(false)}
-              className="lg:hidden text-slate-400 hover:text-white p-1.5 rounded-md hover:bg-white/10 text-sm font-bold"
+              className="lg:hidden text-slate-400 hover:text-white p-1 rounded"
               aria-label="Close navigation menu"
             >
               ✕
             </button>
           </div>
 
-          {/* Scrollable Navigation Links */}
-          <div className="p-3.5 space-y-1 overflow-y-auto flex-1">
-            <span className="block px-3 pt-2 pb-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-              {t('admin.management', 'Management')}
+          {/* Clean Navigation Links */}
+          <div className="p-3 space-y-1 overflow-y-auto flex-1">
+            <span className="block px-3 pt-3 pb-1 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+              {t('admin.management', 'Manajemen')}
             </span>
 
+            {/* Contacts / Inquiries Tab */}
             <button
               type="button"
               onClick={() => { setActiveTab('contacts'); setSearchQuery(''); setStatusFilter('all'); setMobileSidebarOpen(false); }}
-              className={`w-full text-left px-3 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-between transition-all ${
+              className={`w-full text-left px-3 py-2 rounded-lg text-xs flex items-center justify-between transition-colors ${
                 activeTab === 'contacts'
-                  ? 'bg-brand-orange text-white shadow-sm'
-                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+                  ? 'bg-slate-800 text-white font-medium'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
               }`}
             >
               <span>{t('admin.nav.inquiries', 'Customer Inquiries')}</span>
-              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                unreadCount > 0 
-                  ? 'bg-rose-500 text-white' 
-                  : activeTab === 'contacts' ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-300'
-              }`}>
+              <span className={`text-xs ${unreadCount > 0 ? 'text-rose-400 font-semibold' : 'text-slate-400 font-mono'}`}>
                 {contacts.length}
               </span>
             </button>
 
+            {/* Newsletter Subscribers Tab */}
             <button
               type="button"
               onClick={() => { setActiveTab('subscribers'); setSearchQuery(''); setMobileSidebarOpen(false); }}
-              className={`w-full text-left px-3 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-between transition-all ${
+              className={`w-full text-left px-3 py-2 rounded-lg text-xs flex items-center justify-between transition-colors ${
                 activeTab === 'subscribers'
-                  ? 'bg-brand-orange text-white shadow-sm'
-                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+                  ? 'bg-slate-800 text-white font-medium'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
               }`}
             >
               <span>{t('admin.nav.subscribers', 'Newsletter Subscribers')}</span>
-              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                activeTab === 'subscribers' ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-300'
-              }`}>
+              <span className="text-xs text-slate-400 font-mono">
                 {subscribers.length}
               </span>
             </button>
 
+            {/* Landing Services Tab */}
             <button
               type="button"
               onClick={() => { setActiveTab('services'); setSearchQuery(''); setMobileSidebarOpen(false); }}
-              className={`w-full text-left px-3 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-between transition-all ${
+              className={`w-full text-left px-3 py-2 rounded-lg text-xs flex items-center justify-between transition-colors ${
                 activeTab === 'services'
-                  ? 'bg-brand-orange text-white shadow-sm'
-                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+                  ? 'bg-slate-800 text-white font-medium'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
               }`}
             >
               <span>{t('admin.nav.services', 'Landing Services')}</span>
-              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                activeTab === 'services' ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-300'
-              }`}>
+              <span className="text-xs text-slate-400 font-mono">
                 {services.length || 3}
               </span>
             </button>
 
+            {/* Direct Contact Directory Tab */}
             <button
               type="button"
               onClick={() => { setActiveTab('connections'); setSearchQuery(''); setMobileSidebarOpen(false); }}
-              className={`w-full text-left px-3 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-between transition-all ${
+              className={`w-full text-left px-3 py-2 rounded-lg text-xs flex items-center justify-between transition-colors ${
                 activeTab === 'connections'
-                  ? 'bg-brand-orange text-white shadow-sm'
-                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+                  ? 'bg-slate-800 text-white font-medium'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
               }`}
             >
               <span>{t('admin.nav.connections', 'Direct Contact Directory')}</span>
-              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                activeTab === 'connections' ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-300'
-              }`}>
+              <span className="text-xs text-slate-400 font-mono">
                 {services.length || 3}
               </span>
             </button>
 
-            <div className="pt-3.5 mt-3 border-t border-slate-800 space-y-1.5">
-              <span className="block px-3 py-0.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                {t('admin.languageLabel', 'Language / اللغة')}
+            {/* Language Selector */}
+            <div className="pt-4 mt-3 border-t border-slate-800/70 space-y-2">
+              <span className="block px-3 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                {t('admin.languageLabel', 'Bahasa')}
               </span>
-              <div className="grid grid-cols-3 gap-1 px-1">
+              <div className="flex gap-1.5 px-2">
                 {[
+                  { code: 'id', label: 'Indo' },
                   { code: 'en', label: 'English' },
                   { code: 'ar', label: 'العربية' },
-                  { code: 'id', label: 'Indo' },
                 ].map((lang) => {
                   const isActive = i18n.language === lang.code;
                   return (
@@ -567,10 +559,10 @@ export default function AdminDashboard() {
                       key={lang.code}
                       type="button"
                       onClick={() => i18n.changeLanguage(lang.code)}
-                      className={`py-1 px-1 rounded text-[11px] font-semibold text-center transition-all ${
+                      className={`px-2.5 py-1 rounded-md text-xs transition-colors ${
                         isActive
-                          ? 'bg-brand-orange text-white shadow-xs'
-                          : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
+                          ? 'bg-slate-800 text-white font-medium'
+                          : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/30'
                       }`}
                     >
                       {lang.label}
@@ -580,42 +572,41 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            <div className="pt-3 mt-2 border-t border-slate-800 space-y-1">
-              <span className="block px-3 py-0.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                {t('admin.external', 'External')}
+            {/* External Link */}
+            <div className="pt-3 mt-2 border-t border-slate-800/70 space-y-1">
+              <span className="block px-3 py-1 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                {t('admin.external', 'Eksternal')}
               </span>
               <Link
                 to="/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full text-left px-3 py-2 rounded-lg text-xs text-slate-400 hover:text-white hover:bg-white/5 flex items-center justify-between transition-colors"
+                className="w-full text-left px-3 py-2 rounded-lg text-xs text-slate-400 hover:text-white hover:bg-slate-800/30 flex items-center justify-between transition-colors"
               >
-                <span>{t('admin.liveWebsite', 'Live Website')}</span>
-                <span className="text-xs">↗</span>
+                <span>{t('admin.liveWebsite', 'Lihat Website')}</span>
+                <span className="text-xs text-slate-400">↗</span>
               </Link>
             </div>
           </div>
         </div>
 
         {/* Bottom User Profile Section */}
-        <div className="p-3.5 border-t border-slate-800 bg-black/25 shrink-0">
-          <div className="flex items-center justify-between gap-2">
-            <div className="min-w-0 flex-1">
-              <div className="text-xs font-semibold text-white truncate">
-                {adminUser.username || 'admin'}
-              </div>
-              <div className="text-[10px] text-slate-400 truncate">
-                {adminUser.email || 'admin@odst.id'}
-              </div>
+        <div className="p-3.5 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 shrink-0">
+          <div className="min-w-0 flex-1 pr-2">
+            <div className="text-xs font-semibold text-white truncate leading-tight">
+              {adminUser.username || 'admin'}
             </div>
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="text-rose-400 hover:text-rose-300 text-xs font-medium px-2 py-1 hover:bg-rose-500/10 rounded transition-colors shrink-0"
-            >
-              {t('admin.signOut', 'Sign out')}
-            </button>
+            <div className="text-[11px] text-slate-400 truncate leading-tight mt-0.5">
+              {adminUser.email || 'admin@odst.id'}
+            </div>
           </div>
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="text-rose-400 hover:text-rose-300 text-xs font-medium px-2 py-1 hover:bg-rose-500/10 rounded transition-colors shrink-0"
+          >
+            {t('admin.signOut', 'Keluar')}
+          </button>
         </div>
 
       </aside>

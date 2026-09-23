@@ -91,3 +91,15 @@
     transform: translateX(100%);
   }
 }
+
+@keyframes progressLine {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 65%;
+  }
+  100% {
+    width: 100%;
+  }
+}

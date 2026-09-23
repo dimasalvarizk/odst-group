@@ -1,36 +1,72 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useScroll } from '../../hooks/useScroll';
 import logo from '../../assets/odstlogo.png';
 import LanguageSelector from './LanguageSelector';
+import { scrollToSection } from '../../utils/scrollHelper';
 
 export default function Navbar() {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const isScrolled = useScroll(20);
   const location = useLocation();
-  
+  const navigate = useNavigate();
+  const [activeSection, setActiveSection] = useState<'about' | 'services' | null>('about');
+
   const isContactPage = location.pathname === '/contact';
 
+  // Scroll listener to update active section when on Landing page
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setActiveSection(null);
+      return;
+    }
+
+    const handleScrollActive = () => {
+      const servicesElement = document.getElementById('services');
+      if (servicesElement) {
+        const rect = servicesElement.getBoundingClientRect();
+        if (rect.top <= 250) {
+          setActiveSection('services');
+        } else {
+          setActiveSection('about');
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScrollActive, { passive: true });
+    handleScrollActive();
+    return () => window.removeEventListener('scroll', handleScrollActive);
+  }, [location.pathname]);
+
+  const handleSectionClick = (sectionId: string, isMobile = false) => {
+    if (isMobile) setIsOpen(false);
+
+    if (location.pathname === '/') {
+      scrollToSection(sectionId);
+    } else {
+      navigate('/', { state: { scrollTo: sectionId } });
+    }
+  };
+
   const navItems = [
-    { label: t('nav.about'), href: '/#about', to: '/', isSpaLink: false },
-    { label: t('nav.companies'), href: '/#services', to: '/', isSpaLink: false },
-    { label: t('nav.contact'), href: '/contact', to: '/contact', isSpaLink: true },
+    { label: t('nav.about'), sectionId: 'about', isPage: false },
+    { label: t('nav.companies'), sectionId: 'services', isPage: false },
+    { label: t('nav.contact'), to: '/contact', isPage: true },
   ];
 
-  const renderLink = (item: typeof navItems[0], isMobile = false) => {
-    // Check if link is active
-    const isActive = 
-      (item.isSpaLink && isContactPage) || 
-      (!item.isSpaLink && !isContactPage && location.hash === item.href.substring(1));
+  const renderLink = (item: (typeof navItems)[0], isMobile = false) => {
+    const isActive =
+      (item.isPage && isContactPage) ||
+      (!item.isPage && location.pathname === '/' && activeSection === item.sectionId);
 
     const baseClasses = isMobile
-      ? `font-normal text-base py-1 transition-colors duration-200 ${
+      ? `font-normal text-base py-1 transition-colors duration-200 text-left rtl:text-right w-full bg-transparent border-none cursor-pointer ${
           isActive ? 'text-brand-orange font-medium' : 'text-white/85 hover:text-brand-orange'
         }`
-      : `font-normal text-sm transition-colors duration-200 relative group py-1 ${
+      : `font-normal text-sm transition-colors duration-200 relative group py-1 bg-transparent border-none cursor-pointer ${
           isActive ? 'text-brand-orange font-medium' : 'text-white/80 hover:text-white'
         }`;
 
@@ -42,7 +78,7 @@ export default function Navbar() {
       />
     );
 
-    if (item.isSpaLink) {
+    if (item.isPage && item.to) {
       return (
         <Link
           key={item.label}
@@ -57,15 +93,15 @@ export default function Navbar() {
     }
 
     return (
-      <a
+      <button
         key={item.label}
-        href={item.href}
-        onClick={() => isMobile && setIsOpen(false)}
+        type="button"
+        onClick={() => handleSectionClick(item.sectionId!, isMobile)}
         className={baseClasses}
       >
         {item.label}
         {underlineBar}
-      </a>
+      </button>
     );
   };
 
@@ -79,7 +115,16 @@ export default function Navbar() {
     >
       <div className="max-w-[85rem] mx-auto px-4 md:px-8 flex justify-between items-center">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2 rtl:space-x-reverse focus:outline-none">
+        <Link
+          to="/"
+          onClick={(e) => {
+            if (location.pathname === '/') {
+              e.preventDefault();
+              scrollToSection('about');
+            }
+          }}
+          className="flex items-center space-x-2 rtl:space-x-reverse focus:outline-none"
+        >
           <img src={logo} alt="ODST Logo" className="h-10 md:h-11 w-auto hover:opacity-90 transition-opacity" />
         </Link>
 

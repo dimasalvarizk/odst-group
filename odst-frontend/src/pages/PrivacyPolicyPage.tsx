@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { images } from '../utils/images';
+import { scrollToSection } from '../utils/scrollHelper';
 
 export default function PrivacyPolicyPage() {
   const { t } = useTranslation();
@@ -61,36 +62,41 @@ export default function PrivacyPolicyPage() {
 
               {/* Navigation Quick Links */}
               <nav className="space-y-2 border-l-2 border-slate-100 pl-4">
-                <a 
-                  href="#privacy-1" 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium"
+                <button 
+                  type="button"
+                  onClick={() => scrollToSection('privacy-1')} 
+                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
                 >
                   {t('privacyPage.introTitle')}
-                </a>
-                <a 
-                  href="#privacy-2" 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium"
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => scrollToSection('privacy-2')} 
+                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
                 >
                   {t('privacyPage.dataTitle')}
-                </a>
-                <a 
-                  href="#privacy-3" 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium"
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => scrollToSection('privacy-3')} 
+                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
                 >
                   {t('privacyPage.useTitle')}
-                </a>
-                <a 
-                  href="#privacy-4" 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium"
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => scrollToSection('privacy-4')} 
+                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
                 >
                   {t('privacyPage.sharingTitle')}
-                </a>
-                <a 
-                  href="#privacy-5" 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium"
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => scrollToSection('privacy-5')} 
+                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
                 >
                   {t('privacyPage.contactTitle')}
-                </a>
+                </button>
               </nav>
 
               {/* Contact Help Note */}

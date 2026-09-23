@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { images } from '../../utils/images';
+import { scrollToSection } from '../../utils/scrollHelper';
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -48,12 +49,13 @@ export default function Hero() {
 
         {/* Single Centered Solid Dark CTA Button - using exact rgba(36, 46, 105, 1) */}
         <div className="flex justify-center">
-          <a
-            href="#services"
-            className="bg-[#242E69] hover:bg-[#242E69]/95 text-white font-semibold py-3.5 px-8 rounded-sm tracking-widest text-[10px] md:text-xs uppercase transition-all duration-300 transform active:scale-95 border border-white/10 shadow-lg"
+          <button
+            type="button"
+            onClick={() => scrollToSection('services')}
+            className="bg-[#242E69] hover:bg-[#242E69]/95 text-white font-semibold py-3.5 px-8 rounded-sm tracking-widest text-[10px] md:text-xs uppercase transition-all duration-300 transform active:scale-95 border border-white/10 shadow-lg cursor-pointer"
           >
             {t('hero.cta')}
-          </a>
+          </button>
         </div>
       </div>
 

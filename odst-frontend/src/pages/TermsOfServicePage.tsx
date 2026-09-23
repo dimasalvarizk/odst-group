@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { images } from '../utils/images';
+import { scrollToSection } from '../utils/scrollHelper';
 
 export default function TermsOfServicePage() {
   const { t } = useTranslation();
@@ -61,36 +62,41 @@ export default function TermsOfServicePage() {
 
               {/* Navigation Quick Links */}
               <nav className="space-y-2 border-l-2 border-slate-100 pl-4">
-                <a 
-                  href="#section-1" 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium"
+                <button 
+                  type="button"
+                  onClick={() => scrollToSection('section-1')} 
+                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
                 >
                   {t('termsPage.section1Title')}
-                </a>
-                <a 
-                  href="#section-2" 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium"
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => scrollToSection('section-2')} 
+                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
                 >
                   {t('termsPage.section2Title')}
-                </a>
-                <a 
-                  href="#section-3" 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium"
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => scrollToSection('section-3')} 
+                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
                 >
                   {t('termsPage.section3Title')}
-                </a>
-                <a 
-                  href="#section-4" 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium"
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => scrollToSection('section-4')} 
+                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
                 >
                   {t('termsPage.section4Title')}
-                </a>
-                <a 
-                  href="#section-5" 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium"
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => scrollToSection('section-5')} 
+                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
                 >
                   {t('termsPage.section5Title')}
-                </a>
+                </button>
               </nav>
 
               {/* Contact Help Note */}

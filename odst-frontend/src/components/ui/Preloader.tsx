@@ -28,7 +28,6 @@ export default function Preloader({ isLoading, minDuration = 1200 }: PreloaderPr
       setVisible(false);
       return;
     }
-
     // If manually controlled
     if (typeof isLoading === 'boolean') {
       if (isLoading) {
@@ -71,7 +70,7 @@ export default function Preloader({ isLoading, minDuration = 1200 }: PreloaderPr
     };
   }, [location.pathname, isLoading, minDuration, isAdminRoute]);
 
-  if (isAdminRoute || !visible) return null;
+  if (!visible) return null;
 
   return (
     <div
@@ -88,13 +87,13 @@ export default function Preloader({ isLoading, minDuration = 1200 }: PreloaderPr
       <div className="relative flex flex-col items-center justify-center px-6">
 
         {/* Pure ODST Logo with Smooth Entrance & Subtle Float */}
-        <div className="relative mb-4 flex items-center justify-center">
+        <div className="relative mb-6 flex items-center justify-center">
           {/* Logo with Soft Shimmer Clip */}
-          <div className="relative overflow-hidden p-1.5">
+          <div className="relative overflow-hidden p-2">
             <img
               src={logo}
               alt="ODST"
-              className="h-9 sm:h-10 w-auto object-contain transition-transform duration-700 ease-out transform"
+              className="h-14 sm:h-16 w-auto object-contain transition-transform duration-700 ease-out transform"
             />
             {/* Shimmer Light Sweep Effect */}
             <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
@@ -102,7 +101,7 @@ export default function Preloader({ isLoading, minDuration = 1200 }: PreloaderPr
         </div>
 
         {/* Minimalist Smooth Line Progress Indicator */}
-        <div className="w-20 h-[2px] bg-slate-100 rounded-full overflow-hidden">
+        <div className="w-28 h-[2px] bg-slate-100 rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-[#242E69] via-[#E06227] to-[#E06227] rounded-full transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}

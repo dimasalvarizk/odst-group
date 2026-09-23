@@ -26,18 +26,18 @@ function App() {
         <Route path="/coming-soon" element={<ComingSoonPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/terms-of-service" element={<TermsOfServicePage />} />
-        
+
         {/* Secret Admin Gate */}
         <Route path="/internal-odst-gate" element={<AdminLogin />} />
-        <Route 
-          path="/internal-odst-gate/dashboard" 
+        <Route
+          path="/internal-odst-gate/dashboard"
           element={
             <PrivateRoute>
               <AdminDashboard />
             </PrivateRoute>
-          } 
+          }
         />
-        
+
         {/* Trap/Redirect any old /admin requests back to Home */}
         <Route path="/admin" element={<Navigate to="/" replace />} />
         <Route path="/admin/*" element={<Navigate to="/" replace />} />

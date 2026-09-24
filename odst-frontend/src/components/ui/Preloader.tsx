@@ -1,36 +1,36 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import logo from '../../assets/logo-group.png';
 
 interface PreloaderProps {
   /** If provided, manually controls visibility */
   isLoading?: boolean;
-  /** Minimum display duration in ms (default 800ms) */
-  minDuration?: number;
+  /** Display duration in ms for route transitions (default 550ms) */
+  transitionDuration?: number;
 }
 
-export default function Preloader({ isLoading, minDuration = 850 }: PreloaderProps) {
+export default function Preloader({
+  isLoading,
+  transitionDuration = 550,
+}: PreloaderProps) {
   const location = useLocation();
+  const prevPathRef = useRef<string | null>(null);
 
   const isAdminRoute =
     location.pathname.startsWith('/internal-odst-gate') ||
     location.pathname.startsWith('/admin');
 
-  // Check if initial session splash already happened
-  const [visible, setVisible] = useState(() => {
-    if (isAdminRoute) return false;
-    // If user already visited in this session, skip to keep navigation instant
-    const hasVisited = sessionStorage.getItem('odst_splash_seen');
-    return !hasVisited;
-  });
+  const [visible, setVisible] = useState(true);
   const [fading, setFading] = useState(false);
 
+  // Trigger loading animation on every page navigation and initial load
   useEffect(() => {
     if (isAdminRoute) {
       setVisible(false);
       return;
     }
 
+    // If manual control is passed
     if (typeof isLoading === 'boolean') {
       if (isLoading) {
         setVisible(true);
@@ -43,22 +43,29 @@ export default function Preloader({ isLoading, minDuration = 850 }: PreloaderPro
       return;
     }
 
-    // If first load
-    sessionStorage.setItem('odst_splash_seen', 'true');
+    // Scroll to top immediately on route change
+    window.scrollTo(0, 0);
 
+    // Show preloader animation
+    setVisible(true);
+    setFading(false);
+
+    // Fade out after transitionDuration
     const fadeTimer = setTimeout(() => {
       setFading(true);
-    }, minDuration);
+    }, transitionDuration);
 
     const hideTimer = setTimeout(() => {
       setVisible(false);
-    }, minDuration + 300);
+    }, transitionDuration + 300);
+
+    prevPathRef.current = location.pathname;
 
     return () => {
       clearTimeout(fadeTimer);
       clearTimeout(hideTimer);
     };
-  }, [isAdminRoute, isLoading, minDuration]);
+  }, [location.pathname, isAdminRoute, isLoading, transitionDuration]);
 
   if (!visible || isAdminRoute) return null;
 
@@ -72,18 +79,19 @@ export default function Preloader({ isLoading, minDuration = 850 }: PreloaderPro
     >
       <div className="flex flex-col items-center justify-center px-6">
         {/* ODST Logo */}
-        <div className="mb-3.5 flex items-center justify-center">
+        <div className="mb-4 flex items-center justify-center animate-fade-in-up">
           <img
             src={logo}
             alt="ODST"
-            className="h-8 sm:h-9 w-auto object-contain"
+            className="h-9 sm:h-10 w-auto object-contain"
           />
         </div>
 
-        {/* Hardware-Accelerated CSS Progress Line */}
-        <div className="w-20 h-[2px] bg-slate-100 rounded-full overflow-hidden">
+        {/* Hardware-Accelerated Progress Line */}
+        <div className="w-24 h-[2.5px] bg-slate-100 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-[#242E69] to-[#E06227] rounded-full animate-[progressLine_0.8s_ease-out_forwards]"
+            key={location.pathname}
+            className="h-full bg-gradient-to-r from-[#242E69] via-[#e27435] to-[#c5a880] rounded-full animate-[progressLine_0.6s_cubic-bezier(0.16,1,0.3,1)_forwards]"
           />
         </div>
       </div>

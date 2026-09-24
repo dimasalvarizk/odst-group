@@ -79,8 +79,8 @@ export default function Newsletter() {
               {errorType === 'already_subscribed'
                 ? t('newsletter.alreadySubscribed')
                 : errorType === 'generic'
-                ? t('newsletter.genericError')
-                : t('newsletter.error')}
+                  ? t('newsletter.genericError')
+                  : t('newsletter.error')}
             </div>
           )}
         </form>

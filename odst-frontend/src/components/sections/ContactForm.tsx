@@ -8,7 +8,7 @@ export default function ContactForm() {
   const { formData, status, handleInputChange, submitForm } = useContact();
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-xl p-6 md:p-10 space-y-6 text-start">
+    <div className="bg-white rounded-2xl border border-slate-100/90 shadow-xl hover:shadow-2xl transition-all duration-400 p-6 md:p-10 space-y-6 text-start animate-fade-in-left delay-200">
       {/* Header Info */}
       <div className="space-y-2">
         <h2 className="text-2xl md:text-3xl font-bold text-brand-navy">
@@ -131,7 +131,7 @@ export default function ContactForm() {
           >
             {status === 'loading' ? t('contactForm.submitting') : t('contactForm.submit')}
           </Button>
-          
+
           <span className="text-xs text-slate-400 leading-relaxed text-start">
             {t('contactForm.disclaimer')}
           </span>

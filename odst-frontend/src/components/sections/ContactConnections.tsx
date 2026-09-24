@@ -79,7 +79,7 @@ export default function ContactConnections() {
   }, []);
 
   return (
-    <div className="space-y-6 text-start">
+    <div className="space-y-6 text-start animate-fade-in-right delay-200">
       {/* Title & Subtitle */}
       <div className="space-y-2">
         <h2 className="text-2xl md:text-3xl font-bold text-brand-navy">
@@ -90,20 +90,22 @@ export default function ContactConnections() {
         </p>
       </div>
 
-      {/* Connection Cards Stack */}
+      {/* Connection Cards Stack with Staggered Hover Elevation */}
       <div className="space-y-4">
-        {connections.map((conn) => {
+        {connections.map((conn, index) => {
           // Translate dynamic badge if default, or use custom DB badge
           const isStandardBadge = ['Premium Hospitality', 'Aviation & Charter', 'Bespoke Journeys', 'ODST Hotels', 'ODST Airlines', 'ODST Tour & Travel'].includes(conn.badge);
           const badge = isStandardBadge ? t(`services.${conn.id}.badge`, conn.badge) : conn.badge;
-          
+
           // Address directly from database
           const address = conn.address || t('contactConnections.address', '');
+
+          const delayClasses = index === 0 ? 'delay-200' : index === 1 ? 'delay-300' : 'delay-400';
 
           return (
             <div
               key={conn.id}
-              className="bg-white rounded-xl border border-slate-100 shadow-lg p-5 md:p-6 hover:shadow-xl transition-all duration-300 group"
+              className={`bg-white rounded-2xl border border-slate-100/90 shadow-md p-5 md:p-6 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-400 group animate-fade-in-up ${delayClasses}`}
             >
               {/* Badge Tag */}
               <div className="mb-3">
@@ -111,7 +113,7 @@ export default function ContactConnections() {
               </div>
 
               {/* Division Title */}
-              <h3 className="text-lg md:text-xl font-bold text-brand-navy mb-4 group-hover:text-brand-orange transition-colors">
+              <h3 className="text-lg md:text-xl font-bold text-brand-navy mb-4 group-hover:text-brand-orange transition-colors duration-300">
                 {conn.title}
               </h3>
 
@@ -119,7 +121,9 @@ export default function ContactConnections() {
               <div className="space-y-3 text-xs md:text-sm text-slate-500 font-sans">
                 {/* Phone Line */}
                 <div className="flex items-center space-x-3.5 rtl:space-x-reverse">
-                  <Phone size={15} className="text-brand-gold shrink-0" />
+                  <div className="w-7 h-7 rounded-lg bg-slate-50 group-hover:bg-brand-orange/10 flex items-center justify-center shrink-0 transition-colors duration-300">
+                    <Phone size={14} className="text-brand-gold group-hover:text-brand-orange group-hover:scale-110 transition-all duration-300" />
+                  </div>
                   <a
                     href={`tel:${conn.phone.replace(/\s+/g, '')}`}
                     className="hover:text-brand-orange font-medium transition-colors"
@@ -130,7 +134,9 @@ export default function ContactConnections() {
 
                 {/* Email Line */}
                 <div className="flex items-center space-x-3.5 rtl:space-x-reverse">
-                  <Mail size={15} className="text-brand-gold shrink-0" />
+                  <div className="w-7 h-7 rounded-lg bg-slate-50 group-hover:bg-brand-orange/10 flex items-center justify-center shrink-0 transition-colors duration-300">
+                    <Mail size={14} className="text-brand-gold group-hover:text-brand-orange group-hover:scale-110 transition-all duration-300" />
+                  </div>
                   <a
                     href={`mailto:${conn.email}`}
                     className="hover:text-brand-orange font-medium transition-colors"
@@ -141,7 +147,9 @@ export default function ContactConnections() {
 
                 {/* Address Line */}
                 <div className="flex items-start space-x-3.5 rtl:space-x-reverse">
-                  <MapPin size={15} className="text-brand-gold shrink-0 mt-0.5" />
+                  <div className="w-7 h-7 rounded-lg bg-slate-50 group-hover:bg-brand-orange/10 flex items-center justify-center shrink-0 mt-0.5 transition-colors duration-300">
+                    <MapPin size={14} className="text-brand-gold group-hover:text-brand-orange group-hover:scale-110 transition-all duration-300" />
+                  </div>
                   <p className="leading-relaxed font-light">
                     {address}
                   </p>

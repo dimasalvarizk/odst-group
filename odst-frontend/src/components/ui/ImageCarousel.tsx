@@ -85,7 +85,7 @@ export default function ImageCarousel({
       role="region"
       aria-roledescription="carousel"
       aria-label={`${title} image showcase`}
-      className={`relative group overflow-hidden rounded-2xl shadow-xl border border-slate-100 bg-slate-900 select-none ${className}`}
+      className={`relative group overflow-hidden rounded-2xl shadow-xl border border-slate-100/80 bg-slate-900 select-none service-card-glow ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onTouchStart={handleTouchStart}

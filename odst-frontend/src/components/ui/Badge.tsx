@@ -8,7 +8,7 @@ interface BadgeProps {
 export function Badge({ children, className = '' }: BadgeProps) {
   return (
     <span
-      className={`inline-block font-sans text-[10px] md:text-xs font-semibold uppercase tracking-widest text-slate-600 border border-brand-gold px-3.5 py-1 rounded bg-transparent ${className}`}
+      className={`inline-block font-sans text-[10px] md:text-xs font-semibold uppercase tracking-widest text-slate-600 border border-brand-gold px-3.5 py-1 rounded bg-transparent transition-all duration-300 hover:border-brand-orange hover:text-brand-orange hover:bg-brand-orange/5 ${className}`}
     >
       {children}
     </span>

@@ -1,151 +1,88 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Navbar from '../components/layout/Navbar';
-import Footer from '../components/layout/Footer';
 import { images } from '../utils/images';
+import Navbar from '../components/layout/Navbar';
 
 export default function ComingSoonPage() {
   const { t } = useTranslation();
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-slate-800 flex flex-col font-sans text-start">
+    <div className="relative min-h-screen h-screen flex flex-col justify-between items-center overflow-hidden bg-[#050c1e] text-white font-sans selection:bg-brand-orange selection:text-white">
+      {/* Official Standard Navbar */}
       <Navbar />
 
-      {/* Hero Header */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
-          style={{ backgroundImage: `url(${images.contactHero || images.hero1})` }}
-        />
-        
-        {/* Dark Translucent Overlay */}
-        <div className="absolute inset-0 bg-black/75" />
+      {/* Fullscreen Atmospheric Background Image with Subtle Slow Drift */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 animate-bg-drift pointer-events-none"
+        style={{ backgroundImage: `url(${images.hero1})` }}
+      />
 
-        {/* Content */}
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white fade-in">
-          <span className="text-brand-orange text-xs font-semibold tracking-widest uppercase mb-2 block">
-            {t('comingSoon.badge')}
-          </span>
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-3 font-spectral">
-            {t('comingSoon.title')}
-          </h1>
-          <p className="text-white/70 text-xs md:text-sm max-w-md mx-auto font-light">
-            {t('comingSoon.subtitle')}
+      {/* Cinematic Dark Vignette Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#050c1e]/85 via-black/70 to-[#050c1e]/90 pointer-events-none" />
+
+      {/* Center Hero Content - Minimalist & Cinematic */}
+      <main className="relative z-20 max-w-3xl mx-auto px-6 text-center space-y-6 md:space-y-8 my-auto pt-24 md:pt-28">
+        {/* Title */}
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-[0.2em] md:tracking-[0.25em] text-white uppercase drop-shadow-xl animate-fade-in-up delay-200 leading-tight">
+          COMING SOON
+        </h1>
+
+        {/* Subtitle & Message */}
+        <div className="space-y-2 max-w-xl mx-auto text-white/80 font-light text-xs sm:text-sm md:text-base leading-relaxed tracking-wide animate-fade-in-up delay-300">
+          <p>
+            {t('comingSoon.statusDesc') ||
+              'Kami sedang mempersiapkan pengalaman digital baru untuk Anda.'}
+          </p>
+          <p className="text-white/60 text-xs sm:text-sm">
+            {t('comingSoon.desc2') ||
+              'Layanan ini akan segera tersedia. Hubungi kami untuk informasi lebih lanjut.'}
           </p>
         </div>
-      </section>
 
-      {/* Main Content - 2 Column Left-Right Layout */}
-      <main className="flex-grow py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 fade-in">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            
-            {/* Left Column: Sticky Summary & Quick Actions */}
-            <aside className="lg:col-span-4 lg:sticky lg:top-28 space-y-8">
-              <div>
-                <span className="text-brand-orange text-xs font-semibold tracking-widest uppercase mb-2 block">
-                  {t('comingSoon.badge')}
-                </span>
-                <h2 className="text-2xl font-bold text-brand-navy font-spectral mb-3">
-                  {t('comingSoon.title')}
-                </h2>
-                <p className="text-slate-500 text-xs font-light">
-                  {t('comingSoon.subtitle')}
-                </p>
-              </div>
+        {/* Minimalist Action Buttons */}
+        <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up delay-400">
+          <Link
+            to="/contact"
+            className="px-8 py-3.5 border border-white/50 hover:border-white hover:bg-white hover:text-[#050c1e] text-white text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 rounded-sm shadow-lg backdrop-blur-xs active:scale-95 cursor-pointer"
+          >
+            {t('nav.contact') || 'HUBUNGI KAMI'}
+          </Link>
 
-              {/* Status Note */}
-              <div className="p-6 bg-slate-50/90 rounded-xl space-y-3">
-                <span className="inline-block px-2.5 py-1 rounded bg-brand-orange/15 text-brand-orange text-[11px] font-bold uppercase tracking-wider">
-                  {t('comingSoon.statusBadge')}
-                </span>
-                <p className="text-xs text-slate-600 leading-relaxed font-light">
-                  {t('comingSoon.statusDesc')}
-                </p>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="space-y-3 pt-2">
-                <Link 
-                  to="/" 
-                  className="w-full inline-flex items-center justify-center px-6 py-3.5 bg-brand-orange hover:bg-brand-orange/90 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all duration-200 shadow-md active:scale-95"
-                >
-                  {t('comingSoon.backHome')}
-                </Link>
-
-                <Link 
-                  to="/contact" 
-                  className="w-full inline-flex items-center justify-center px-6 py-3.5 bg-[#242E69] hover:bg-[#1d2554] text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all duration-200 shadow-md active:scale-95"
-                >
-                  {t('comingSoon.contact')}
-                </Link>
-              </div>
-            </aside>
-
-            {/* Right Column: Detailed Editorial Sections */}
-            <div className="lg:col-span-8 space-y-12">
-              
-              {/* Section 1: Heading & Main Description */}
-              <section className="space-y-4 border-b border-slate-100 pb-10">
-                <h3 className="text-xl md:text-2xl font-bold text-brand-navy font-spectral" dir="auto">
-                  {t('comingSoon.heading')}
-                </h3>
-                <p className="text-slate-600 text-sm md:text-base leading-relaxed font-light" dir="auto">
-                  {t('comingSoon.desc1')}
-                </p>
-              </section>
-
-              {/* Section 2: Integrated Services Overview */}
-              <section className="space-y-6 border-b border-slate-100 pb-10">
-                <h3 className="text-xl md:text-2xl font-bold text-brand-navy font-spectral" dir="auto">
-                  {t('comingSoon.servicesTitle')}
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-start">
-                  <div className="space-y-1.5">
-                    <h4 className="text-base font-bold text-brand-navy font-spectral">{t('services.hotels.title')}</h4>
-                    <p className="text-xs text-slate-500 leading-relaxed font-light">
-                      {t('comingSoon.hotelsDesc')}
-                    </p>
-                  </div>
-                  <div className="space-y-1.5">
-                    <h4 className="text-base font-bold text-brand-navy font-spectral">{t('services.airlines.title')}</h4>
-                    <p className="text-xs text-slate-500 leading-relaxed font-light">
-                      {t('comingSoon.airlinesDesc')}
-                    </p>
-                  </div>
-                  <div className="space-y-1.5">
-                    <h4 className="text-base font-bold text-brand-navy font-spectral">{t('services.travel.title')}</h4>
-                    <p className="text-xs text-slate-500 leading-relaxed font-light">
-                      {t('comingSoon.travelDesc')}
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              {/* Section 3: Contact & Support Info */}
-              <section className="space-y-4">
-                <h3 className="text-xl md:text-2xl font-bold text-brand-navy font-spectral" dir="auto">
-                  {t('comingSoon.supportTitle')}
-                </h3>
-                <p className="text-slate-600 text-sm md:text-base leading-relaxed font-light" dir="auto">
-                  {t('comingSoon.desc2')} {t('comingSoon.supportNote')}
-                </p>
-              </section>
-
-            </div>
-          </div>
+          <Link
+            to="/"
+            className="text-xs text-white/60 hover:text-white uppercase tracking-widest font-medium transition-colors py-2 px-3"
+          >
+            ← {t('comingSoon.backHome') || 'Beranda'}
+          </Link>
         </div>
       </main>
 
-      <Footer />
+      {/* Bottom Footer / Copyright */}
+      <footer className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 py-6 md:py-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-[11px] text-white/50 animate-fade-in-up delay-500">
+        <p>© {currentYear} ODST Group. All Rights Reserved.</p>
+        
+        <div className="flex items-center space-x-5 rtl:space-x-reverse">
+          <Link
+            to="/privacy-policy"
+            className="hover:text-white transition-colors"
+          >
+            {t('footer.links.privacy')}
+          </Link>
+          <span>•</span>
+          <Link
+            to="/terms-of-service"
+            className="hover:text-white transition-colors"
+          >
+            {t('footer.links.terms')}
+          </Link>
+        </div>
+      </footer>
     </div>
   );
 }
-
-

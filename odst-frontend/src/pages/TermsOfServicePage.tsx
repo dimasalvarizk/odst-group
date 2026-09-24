@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -6,173 +7,278 @@ import { images } from '../utils/images';
 import { scrollToSection } from '../utils/scrollHelper';
 
 export default function TermsOfServicePage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRtl = i18n.dir() === 'rtl';
+  const [activeTab, setActiveTab] = useState('terms');
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  const navTabs = [
+    { id: 'section-terms', label: 'Ketentuan & Lisensi' },
+    { id: 'section-license', label: 'Batasan Lisensi' },
+    { id: 'section-disclaimer', label: 'Penafian & Batasan' },
+    { id: 'section-jurisdiction', label: 'Hukum & Kontak' },
+  ];
+
+  const handleTabClick = (id: string) => {
+    setActiveTab(id);
+    scrollToSection(id);
+  };
+
   return (
-    <div className="min-h-screen bg-white text-slate-800 flex flex-col font-sans text-start">
+    <div className="min-h-screen bg-[#fcfcfd] text-slate-800 flex flex-col font-sans text-start selection:bg-brand-orange selection:text-white">
+      {/* Sleek visible navbar */}
       <Navbar />
 
-      {/* Hero Header */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
-          style={{ backgroundImage: `url(${images.contactHero || images.hero1})` }}
+      {/* Main Content Area - Directly unified without hero */}
+      <main className="relative flex-grow pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden bg-[#fcfcfd]">
+        {/* Full-width seamless background image with subtle drift and smooth gradient mask */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none opacity-20 animate-bg-drift"
+          style={{
+            backgroundImage: `url(${images.hero1})`,
+            maskImage: 'linear-gradient(to right, transparent 0%, transparent 20%, rgba(0,0,0,0.2) 45%, rgba(0,0,0,0.7) 75%, rgba(0,0,0,1) 100%)',
+            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, transparent 20%, rgba(0,0,0,0.2) 45%, rgba(0,0,0,0.7) 75%, rgba(0,0,0,1) 100%)',
+          }}
         />
-        
-        {/* Dark Translucent Overlay */}
-        <div className="absolute inset-0 bg-black/75" />
 
-        {/* Content */}
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white fade-in">
-          <span className="text-brand-orange text-xs font-semibold tracking-widest uppercase mb-2 block">
-            {t('termsPage.subtitle')}
-          </span>
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 font-spectral">
-            {t('termsPage.title')}
-          </h1>
-          <p className="text-white/70 text-xs md:text-sm max-w-md mx-auto font-light">
-            {t('termsPage.lastUpdated')}
-          </p>
-        </div>
-      </section>
-
-      {/* Main Content - 2 Column Left-Right Layout */}
-      <main className="flex-grow py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 fade-in">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 space-y-14">
+          
+          {/* Header Section with Staggered Entrance Animation */}
+          <div className="text-center space-y-3 max-w-2xl mx-auto">
+            <span className="text-xs font-semibold tracking-[0.25em] uppercase text-brand-navy block animate-fade-in-up delay-100">
+              PANDUAN & LEGALITAS
+            </span>
+            <div className="w-12 h-0.5 bg-brand-orange mx-auto animate-fade-in-up delay-150" />
             
-            {/* Left Column: Sticky Section Navigation & Quick Help */}
-            <aside className="lg:col-span-4 lg:sticky lg:top-28 space-y-8">
-              <div>
-                <span className="text-brand-orange text-xs font-semibold tracking-widest uppercase mb-2 block">
-                  {t('termsPage.subtitle')}
-                </span>
-                <h2 className="text-2xl font-bold text-brand-navy font-spectral mb-4">
-                  {t('termsPage.title')}
+            <h1 className="text-3xl md:text-5xl font-normal font-spectral text-brand-navy tracking-tight animate-fade-in-up delay-200">
+              {t('termsPage.title')}
+            </h1>
+
+            <p className="text-slate-500 text-xs font-light tracking-wider animate-fade-in-up delay-250">
+              {t('termsPage.lastUpdated')}
+            </p>
+
+            {/* Quick Section Filter / Tabs */}
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-3 animate-fade-in-up delay-300">
+              {navTabs.map((tab) => {
+                const isActive = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => handleTabClick(tab.id)}
+                    className={`px-5 py-2 rounded text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer active:scale-95 ${
+                      isActive
+                        ? 'bg-[#1e2b58] text-white shadow-md scale-105'
+                        : 'bg-white border border-slate-200 text-slate-600 hover:text-brand-navy hover:border-slate-300 hover:shadow-xs hover:scale-102'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Two-Column Grid with Left/Right Entrance Animations */}
+          <div id="section-terms" className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start scroll-mt-28">
+            
+            {/* Left Column: Numbered Step-by-Step Flow */}
+            <div className="lg:col-span-6 space-y-8 animate-fade-in-left delay-200">
+              <div className="space-y-3">
+                <h2 className="text-2xl md:text-3xl font-normal text-brand-navy font-spectral">
+                  {t('termsPage.section1Title')}
                 </h2>
-                <p className="text-slate-500 text-xs font-light">
-                  {t('termsPage.lastUpdated')}
+                <p className="text-slate-600 text-sm md:text-base leading-relaxed font-light">
+                  {t('termsPage.section1Desc')}
                 </p>
               </div>
 
-              {/* Navigation Quick Links */}
-              <nav className="space-y-2 border-l-2 border-slate-100 pl-4">
-                <button 
-                  type="button"
-                  onClick={() => scrollToSection('section-1')} 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
-                >
-                  {t('termsPage.section1Title')}
-                </button>
-                <button 
-                  type="button"
-                  onClick={() => scrollToSection('section-2')} 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
-                >
-                  {t('termsPage.section2Title')}
-                </button>
-                <button 
-                  type="button"
-                  onClick={() => scrollToSection('section-3')} 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
-                >
-                  {t('termsPage.section3Title')}
-                </button>
-                <button 
-                  type="button"
-                  onClick={() => scrollToSection('section-4')} 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
-                >
-                  {t('termsPage.section4Title')}
-                </button>
-                <button 
-                  type="button"
-                  onClick={() => scrollToSection('section-5')} 
-                  className="block text-sm text-slate-600 hover:text-brand-orange transition-colors font-medium text-left rtl:text-right w-full bg-transparent border-none p-0 cursor-pointer"
-                >
-                  {t('termsPage.section5Title')}
-                </button>
-              </nav>
+              {/* Numbered Step Items with Interactive Hover Effects */}
+              <div className="space-y-4 pt-1">
+                <div className="group p-3 -mx-3 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-300 flex items-start gap-4 cursor-default">
+                  <div className="w-8 h-8 rounded-full bg-[#1e2b58] text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 shadow-sm group-hover:bg-brand-orange group-hover:scale-110 group-hover:shadow-md transition-all duration-300">
+                    1
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-bold text-brand-navy group-hover:text-brand-navy transition-colors">
+                      Kepatuhan Hukum
+                    </h4>
+                    <p className="text-xs text-slate-500 leading-relaxed font-light">
+                      Akses Anda tunduk pada regulasi perundang-undangan Republik Indonesia dan Kerajaan Arab Saudi.
+                    </p>
+                  </div>
+                </div>
 
-              {/* Contact Help Note */}
-              <div className="p-5 bg-slate-50/80 rounded-xl space-y-2">
+                <div className="group p-3 -mx-3 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-300 flex items-start gap-4 cursor-default">
+                  <div className="w-8 h-8 rounded-full bg-[#1e2b58] text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 shadow-sm group-hover:bg-brand-orange group-hover:scale-110 group-hover:shadow-md transition-all duration-300">
+                    2
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-bold text-brand-navy group-hover:text-brand-navy transition-colors">
+                      Integritas Layanan
+                    </h4>
+                    <p className="text-xs text-slate-500 leading-relaxed font-light">
+                      Segala bentuk pemesanan dan perjanjian tur, sewa pesawat, dan hotel memerlukan konfirmasi tertulis resmi.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="group p-3 -mx-3 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-300 flex items-start gap-4 cursor-default">
+                  <div className="w-8 h-8 rounded-full bg-[#1e2b58] text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 shadow-sm group-hover:bg-brand-orange group-hover:scale-110 group-hover:shadow-md transition-all duration-300">
+                    3
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-bold text-brand-navy group-hover:text-brand-navy transition-colors">
+                      Perlindungan Hak Cipta
+                    </h4>
+                    <p className="text-xs text-slate-500 leading-relaxed font-light">
+                      Seluruh materi media, merek, dan dokumen digital merupakan hak milik eksklusif ODST Group.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Interactive Action Button */}
+              <div className="pt-2">
+                <Link
+                  to="/contact"
+                  className="group inline-flex items-center gap-2.5 px-6 py-3 bg-[#1e2b58] hover:bg-[#283870] text-white text-xs font-bold uppercase tracking-wider rounded transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                >
+                  <span>{t('nav.contact') || 'Hubungi Kami'}</span>
+                  <span className="transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
+                    {isRtl ? '←' : '→'}
+                  </span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column: Floating Feature Card with Checkmarks & Hover Elevation */}
+            <div
+              id="section-license"
+              className="lg:col-span-6 bg-white border border-slate-200/80 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-400 p-8 md:p-10 space-y-6 border-l-4 border-l-[#1e2b58] scroll-mt-28 rounded-r-2xl animate-fade-in-right delay-300"
+            >
+              <div className="space-y-2">
+                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-orange block">
+                  LISENSI PENGGUNAAN
+                </span>
+                <h3 className="text-2xl md:text-3xl font-normal text-brand-navy font-spectral">
+                  {t('termsPage.section2Title')}
+                </h3>
+              </div>
+
+              <p className="text-slate-600 text-sm leading-relaxed font-light">
+                {t('termsPage.section2Desc')}
+              </p>
+
+              {/* Clean Checkmark List with Micro-Hover Animation */}
+              <div className="space-y-3 pt-2">
+                {[
+                  t('termsPage.section2List1'),
+                  t('termsPage.section2List2'),
+                  t('termsPage.section2List3'),
+                  t('termsPage.section2List4'),
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="group flex items-start gap-3 p-1.5 -mx-1.5 rounded-lg hover:bg-slate-50/80 transition-colors duration-200 text-xs md:text-sm text-slate-700 font-light"
+                  >
+                    <span className="text-brand-navy font-bold text-sm leading-none shrink-0 mt-0.5 group-hover:text-brand-orange group-hover:scale-125 transition-all duration-200">
+                      ✓
+                    </span>
+                    <span className="group-hover:text-slate-900 transition-colors">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
+          {/* Lower Section: Interactive Disclaimer & Scope Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+            
+            {/* Disclaimer Card */}
+            <div
+              id="section-disclaimer"
+              className="bg-white border border-slate-200/80 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-400 p-8 space-y-5 border-l-4 border-l-brand-orange scroll-mt-28 rounded-r-2xl animate-fade-in-up delay-400"
+            >
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-navy block">
+                PENOLAKAN JAMINAN
+              </span>
+              <h3 className="text-xl md:text-2xl font-normal text-brand-navy font-spectral">
+                {t('termsPage.section3Title')}
+              </h3>
+              <p className="text-slate-600 text-xs md:text-sm leading-relaxed font-light">
+                {t('termsPage.section3Desc')}
+              </p>
+              <div className="pt-2">
+                <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider mb-2">
+                  {t('termsPage.section4Title')}
+                </h4>
+                <p className="text-slate-600 text-xs md:text-sm leading-relaxed font-light">
+                  {t('termsPage.section4Desc')}
+                </p>
+              </div>
+            </div>
+
+            {/* Jurisdiction & Contact Card */}
+            <div
+              id="section-jurisdiction"
+              className="bg-white border border-slate-200/80 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-400 p-8 space-y-5 border-l-4 border-l-[#1e2b58] scroll-mt-28 rounded-r-2xl flex flex-col justify-between animate-fade-in-up delay-500"
+            >
+              <div className="space-y-4">
+                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-orange block">
+                  YURISDIKSI HUKUM
+                </span>
+                <h3 className="text-xl md:text-2xl font-normal text-brand-navy font-spectral">
+                  {t('termsPage.section5Title')}
+                </h3>
+                <p className="text-slate-600 text-xs md:text-sm leading-relaxed font-light">
+                  {t('termsPage.section5Desc')}
+                </p>
+              </div>
+
+              {/* Direct Help Footer inside card */}
+              <div className="pt-4 border-t border-slate-100 space-y-3">
                 <h4 className="text-xs font-bold text-brand-navy uppercase tracking-wider">
                   {t('termsPage.helpTitle')}
                 </h4>
                 <p className="text-xs text-slate-600 leading-relaxed font-light">
-                  {t('termsPage.helpDesc')}{' '}
-                  <a href="mailto:info@odst.id" className="text-brand-orange hover:underline font-medium">
+                  {t('termsPage.helpDesc')}
+                </p>
+                <div className="flex items-center gap-3 pt-1">
+                  <a
+                    href="mailto:info@odst.id"
+                    className="text-xs font-semibold text-brand-orange hover:underline transition-all"
+                  >
                     info@odst.id
                   </a>
-                </p>
+                  <span className="text-slate-300">•</span>
+                  <Link
+                    to="/"
+                    className="text-xs text-slate-500 hover:text-brand-navy transition-colors font-medium hover:underline"
+                  >
+                    {t('comingSoon.backHome') || 'Beranda'}
+                  </Link>
+                </div>
               </div>
-            </aside>
-
-            {/* Right Column: Detailed Content Sections */}
-            <div className="lg:col-span-8 space-y-12">
-              
-              <section id="section-1" className="scroll-mt-28 space-y-3 border-b border-slate-100 pb-10">
-                <h3 className="text-xl md:text-2xl font-bold text-brand-navy font-spectral" dir="auto">
-                  {t('termsPage.section1Title')}
-                </h3>
-                <p className="text-slate-600 text-sm md:text-base leading-relaxed font-light" dir="auto">
-                  {t('termsPage.section1Desc')}
-                </p>
-              </section>
-
-              <section id="section-2" className="scroll-mt-28 space-y-3 border-b border-slate-100 pb-10">
-                <h3 className="text-xl md:text-2xl font-bold text-brand-navy font-spectral" dir="auto">
-                  {t('termsPage.section2Title')}
-                </h3>
-                <p className="text-slate-600 text-sm md:text-base leading-relaxed font-light" dir="auto">
-                  {t('termsPage.section2Desc')}
-                </p>
-                <ul className="list-disc list-inside text-slate-600 text-sm md:text-base pl-2 space-y-2 font-light" dir="auto">
-                  <li>{t('termsPage.section2List1')}</li>
-                  <li>{t('termsPage.section2List2')}</li>
-                  <li>{t('termsPage.section2List3')}</li>
-                  <li>{t('termsPage.section2List4')}</li>
-                </ul>
-              </section>
-
-              <section id="section-3" className="scroll-mt-28 space-y-3 border-b border-slate-100 pb-10">
-                <h3 className="text-xl md:text-2xl font-bold text-brand-navy font-spectral" dir="auto">
-                  {t('termsPage.section3Title')}
-                </h3>
-                <p className="text-slate-600 text-sm md:text-base leading-relaxed font-light" dir="auto">
-                  {t('termsPage.section3Desc')}
-                </p>
-              </section>
-
-              <section id="section-4" className="scroll-mt-28 space-y-3 border-b border-slate-100 pb-10">
-                <h3 className="text-xl md:text-2xl font-bold text-brand-navy font-spectral" dir="auto">
-                  {t('termsPage.section4Title')}
-                </h3>
-                <p className="text-slate-600 text-sm md:text-base leading-relaxed font-light" dir="auto">
-                  {t('termsPage.section4Desc')}
-                </p>
-              </section>
-
-              <section id="section-5" className="scroll-mt-28 space-y-3">
-                <h3 className="text-xl md:text-2xl font-bold text-brand-navy font-spectral" dir="auto">
-                  {t('termsPage.section5Title')}
-                </h3>
-                <p className="text-slate-600 text-sm md:text-base leading-relaxed font-light" dir="auto">
-                  {t('termsPage.section5Desc')}
-                </p>
-              </section>
-
             </div>
+
           </div>
+
         </div>
       </main>
 
+      {/* Footer is cleanly separated and 100% visible */}
       <Footer />
     </div>
   );
 }
+
+
+
+
+

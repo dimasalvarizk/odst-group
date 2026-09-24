@@ -23,8 +23,8 @@ export function Button({
   disabled = false,
   fullWidth = false,
 }: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center font-semibold uppercase tracking-wider rounded-lg transition-all duration-300 transform active:scale-95 focus:outline-none';
-  
+  const baseStyles = 'inline-flex items-center justify-center font-semibold uppercase tracking-wider rounded-lg transition-all duration-300 transform active:scale-95 focus:outline-none shimmer-effect';
+
   const sizeStyles = {
     sm: 'text-[10px] px-4 py-2',
     md: 'text-xs md:text-sm px-6 py-3',
@@ -32,9 +32,9 @@ export function Button({
   };
 
   const variantStyles = {
-    primary: 'bg-brand-orange text-white hover:bg-brand-orange/95 shadow-md hover:shadow-brand-orange/25',
-    secondary: 'bg-brand-navy text-white hover:bg-brand-navy/95 shadow-md hover:shadow-brand-navy/20',
-    outline: 'bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-sm shadow-md',
+    primary: 'bg-brand-orange text-white hover:bg-brand-orange/95 hover:-translate-y-0.5 shadow-md hover:shadow-lg hover:shadow-brand-orange/25',
+    secondary: 'bg-brand-navy text-white hover:bg-brand-navy/95 hover:-translate-y-0.5 shadow-md hover:shadow-lg hover:shadow-brand-navy/20',
+    outline: 'bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-sm shadow-md hover:-translate-y-0.5',
   };
 
   const widthStyles = fullWidth ? 'w-full' : 'w-auto';

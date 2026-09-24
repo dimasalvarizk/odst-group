@@ -105,10 +105,12 @@ export default function Navbar() {
     );
   };
 
+  const isLightTopPage = location.pathname === '/privacy-policy' || location.pathname === '/terms-of-service';
+
   return (
     <nav
       className={`fixed top-0 start-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
+        isScrolled || isLightTopPage
           ? 'bg-[#050c1e]/85 backdrop-blur-md shadow-lg py-3'
           : 'bg-transparent py-5'
       }`}

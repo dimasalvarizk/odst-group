@@ -5,13 +5,13 @@ import logo from '../../assets/logo-group.png';
 interface PreloaderProps {
   /** If provided, manually controls visibility */
   isLoading?: boolean;
-  /** Display duration in ms for route transitions (default 550ms) */
+  /** Display duration in ms for route transitions (default 380ms) */
   transitionDuration?: number;
 }
 
 export default function Preloader({
   isLoading,
-  transitionDuration = 550,
+  transitionDuration = 380,
 }: PreloaderProps) {
   const location = useLocation();
   const prevPathRef = useRef<string | null>(null);
@@ -26,6 +26,7 @@ export default function Preloader({
   // Trigger loading animation on every page navigation and initial load
   useEffect(() => {
     if (isAdminRoute) {
+      document.body.classList.remove('page-loading');
       setVisible(false);
       return;
     }
@@ -33,9 +34,11 @@ export default function Preloader({
     // If manual control is passed
     if (typeof isLoading === 'boolean') {
       if (isLoading) {
+        document.body.classList.add('page-loading');
         setVisible(true);
         setFading(false);
       } else {
+        document.body.classList.remove('page-loading');
         setFading(true);
         const timer = setTimeout(() => setVisible(false), 300);
         return () => clearTimeout(timer);
@@ -46,12 +49,14 @@ export default function Preloader({
     // Scroll to top immediately on route change
     window.scrollTo(0, 0);
 
-    // Show preloader animation
+    // Show preloader animation and hold page entrance animations
+    document.body.classList.add('page-loading');
     setVisible(true);
     setFading(false);
 
-    // Fade out after transitionDuration
+    // Fade out after transitionDuration and release page animations simultaneously
     const fadeTimer = setTimeout(() => {
+      document.body.classList.remove('page-loading');
       setFading(true);
     }, transitionDuration);
 
@@ -64,6 +69,7 @@ export default function Preloader({
     return () => {
       clearTimeout(fadeTimer);
       clearTimeout(hideTimer);
+      document.body.classList.remove('page-loading');
     };
   }, [location.pathname, isAdminRoute, isLoading, transitionDuration]);
 
@@ -71,6 +77,7 @@ export default function Preloader({
 
   return (
     <div
+      id="site-preloader"
       className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white transition-opacity duration-300 ease-out select-none will-change-opacity ${
         fading ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
@@ -79,11 +86,11 @@ export default function Preloader({
     >
       <div className="flex flex-col items-center justify-center px-6">
         {/* ODST Logo */}
-        <div className="mb-4 flex items-center justify-center animate-fade-in-up">
+        <div className="mb-4 flex items-center justify-center preloader-anim">
           <img
             src={logo}
             alt="ODST"
-            className="h-9 sm:h-10 w-auto object-contain"
+            className="h-9 sm:h-10 w-auto object-contain animate-[fadeInUp_0.4s_ease-out_both]"
           />
         </div>
 
@@ -91,10 +98,11 @@ export default function Preloader({
         <div className="w-24 h-[2.5px] bg-slate-100 rounded-full overflow-hidden">
           <div
             key={location.pathname}
-            className="h-full bg-gradient-to-r from-[#242E69] via-[#e27435] to-[#c5a880] rounded-full animate-[progressLine_0.6s_cubic-bezier(0.16,1,0.3,1)_forwards]"
+            className="h-full bg-gradient-to-r from-[#242E69] via-[#e27435] to-[#c5a880] rounded-full animate-[progressLine_0.45s_cubic-bezier(0.16,1,0.3,1)_forwards]"
           />
         </div>
       </div>
     </div>
   );
 }
+

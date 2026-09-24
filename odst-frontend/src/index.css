@@ -195,6 +195,16 @@
               0 10px 20px -5px rgba(226, 116, 53, 0.08);
 }
 
+/* Hold page entrance animations while Preloader is active on route transition */
+body.page-loading .animate-fade-in-up:not(.preloader-anim):not(.preloader-anim *),
+body.page-loading .animate-fade-in-left:not(.preloader-anim):not(.preloader-anim *),
+body.page-loading .animate-fade-in-right:not(.preloader-anim):not(.preloader-anim *),
+body.page-loading .fade-in:not(.preloader-anim):not(.preloader-anim *),
+body.page-loading .animate-fadeIn:not(.preloader-anim):not(.preloader-anim *) {
+  opacity: 0 !important;
+  animation: none !important;
+}
+
 /* Staggered entrance animations */
 .animate-fade-in-up {
   animation: fadeInUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;

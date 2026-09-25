@@ -16,10 +16,10 @@ export default function TermsOfServicePage() {
   }, []);
 
   const navTabs = [
-    { id: 'section-terms', label: 'Ketentuan & Lisensi' },
-    { id: 'section-license', label: 'Batasan Lisensi' },
-    { id: 'section-disclaimer', label: 'Penafian & Batasan' },
-    { id: 'section-jurisdiction', label: 'Hukum & Kontak' },
+    { id: 'section-terms', label: t('termsPage.navTabs.terms') },
+    { id: 'section-license', label: t('termsPage.navTabs.license') },
+    { id: 'section-disclaimer', label: t('termsPage.navTabs.disclaimer') },
+    { id: 'section-jurisdiction', label: t('termsPage.navTabs.jurisdiction') },
   ];
 
   const handleTabClick = (id: string) => {
@@ -49,7 +49,7 @@ export default function TermsOfServicePage() {
           {/* Header Section with Staggered Entrance Animation */}
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <span className="text-xs font-semibold tracking-[0.25em] uppercase text-brand-navy block animate-fade-in-up delay-100">
-              PANDUAN & LEGALITAS
+              {t('termsPage.eyebrow')}
             </span>
             <div className="w-12 h-0.5 bg-brand-orange mx-auto animate-fade-in-up delay-150" />
             
@@ -105,10 +105,10 @@ export default function TermsOfServicePage() {
                   </div>
                   <div className="space-y-1">
                     <h4 className="text-sm font-bold text-brand-navy group-hover:text-brand-navy transition-colors">
-                      Kepatuhan Hukum
+                      {t('termsPage.step1Title')}
                     </h4>
                     <p className="text-xs text-slate-500 leading-relaxed font-light">
-                      Akses Anda tunduk pada regulasi perundang-undangan Republik Indonesia dan Kerajaan Arab Saudi.
+                      {t('termsPage.step1Desc')}
                     </p>
                   </div>
                 </div>
@@ -119,10 +119,10 @@ export default function TermsOfServicePage() {
                   </div>
                   <div className="space-y-1">
                     <h4 className="text-sm font-bold text-brand-navy group-hover:text-brand-navy transition-colors">
-                      Integritas Layanan
+                      {t('termsPage.step2Title')}
                     </h4>
                     <p className="text-xs text-slate-500 leading-relaxed font-light">
-                      Segala bentuk pemesanan dan perjanjian tur, sewa pesawat, dan hotel memerlukan konfirmasi tertulis resmi.
+                      {t('termsPage.step2Desc')}
                     </p>
                   </div>
                 </div>
@@ -133,10 +133,10 @@ export default function TermsOfServicePage() {
                   </div>
                   <div className="space-y-1">
                     <h4 className="text-sm font-bold text-brand-navy group-hover:text-brand-navy transition-colors">
-                      Perlindungan Hak Cipta
+                      {t('termsPage.step3Title')}
                     </h4>
                     <p className="text-xs text-slate-500 leading-relaxed font-light">
-                      Seluruh materi media, merek, dan dokumen digital merupakan hak milik eksklusif ODST Group.
+                      {t('termsPage.step3Desc')}
                     </p>
                   </div>
                 </div>
@@ -163,7 +163,7 @@ export default function TermsOfServicePage() {
             >
               <div className="space-y-2">
                 <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-orange block">
-                  LISENSI PENGGUNAAN
+                  {t('termsPage.licenseBadge')}
                 </span>
                 <h3 className="text-2xl md:text-3xl font-normal text-brand-navy font-spectral">
                   {t('termsPage.section2Title')}
@@ -206,7 +206,7 @@ export default function TermsOfServicePage() {
               className="bg-white border border-slate-200/80 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-400 p-8 space-y-5 border-l-4 border-l-brand-orange scroll-mt-28 rounded-r-2xl animate-fade-in-up delay-400"
             >
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-navy block">
-                PENOLAKAN JAMINAN
+                {t('termsPage.disclaimerBadge')}
               </span>
               <h3 className="text-xl md:text-2xl font-normal text-brand-navy font-spectral">
                 {t('termsPage.section3Title')}
@@ -231,7 +231,7 @@ export default function TermsOfServicePage() {
             >
               <div className="space-y-4">
                 <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-orange block">
-                  YURISDIKSI HUKUM
+                  {t('termsPage.jurisdictionBadge')}
                 </span>
                 <h3 className="text-xl md:text-2xl font-normal text-brand-navy font-spectral">
                   {t('termsPage.section5Title')}

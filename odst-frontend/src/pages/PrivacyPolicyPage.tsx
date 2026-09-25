@@ -16,10 +16,10 @@ export default function PrivacyPolicyPage() {
   }, []);
 
   const navTabs = [
-    { id: 'section-overview', label: 'Ringkasan & Pendahuluan' },
-    { id: 'section-data', label: 'Data & Privasi' },
-    { id: 'section-usage', label: 'Penggunaan Data' },
-    { id: 'section-security', label: 'Keamanan & Kontak' },
+    { id: 'section-overview', label: t('privacyPage.navTabs.overview') },
+    { id: 'section-data', label: t('privacyPage.navTabs.data') },
+    { id: 'section-usage', label: t('privacyPage.navTabs.usage') },
+    { id: 'section-security', label: t('privacyPage.navTabs.security') },
   ];
 
   const handleTabClick = (id: string) => {
@@ -49,7 +49,7 @@ export default function PrivacyPolicyPage() {
           {/* Header Section with Staggered Entrance Animation */}
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <span className="text-xs font-semibold tracking-[0.25em] uppercase text-brand-navy block animate-fade-in-up delay-100">
-              PANDUAN & LEGALITAS
+              {t('privacyPage.eyebrow')}
             </span>
             <div className="w-12 h-0.5 bg-brand-orange mx-auto animate-fade-in-up delay-150" />
             
@@ -105,10 +105,10 @@ export default function PrivacyPolicyPage() {
                   </div>
                   <div className="space-y-1">
                     <h4 className="text-sm font-bold text-brand-navy group-hover:text-brand-navy transition-colors">
-                      Prinsip Kerahasiaan
+                      {t('privacyPage.step1Title')}
                     </h4>
                     <p className="text-xs text-slate-500 leading-relaxed font-light">
-                      Data Anda dikelola dengan standar integritas dan privasi tertinggi dalam ekosistem ODST Group.
+                      {t('privacyPage.step1Desc')}
                     </p>
                   </div>
                 </div>
@@ -119,10 +119,10 @@ export default function PrivacyPolicyPage() {
                   </div>
                   <div className="space-y-1">
                     <h4 className="text-sm font-bold text-brand-navy group-hover:text-brand-navy transition-colors">
-                      Tujuan Pemrosesan
+                      {t('privacyPage.step2Title')}
                     </h4>
                     <p className="text-xs text-slate-500 leading-relaxed font-light">
-                      Penggunaan data semata-mata untuk memfasilitasi layanan reservasi hotel, tiket penerbangan, dan paket ibadah.
+                      {t('privacyPage.step2Desc')}
                     </p>
                   </div>
                 </div>
@@ -133,10 +133,10 @@ export default function PrivacyPolicyPage() {
                   </div>
                   <div className="space-y-1">
                     <h4 className="text-sm font-bold text-brand-navy group-hover:text-brand-navy transition-colors">
-                      Hak & Kendali Anda
+                      {t('privacyPage.step3Title')}
                     </h4>
                     <p className="text-xs text-slate-500 leading-relaxed font-light">
-                      Anda berhak memperbarui, meminta klarifikasi, atau mencabut persetujuan informasi kapan saja.
+                      {t('privacyPage.step3Desc')}
                     </p>
                   </div>
                 </div>
@@ -163,7 +163,7 @@ export default function PrivacyPolicyPage() {
             >
               <div className="space-y-2">
                 <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-orange block">
-                  INFORMASI PENGGUNA
+                  {t('privacyPage.dataBadge')}
                 </span>
                 <h3 className="text-2xl md:text-3xl font-normal text-brand-navy font-spectral">
                   {t('privacyPage.dataTitle')}
@@ -207,7 +207,7 @@ export default function PrivacyPolicyPage() {
               className="bg-white border border-slate-200/80 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-400 p-8 space-y-5 border-l-4 border-l-brand-orange scroll-mt-28 rounded-r-2xl animate-fade-in-up delay-400"
             >
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-navy block">
-                OPERASIONAL & LAYANAN
+                {t('privacyPage.useBadge')}
               </span>
               <h3 className="text-xl md:text-2xl font-normal text-brand-navy font-spectral">
                 {t('privacyPage.useTitle')}
@@ -238,7 +238,7 @@ export default function PrivacyPolicyPage() {
             >
               <div className="space-y-4">
                 <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-orange block">
-                  KEAMANAN & DUKUNGAN
+                  {t('privacyPage.securityBadge')}
                 </span>
                 <h3 className="text-xl md:text-2xl font-normal text-brand-navy font-spectral">
                   {t('privacyPage.sharingTitle')}

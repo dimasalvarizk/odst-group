@@ -458,8 +458,8 @@ export default function AdminDashboard() {
         {/* Top Branding Section */}
         <div className="flex flex-col flex-1 min-h-0">
           <div className="h-16 px-5 flex items-center justify-between border-b border-slate-800/80 shrink-0">
-            <Link to="/" className="flex items-center gap-2.5">
-              <img src={logo} alt="ODST Logo" className="h-7 w-auto object-contain" />
+            <Link to="/" aria-label="ODST Group - Home" className="flex items-center gap-2.5">
+              <img src={logo} alt="ODST Group Logo" width={110} height={28} className="h-7 w-auto object-contain" decoding="async" />
               <span className="text-white font-semibold text-sm tracking-tight">Admin Console</span>
             </Link>
             <button

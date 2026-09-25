@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import apiService from '../services/api';
 import logo from '../assets/logo-group.png';
-import heroBg from '../assets/hero1.png';
+import heroBg from '../assets/hero1.webp';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -63,7 +63,7 @@ export default function AdminLogin() {
           {/* Brand Logo */}
           <div className="flex flex-col items-center text-center pb-2">
             <Link to="/" aria-label="ODST Group - Home" className="inline-block transition-opacity hover:opacity-85">
-              <img src={logo} alt="ODST Group" className="h-10 w-auto object-contain" />
+              <img src={logo} alt="ODST Group" width={150} height={40} className="h-10 w-auto object-contain" decoding="async" />
             </Link>
           </div>
 

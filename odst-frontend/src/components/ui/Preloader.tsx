@@ -89,8 +89,11 @@ export default function Preloader({
         <div className="mb-4 flex items-center justify-center preloader-anim">
           <img
             src={logo}
-            alt="ODST"
+            alt="ODST Group"
+            width={140}
+            height={40}
             className="h-9 sm:h-10 w-auto object-contain animate-[fadeInUp_0.4s_ease-out_both]"
+            decoding="async"
           />
         </div>
 

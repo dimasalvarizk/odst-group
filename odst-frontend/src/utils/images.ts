@@ -1,9 +1,9 @@
-import odstHotels from '../assets/odst-hotels.png';
-import odstTravel from '../assets/odst-travel.png';
-import odstTourTravel from '../assets/odst-tour-travel.png';
-import hero1 from '../assets/hero1.png';
-import hero2 from '../assets/hero2.png';
-import hero3 from '../assets/hero3.png';
+import odstHotels from '../assets/odst-hotels.webp';
+import odstTravel from '../assets/odst-travel.webp';
+import odstTourTravel from '../assets/odst-tour-travel.webp';
+import hero1 from '../assets/hero1.webp';
+import hero2 from '../assets/hero2.webp';
+import hero3 from '../assets/hero3.webp';
 
 export const images = {
   // Local hero slider images

@@ -128,7 +128,14 @@ export default function Navbar() {
           }}
           className="flex items-center space-x-2 rtl:space-x-reverse focus:outline-none"
         >
-          <img src={logo} alt="ODST Group Logo" className="h-10 md:h-11 w-auto hover:opacity-90 transition-opacity" />
+          <img
+            src={logo}
+            alt="ODST Group Logo"
+            width={160}
+            height={44}
+            className="h-10 md:h-11 w-auto hover:opacity-90 transition-opacity"
+            decoding="async"
+          />
         </Link>
 
         {/* Desktop Links & Language Selector */}

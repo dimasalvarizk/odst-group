@@ -41,7 +41,11 @@ export default function Footer() {
             <img
               src={logo}
               alt="ODST Group Logo"
+              width={160}
+              height={44}
               className="h-10 md:h-11 w-auto transition-all duration-300 group-hover:scale-105 group-hover:brightness-110 drop-shadow-sm"
+              loading="lazy"
+              decoding="async"
             />
           </Link>
           <p className="text-white/60 text-sm max-w-md leading-relaxed font-spectral font-normal">

@@ -113,10 +113,13 @@ export default function ImageCarousel({
               <img
                 src={imgUrl}
                 alt={`${title} - Photo ${index + 1}`}
+                width={600}
+                height={420}
                 className={`w-full h-full object-cover transform transition-transform duration-3000 ease-out ${
                   isActive ? 'scale-105' : 'scale-100'
                 }`}
                 loading={index === 0 ? 'eager' : 'lazy'}
+                decoding={index === 0 ? 'sync' : 'async'}
               />
             </div>
           );

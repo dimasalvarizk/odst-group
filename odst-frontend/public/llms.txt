@@ -1,0 +1,22 @@
+# ODST Group
+
+> ODST Group provides luxury hospitality, chartered aviation, and comprehensive Hajj & Umrah pilgrimage travel services connecting Indonesia and Saudi Arabia.
+
+ODST Group operates three core integrated business divisions: ODST Hotels (premier accommodations in Makkah & Madinah), ODST Airlines (private aviation & flight charters), and ODST Tour & Travel (guided pilgrimage spiritual packages).
+
+## Services
+
+- [ODST Hotels](https://odst.id/): Five-star premium hotels and accommodation in Makkah and Madinah tailored for pilgrimage comfort.
+- [ODST Airlines](https://odst.id/): Private flight charters and aviation logistics between Indonesia and Saudi Arabia.
+- [ODST Tour & Travel](https://odst.id/): End-to-end Umrah & Hajj packages, guided spiritual journeys, visa handling, and ground logistics.
+
+## Guidance & Legal
+
+- [Contact & Support](https://odst.id/contact): Direct contact channels, inquiry submission, and customer support.
+- [Privacy Policy](https://odst.id/privacy-policy): Privacy policies and data handling principles of ODST Group.
+- [Terms of Service](https://odst.id/terms-of-service): Terms and legal guidelines governing ODST Group digital platforms.
+
+## Optional
+
+- [Full LLM Documentation](https://odst.id/llms-full.txt): Complete detailed background and operational overview for LLMs.
+- [AI Agent Catalog](https://odst.id/.well-known/ai-catalog.json): Machine-readable resource discovery manifest for AI agents.

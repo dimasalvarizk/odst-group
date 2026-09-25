@@ -62,7 +62,7 @@ export default function AdminLogin() {
           
           {/* Brand Logo */}
           <div className="flex flex-col items-center text-center pb-2">
-            <Link to="/" className="inline-block transition-opacity hover:opacity-85">
+            <Link to="/" aria-label="ODST Group - Home" className="inline-block transition-opacity hover:opacity-85">
               <img src={logo} alt="ODST Group" className="h-10 w-auto object-contain" />
             </Link>
           </div>

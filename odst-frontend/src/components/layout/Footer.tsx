@@ -29,6 +29,7 @@ export default function Footer() {
         <div className="col-span-1 md:col-span-6 space-y-6">
           <Link
             to="/"
+            aria-label="ODST Group - Home"
             onClick={(e) => {
               if (location.pathname === '/') {
                 e.preventDefault();
@@ -39,7 +40,7 @@ export default function Footer() {
           >
             <img
               src={logo}
-              alt="ODST Logo"
+              alt="ODST Group Logo"
               className="h-10 md:h-11 w-auto transition-all duration-300 group-hover:scale-105 group-hover:brightness-110 drop-shadow-sm"
             />
           </Link>
@@ -115,6 +116,7 @@ export default function Footer() {
             <li>
               <Link
                 to="/contact"
+                aria-label="ODST Group - Contact Us"
                 className="group flex items-center gap-2 text-white/70 hover:text-brand-orange transition-all duration-300"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-orange opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 rtl:translate-x-1 rtl:group-hover:translate-x-0 transition-all duration-300" />
@@ -139,12 +141,14 @@ export default function Footer() {
         <div className="flex space-x-6 rtl:space-x-reverse">
           <Link
             to="/privacy-policy"
+            aria-label="ODST Group - Privacy Policy"
             className="text-white/70 hover:text-brand-orange transition-colors duration-300"
           >
             {t('footer.links.privacy')}
           </Link>
           <Link
             to="/terms-of-service"
+            aria-label="ODST Group - Terms of Service"
             className="text-white/70 hover:text-brand-orange transition-colors duration-300"
           >
             {t('footer.links.terms')}

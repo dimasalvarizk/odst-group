@@ -1,0 +1,8 @@
+# robots.txt for ODST Group (https://odst.id)
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin-login
+Disallow: /internal-odst-gate
+
+Sitemap: https://odst.id/sitemap.xml

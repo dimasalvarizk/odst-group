@@ -1,0 +1,45 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "ODST Group",
+    "identifier": "https://odst.id"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:odst.id:web:portal",
+      "displayName": "ODST Group Main Portal",
+      "type": "text/html",
+      "description": "Main digital portal for ODST Group providing Hajj & Umrah hospitality, air charter, and travel package information.",
+      "url": "https://odst.id",
+      "representativeQueries": [
+        "What services does ODST Group provide?",
+        "How to book ODST hotels in Makkah and Madinah?",
+        "ODST Umrah flight charter options",
+        "Hajj and Umrah travel packages from ODST"
+      ]
+    },
+    {
+      "identifier": "urn:air:odst.id:web:contact",
+      "displayName": "ODST Customer Consultation & Inquiries",
+      "type": "text/html",
+      "description": "Direct communication channel for inquiries regarding hotel reservations, flight charters, and group travel.",
+      "url": "https://odst.id/contact",
+      "representativeQueries": [
+        "Contact ODST Group customer support",
+        "Send an inquiry to ODST Group",
+        "Get consultation for Umrah travel package"
+      ]
+    },
+    {
+      "identifier": "urn:air:odst.id:docs:llms",
+      "displayName": "ODST LLM Knowledge Base",
+      "type": "text/markdown",
+      "description": "Structured overview and documentation of ODST Group services formatted for LLMs and AI agents.",
+      "url": "https://odst.id/llms.txt",
+      "representativeQueries": [
+        "Overview of ODST Group capabilities for LLMs",
+        "ODST business pillars and service summary"
+      ]
+    }
+  ]
+}

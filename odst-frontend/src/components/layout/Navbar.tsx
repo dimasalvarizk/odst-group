@@ -119,6 +119,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           to="/"
+          aria-label="ODST Group - Home"
           onClick={(e) => {
             if (location.pathname === '/') {
               e.preventDefault();
@@ -127,7 +128,7 @@ export default function Navbar() {
           }}
           className="flex items-center space-x-2 rtl:space-x-reverse focus:outline-none"
         >
-          <img src={logo} alt="ODST Logo" className="h-10 md:h-11 w-auto hover:opacity-90 transition-opacity" />
+          <img src={logo} alt="ODST Group Logo" className="h-10 md:h-11 w-auto hover:opacity-90 transition-opacity" />
         </Link>
 
         {/* Desktop Links & Language Selector */}

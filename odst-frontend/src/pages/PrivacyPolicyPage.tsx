@@ -259,6 +259,7 @@ export default function PrivacyPolicyPage() {
                 <div className="flex items-center gap-3 pt-1">
                   <a
                     href="mailto:info@odst.id"
+                    aria-label="Send email to info@odst.id"
                     className="text-xs font-semibold text-brand-orange hover:underline transition-all"
                   >
                     info@odst.id
@@ -266,6 +267,7 @@ export default function PrivacyPolicyPage() {
                   <span className="text-slate-300">•</span>
                   <Link
                     to="/"
+                    aria-label="Back to ODST Group Home"
                     className="text-xs text-slate-500 hover:text-brand-navy transition-colors font-medium hover:underline"
                   >
                     {t('comingSoon.backHome') || 'Beranda'}

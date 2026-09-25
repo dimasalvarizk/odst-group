@@ -49,6 +49,7 @@ export default function ComingSoonPage() {
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up delay-400">
           <Link
             to="/contact"
+            aria-label="Contact ODST Group"
             className="px-8 py-3.5 border border-white/50 hover:border-white hover:bg-white hover:text-[#050c1e] text-white text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 rounded-sm shadow-lg backdrop-blur-xs active:scale-95 cursor-pointer"
           >
             {t('nav.contact') || 'HUBUNGI KAMI'}
@@ -56,6 +57,7 @@ export default function ComingSoonPage() {
 
           <Link
             to="/"
+            aria-label="Back to ODST Group Home"
             className="text-xs text-white/60 hover:text-white uppercase tracking-widest font-medium transition-colors py-2 px-3"
           >
             ← {t('comingSoon.backHome') || 'Beranda'}
@@ -70,6 +72,7 @@ export default function ComingSoonPage() {
         <div className="flex items-center space-x-5 rtl:space-x-reverse">
           <Link
             to="/privacy-policy"
+            aria-label="ODST Group - Privacy Policy"
             className="hover:text-white transition-colors"
           >
             {t('footer.links.privacy')}
@@ -77,6 +80,7 @@ export default function ComingSoonPage() {
           <span>•</span>
           <Link
             to="/terms-of-service"
+            aria-label="ODST Group - Terms of Service"
             className="hover:text-white transition-colors"
           >
             {t('footer.links.terms')}

@@ -94,7 +94,10 @@ export default function ServiceCard({ service }: ServiceCardProps) {
           }`}
           style={{ transitionDelay: '350ms' }}
         >
-          <Link to="/coming-soon">
+          <Link
+            to="/coming-soon"
+            aria-label={`${t('services.learnMore')} - ${service.title}`}
+          >
             <Button>
               {t('services.learnMore')}
             </Button>

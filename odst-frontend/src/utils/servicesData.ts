@@ -33,7 +33,7 @@ export const services: Service[] = [
     imageUrl: images.airplaneSalute,
     images: images.airlineSlides,
     imageLeft: true,
-    link: '#airlines',
+    link: 'https://odstairlines.com/',
   },
   {
     id: 'travel',

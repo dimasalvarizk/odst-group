@@ -94,14 +94,43 @@ export default function ServiceCard({ service }: ServiceCardProps) {
           }`}
           style={{ transitionDelay: '350ms' }}
         >
-          <Link
-            to="/coming-soon"
-            aria-label={`${t('services.learnMore')} - ${service.title}`}
-          >
-            <Button>
-              {t('services.learnMore')}
-            </Button>
-          </Link>
+          {(() => {
+            const rawLink =
+              service.id === 'airlines' && (!service.link || service.link === '#airlines')
+                ? 'https://odstairlines.com/'
+                : service.link;
+
+            const isExternal =
+              rawLink && (rawLink.startsWith('http://') || rawLink.startsWith('https://'));
+
+            if (isExternal) {
+              return (
+                <a
+                  href={rawLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${t('services.learnMore')} - ${service.title}`}
+                  className="inline-block"
+                >
+                  <Button>
+                    {t('services.learnMore')}
+                  </Button>
+                </a>
+              );
+            }
+
+            return (
+              <Link
+                to={rawLink && !rawLink.startsWith('#') ? rawLink : '/coming-soon'}
+                aria-label={`${t('services.learnMore')} - ${service.title}`}
+                className="inline-block"
+              >
+                <Button>
+                  {t('services.learnMore')}
+                </Button>
+              </Link>
+            );
+          })()}
         </div>
       </div>
 

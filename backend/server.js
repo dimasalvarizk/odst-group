@@ -115,7 +115,7 @@ if (!VERCEL_MODE) {
             imageUrl: 'airlines',
             images: defaultAirlineImages,
             imageLeft: true,
-            link: '#airlines',
+            link: 'https://odstairlines.com/',
             phone: '+62 81111 202220',
             email: 'info@odst.id',
             address: 'Graha Al Badgel Jl. Hajjah Tutty Alawiyah No.7, RT.2/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12740'
@@ -135,10 +135,14 @@ if (!VERCEL_MODE) {
           }
         ]);
       } else {
+        const airlines = await Service.findByPk('airlines');
+        if (airlines && (!airlines.link || airlines.link === '#airlines')) {
+          await Service.update({ link: 'https://odstairlines.com/' }, { where: { id: 'airlines' } });
+        }
         const hotels = await Service.findByPk('hotels');
         if (hotels && (!hotels.images || (Array.isArray(hotels.images) && hotels.images.length === 0))) {
           await Service.update({ images: defaultHotelImages }, { where: { id: 'hotels' } });
-          await Service.update({ images: defaultAirlineImages }, { where: { id: 'airlines' } });
+          await Service.update({ images: defaultAirlineImages, link: 'https://odstairlines.com/' }, { where: { id: 'airlines' } });
           await Service.update({ images: defaultTravelImages }, { where: { id: 'travel' } });
         }
       }

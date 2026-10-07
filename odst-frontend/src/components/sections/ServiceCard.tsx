@@ -107,8 +107,6 @@ export default function ServiceCard({ service }: ServiceCardProps) {
               return (
                 <a
                   href={rawLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   aria-label={`${t('services.learnMore')} - ${service.title}`}
                   className="inline-block"
                 >

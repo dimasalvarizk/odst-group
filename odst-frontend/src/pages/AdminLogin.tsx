@@ -83,7 +83,7 @@ export default function AdminLogin() {
                 type="text"
                 required
                 autoComplete="username"
-                placeholder="admin@odst.id"
+                placeholder="info@odst.id"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loading}

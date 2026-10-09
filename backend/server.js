@@ -6,6 +6,7 @@ import contactRoutes from './routes/contactRoutes.js';
 import newsletterRoutes from './routes/newsletterRoutes.js';
 import serviceRoutes from './routes/serviceRoutes.js';
 import sequelize, { connectDB } from './config/db.js';
+import { Op } from 'sequelize';
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 import User from './models/User.js';
 import Service from './models/Service.js';
@@ -153,17 +154,56 @@ if (!VERCEL_MODE) {
 
   const seedAdminUser = async () => {
     try {
-      const count = await User.count();
-      if (count === 0) {
+      const adminEmail = (process.env.ADMIN_EMAIL || 'info@odst.id').trim().toLowerCase();
+      const adminUsername = (process.env.ADMIN_USERNAME || 'info@odst.id').trim();
+      const adminPassword = process.env.ADMIN_PASSWORD || 'password123';
+
+      let user = await User.findOne({
+        where: {
+          [Op.or]: [
+            { email: adminEmail },
+            { username: adminUsername },
+            { username: 'admin' },
+            { email: 'admin@odst.id' }
+          ]
+        }
+      });
+
+      if (!user) {
+        user = await User.findOne({ where: { role: 'admin' } });
+      }
+
+      if (!user) {
+        console.log('No admin users found in database. Seeding default admin...');
         await User.create({
-          username: 'admin',
-          email: 'admin@odst.id',
-          password: 'password123',
+          username: adminUsername,
+          email: adminEmail,
+          password: adminPassword,
           role: 'admin'
         });
+        console.log(`Default admin user seeded successfully (${adminEmail}).`);
+      } else {
+        let isModified = false;
+        if (user.username !== adminUsername) {
+          user.username = adminUsername;
+          isModified = true;
+        }
+        if (user.email !== adminEmail) {
+          user.email = adminEmail;
+          isModified = true;
+        }
+        const isPasswordMatch = await user.matchPassword(adminPassword);
+        if (!isPasswordMatch) {
+          user.password = adminPassword;
+          isModified = true;
+        }
+        if (isModified) {
+          await user.save();
+          console.log(`Admin user credentials updated successfully to ${adminEmail}.`);
+        }
       }
     } catch (error) {
-      console.error(`Failed to seed default admin user: ${error.message}`);
+      console.error(`Failed to seed/update admin user: ${error.message}`);
     }
   };
 

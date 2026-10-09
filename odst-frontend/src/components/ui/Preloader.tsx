@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import logo from '../../assets/logo-group.png';
+import logo from '../../assets/odstlogo.png';
 
 interface PreloaderProps {
   /** If provided, manually controls visibility */

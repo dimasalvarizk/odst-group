@@ -54,6 +54,13 @@ export const apiService = {
     });
   },
 
+  async changePassword(currentPassword: string, newPassword: string) {
+    return handleRequest('/auth/change-password', {
+      method: 'PUT',
+      body: JSON.stringify({ currentPassword, newPassword }),
+    });
+  },
+
   // Contacts API
   async getContacts() {
     return handleRequest('/contacts', {

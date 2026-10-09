@@ -120,3 +120,45 @@ export const getUserProfile = async (req, res, next) => {
     next(error);
   }
 };
+
+// @desc    Change user password
+// @route   PUT /api/auth/change-password
+// @access  Private
+export const changePassword = async (req, res, next) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      res.status(400);
+      throw new Error('Mohon masukkan kata sandi saat ini dan kata sandi baru');
+    }
+
+    if (newPassword.length < 6) {
+      res.status(400);
+      throw new Error('Kata sandi baru minimal 6 karakter');
+    }
+
+    const user = await User.findByPk(req.user.id);
+    if (!user) {
+      res.status(404);
+      throw new Error('Pengguna tidak ditemukan');
+    }
+
+    const isMatch = await user.matchPassword(currentPassword);
+    if (!isMatch) {
+      res.status(400);
+      throw new Error('Kata sandi saat ini tidak sesuai');
+    }
+
+    user.password = newPassword;
+    await user.save();
+
+    res.json({
+      success: true,
+      message: 'Kata sandi berhasil diperbarui',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+

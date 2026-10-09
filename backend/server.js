@@ -184,22 +184,13 @@ if (!VERCEL_MODE) {
         console.log(`Default admin user seeded successfully (${adminEmail}).`);
       } else {
         let isModified = false;
-        if (user.username !== adminUsername) {
-          user.username = adminUsername;
-          isModified = true;
-        }
-        if (user.email !== adminEmail) {
-          user.email = adminEmail;
-          isModified = true;
-        }
-        const isPasswordMatch = await user.matchPassword(adminPassword);
-        if (!isPasswordMatch) {
+        if (!user.password) {
           user.password = adminPassword;
           isModified = true;
         }
         if (isModified) {
           await user.save();
-          console.log(`Admin user credentials updated successfully to ${adminEmail}.`);
+          console.log(`Admin user password initialized.`);
         }
       }
     } catch (error) {
